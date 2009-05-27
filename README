@@ -1,3 +1,6 @@
-To use this junk, use:
+To use this junk, check out this stuff to ~/.emacs.d
+or download to SOMEDIR and symlink ~/.emacs.d to SOMEDIR.
+
+Then run
 
   ln -s ~/.emacs.d/emacs ~/.emacs
