@@ -1,1 +1,3 @@
-First commit to emacs-dotfiles
+To use this junk, use:
+
+  ln -s ~/.emacs.d/emacs ~/.emacs
