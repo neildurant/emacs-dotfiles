@@ -1,3 +1,5 @@
+;; Add org-mode to path
+(setq load-path (cons "~/elisp/org-mode/lisp" load-path))
 
 ;;;
 ;;; Org Mode
