@@ -30,9 +30,8 @@
                      '(add-hook 'remember-mode-hook 'org-remember-apply-template))
 (global-set-key (kbd "C-c r") 'remember)                                         ;; (3)
 
-(add-to-list 'auto-mode-alist '("\>org$" . org-mode))                           ;; (4)
+(add-to-list 'auto-mode-alist '("\>org$" . org-mode))                            ;; (4)
 (global-set-key (kbd "C-c a") 'org-agenda)                                       ;; (5)
-(setq org-todo-keywords '("TODO" "STARTED" "WAITING" "DONE"))                    ;; (6)
 (setq org-agenda-include-diary t)                                                ;; (7)
 (setq org-agenda-include-all-todo t)    
 ;; Standard key bindings
@@ -49,3 +48,29 @@
 
 ;; GUI Options ----------------
 (tool-bar-mode -1)            ;; No toolbar <evil laugh>
+
+;; From http://doc.norang.ca/org-mode.html#sec-1
+(setq org-todo-keywords (quote ((sequence "TODO(t)" "STARTED(s!)" "|" "DONE(d!/!)")
+ (sequence "WAITING(w@/!)" "SOMEDAY(S!)" "|" "CANCELLED(c@/!)")
+ (sequence "QUOTATION(q!)" "QUOTED(Q!)" "|" "APPROVED(A@)" "EXPIRED(E@)" "REJECTED(R@)")
+ (sequence "OPENPO(!)" "|" "CLOSEDPO(@)")
+ (sequence "PROJECT(P@)" "|" "PROJDONE(D@)"))))
+
+(setq org-todo-keyword-faces (quote (("TODO" :foreground "red" :weight bold)
+ ("STARTED" :foreground "blue" :weight bold)
+ ("DONE" :foreground "forest green" :weight bold)
+ ("WAITING" :foreground "orange" :weight bold)
+ ("SOMEDAY" :foreground "magenta" :weight bold)
+ ("CANCELLED" :foreground "forest green" :weight bold)
+ ("QUOTATION" :foreground "red" :weight bold)
+ ("QUOTED" :foreground "magenta" :weight bold)
+ ("APPROVED" :foreground "forest green" :weight bold)
+ ("EXPIRED" :foreground "forest green" :weight bold)
+ ("REJECTED" :foreground "forest green" :weight bold)
+ ("OPENPO" :foreground "blue" :weight bold)
+ ("CLOSEDPO" :foreground "forest green" :weight bold)
+ ("PROJECT" :foreground "red" :weight bold)
+ ("PROJDONE" :foreground "forest green" :weight bold))))
+
+;; Change task state w/C-c C-t KEY
+(setq org-use-fast-todo-selection t)
