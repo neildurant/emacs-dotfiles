@@ -46,3 +46,6 @@
 (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5) (nil :maxlevel . 5))))
 ; Targets start with the file name - allows creating level 1 tasks
 (setq org-refile-use-outline-path (quote file))
+
+;; GUI Options ----------------
+(tool-bar-mode -1)            ;; No toolbar <evil laugh>
