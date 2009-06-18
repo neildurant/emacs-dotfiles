@@ -38,28 +38,42 @@
 (add-to-list 'auto-mode-alist '("\>org$" . org-mode))                            ;; (4)
 (global-set-key (kbd "C-c a") 'org-agenda)                                       ;; (5)
 (setq org-agenda-include-diary t)                                                ;; (7)
-(setq org-agenda-include-all-todo t)    
+(setq org-agenda-include-all-todo t)
+
+
 ;; Standard key bindings
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
+;; ---  http://doc.norang.ca/org-mode.html#sec-1
 ; Use IDO for target completion
 (setq org-completion-use-ido t)
+
 ; Targets include this file and any file contributing to the agenda - up to 5 levels deep
 (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5) (nil :maxlevel . 5))))
+
 ; Targets start with the file name - allows creating level 1 tasks
 (setq org-refile-use-outline-path (quote file))
+
+; Targets complete in steps so we start with filename, TAB shows the next level of targets etc 
+(setq org-outline-path-complete-in-steps t)
+
+(setq org-agenda-custom-commands 
+      (quote (("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
+              ("s" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
+              ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
+              ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
+              ("n" "Notes" tags "NOTES" nil))))
+
+
 
 ;; GUI Options ----------------
 (tool-bar-mode -1)            ;; No toolbar <evil laugh>
 
-;; From http://doc.norang.ca/org-mode.html#sec-1
-(setq org-todo-keywords (quote ((sequence "TODO(t)" "STARTED(s!)" "|" "DONE(d!/!)")
- (sequence "WAITING(w@/!)" "SOMEDAY(S!)" "|" "CANCELLED(c@/!)")
- (sequence "QUOTATION(q!)" "QUOTED(Q!)" "|" "APPROVED(A@)" "EXPIRED(E@)" "REJECTED(R@)")
- (sequence "OPENPO(!)" "|" "CLOSEDPO(@)")
- (sequence "PROJECT(P@)" "|" "PROJDONE(D@)"))))
+;; http://doc.norang.ca/org-mode.html#sec-1 ------------
+(setq org-todo-keywords (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
+ (sequence "WAITING(w@/!)" "SOMEDAY(S!)" "PROJECT(P@)" "OPEN(O@)" "|" "CANCELLED(c@/!)"))))
 
 (setq org-todo-keyword-faces (quote (("TODO" :foreground "red" :weight bold)
  ("STARTED" :foreground "blue" :weight bold)
