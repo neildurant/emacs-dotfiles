@@ -9,8 +9,6 @@
 (setq org-directory (getenv "WORKORG"))
 ;; Set agenda files = contegix org file by default, meow
 (require 'org-install)
-;;(setq org-agenda-files (file-expand-wildcards (concat org-directory "/*.org")))
-(setq org-agenda-files (quote (concat org-directory "/contegix.org")))
 
 ;;http://orgmode.org/manual/Setting-up-Remember.html#Setting-up-Remember
 
