@@ -81,15 +81,94 @@
  ("WAITING" :foreground "orange" :weight bold)
  ("SOMEDAY" :foreground "magenta" :weight bold)
  ("CANCELLED" :foreground "forest green" :weight bold)
- ("QUOTATION" :foreground "red" :weight bold)
- ("QUOTED" :foreground "magenta" :weight bold)
- ("APPROVED" :foreground "forest green" :weight bold)
- ("EXPIRED" :foreground "forest green" :weight bold)
- ("REJECTED" :foreground "forest green" :weight bold)
- ("OPENPO" :foreground "blue" :weight bold)
- ("CLOSEDPO" :foreground "forest green" :weight bold)
- ("PROJECT" :foreground "red" :weight bold)
- ("PROJDONE" :foreground "forest green" :weight bold))))
+ ("OPEN" :foreground "blue" :weight bold)
+ ("PROJECT" :foreground "red" :weight bold))))
+
+;; Automatically tags things when state is changed.
+(setq org-todo-state-tags-triggers
+      (quote (("CANCELLED" ("CANCELLED" . t))
+              ("WAITING" ("WAITING" . t) ("NEXT"))
+              ("SOMEDAY" ("WAITING" . t))
+              (done ("NEXT") ("WAITING"))
+              ("TODO" ("WAITING") ("CANCELLED"))
+              ("STARTED" ("WAITING"))
+              ("PROJECT" ("CANCELLED") ("PROJECT" . t)))))
+
+;; Change task state to STARTED when clocking in
+(setq org-clock-in-switch-to-state "STARTED")
+
 
 ;; Change task state w/C-c C-t KEY
 (setq org-use-fast-todo-selection t)
+(require 'org-publish)
+;; Zap junk css in exported org files    
+(setq org-export-html-style-default "")
+(setq org-publish-project-alist
+      '(
+
+;; Define publishing mode for notesmine!
+("notesmine-org"
+ :base-directory "~/Documents/notesmine-org/"
+ :base-extension "org"
+ :publishing-directory "~/Documents/notesmine-org-html/"
+ :recursive t
+ :publishing-function org-publish-org-to-html
+ :style "<link rel=stylesheet href=\"./css/org.css\" type=\"text/css\">"
+ :headline-levels 4             ; Just the default for this project.
+ :auto-preamble t
+ :auto-index t
+ :index-filename "sitemap.org"  ; ... call it sitemap.org ...
+ :index-title "Notesmine"         ; ... with title 'Sitemap'.
+ )
+;; Define publishing mode for static notesmine stuff.
+("notesmine-org-static"
+ :base-directory "~/Documents/notesmine-org/"
+ :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+ :publishing-directory "~/Documents/notesmine-org-html/"
+ :recursive t
+ :publishing-function org-publish-attachment
+ )
+
+ ("org" :components ("org-notes" "org-static"))
+      ))
+
+;; From http://www.mail-archive.com/emacs-orgmode@gnu.org/msg03199.html
+;; Allows you to create a new heading after the current line, no matter where your
+;; cursor is.
+(defun org-new-heading-after-current ()
+    "Insert a new heading with same level as current, after current subtree."
+    (interactive)
+    (org-back-to-heading)
+    (org-insert-heading)
+    (org-move-subtree-down)
+    (end-of-line 1)
+    (org-todo))
+
+(global-set-key (kbd "C-M-<return>") 'org-new-heading-after-current)
+(setq default-case-fold-search 'foo)
+
+
+;;in the .emacs
+(require 'ido)
+(ido-mode t)
+
+
+(defun sacha/org-agenda-clock (match)
+  ;; Find out when today is
+  (let* ((inhibit-read-only t))
+    (goto-char (point-max))
+    (org-dblock-write:clocktable
+     `(:scope agenda
+       :maxlevel 4
+       :tstart ,(format-time-string "%Y-%m-%d" (calendar-time-from-absolute (1+ org-starting-day) 0))
+       :tend ,(format-time-string "%Y-%m-%d" (calendar-time-from-absolute (+ org-starting-day 2) 0))))))
+
+;; Change your existing org-agenda-custom-commands
+(setq org-agenda-custom-commands
+      '(("z" "My custom agenda"
+	 ((org-agenda-list nil nil 1)
+          (sacha/org-agenda-load)
+          (sacha/org-agenda-clock)    ; Add this line
+	  (tags "PROJECT-WAITING")
+	  (tags-todo "WAITING")
+	  (tags-todo "-MAYBE")))))
