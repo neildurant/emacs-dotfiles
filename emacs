@@ -7,11 +7,12 @@
 (add-to-list 'load-path "~/.emacs.d/remember")
 ;; Use environment variable $WORKORG to get dir for org-directory
 (setq org-directory (getenv "WORKORG"))
+
 ;; Set agenda files = contegix org file by default, meow
 (require 'org-install)
-
 ;;http://orgmode.org/manual/Setting-up-Remember.html#Setting-up-Remember
 
+(setq org-default-notes-file (concat org-directory "/notes.org"))
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 (define-key global-map "\C-cr" 'org-remember)
 ;; http://doc.norang.ca/org-mode.html#sec-1
@@ -163,12 +164,3 @@
        :tstart ,(format-time-string "%Y-%m-%d" (calendar-time-from-absolute (1+ org-starting-day) 0))
        :tend ,(format-time-string "%Y-%m-%d" (calendar-time-from-absolute (+ org-starting-day 2) 0))))))
 
-;; Change your existing org-agenda-custom-commands
-(setq org-agenda-custom-commands
-      '(("z" "My custom agenda"
-	 ((org-agenda-list nil nil 1)
-          (sacha/org-agenda-load)
-          (sacha/org-agenda-clock)    ; Add this line
-	  (tags "PROJECT-WAITING")
-	  (tags-todo "WAITING")
-	  (tags-todo "-MAYBE")))))
