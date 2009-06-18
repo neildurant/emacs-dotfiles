@@ -21,7 +21,14 @@
 ;; From http://sachachua.com/wp/2007/12/28/emacs-getting-things-done-with-org-basic/
 (require 'remember-autoloads)
 (setq org-remember-templates
-      '(("Tasks" ?t "* TODO %?\n  %i\n  %a" org-default-notes-file)))
+      '(("Work Tasks" ?t "* TODO %?\n  %i\n  %a" (concat org-directory "/tasks.org"))
+        ("Work Notes" ?n "* %?                                        :NOTE:  %u  %a" 
+           (concat org-directory "/notes.org") bottom nil)
+        ("Personal" ?p "* %U %?\n\n  %i\n  %a" "~/Documents/personal/notes.org")
+        ("Tasks" ?T "* TODO %U %?\n\n  %i\n  %a" "~/Documents/personal/tasks.org")
+	("Journal" ?j "* %U %?\n\n  %i\n  %a" "~/Documents/personal/journal.org")
+        ("Ideas" ?i "* %^{Title}\n  %i\n  %a" "~/Documents/personal/ideas.org" "New Ideas")))
+
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
 (eval-after-load 'remember
