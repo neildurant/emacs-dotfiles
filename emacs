@@ -1,6 +1,8 @@
 ;; Add org-mode to path
 (setq load-path (cons "~/src/3rdparty/elisp/org-mode/lisp" load-path))
 
+(setq load-path (cons "~/.emacs.d/groovy" load-path))
+
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (setq org-log-done t)
 (global-font-lock-mode 1)
@@ -13,7 +15,6 @@
 ;;http://orgmode.org/manual/Setting-up-Remember.html#Setting-up-Remember
 
 (setq org-default-notes-file (concat org-directory "/notes.org"))
-(setq org-default-notes-file (concat org-directory "/notes.org"))
 (define-key global-map "\C-cr" 'org-remember)
 ;; http://doc.norang.ca/org-mode.html#sec-1
 (global-set-key (kbd "C-M-r") 'org-remember)
@@ -22,13 +23,15 @@
 ;; From http://sachachua.com/wp/2007/12/28/emacs-getting-things-done-with-org-basic/
 (require 'remember-autoloads)
 (setq org-remember-templates
-      '(("Work Tasks" ?t "* TODO %?\n  %i\n  %a" (concat org-directory "/tasks.org"))
-        ("Work Notes" ?n "* %?                                        :NOTE:  %u  %a" 
-           (concat org-directory "/notes.org") bottom nil)
-        ("Personal" ?p "* %U %?\n\n  %i\n  %a" "~/Documents/personal/notes.org")
+      '(
+	("Personal" ?p "* %U %?\n\n  %i\n  %a" "~/Documents/personal/notes.org")
+	("Notesmine" ?n "* %U %?\n\n  %i\n  %a" "~/Documents/notesmine-org/notes.org")
         ("Tasks" ?T "* TODO %U %?\n\n  %i\n  %a" "~/Documents/personal/tasks.org")
 	("Journal" ?j "* %U %?\n\n  %i\n  %a" "~/Documents/personal/journal.org")
-        ("Ideas" ?i "* %^{Title}\n  %i\n  %a" "~/Documents/personal/ideas.org" "New Ideas")))
+        ("Work Tasks" ?t "* TODO %U %?\n\n  %i\n  %a" "tasks.org")
+        ("Ideas" ?i "* %^{Title}\n  %i\n  %a" "~/Documents/personal/ideas.org" "New Ideas")
+))
+
 
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
@@ -164,3 +167,7 @@
        :tstart ,(format-time-string "%Y-%m-%d" (calendar-time-from-absolute (1+ org-starting-day) 0))
        :tend ,(format-time-string "%Y-%m-%d" (calendar-time-from-absolute (+ org-starting-day 2) 0))))))
 
+;;; use groovy-mode when file ends in .groovy or has #!/bin/groovy at start
+(autoload 'groovy-mode "groovy-mode" "Groovy editing mode." t)
+(add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
+(add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
