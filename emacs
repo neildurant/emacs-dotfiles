@@ -42,6 +42,7 @@
 (add-to-list 'auto-mode-alist '("\>org$" . org-mode))                            ;; (4)
 (global-set-key (kbd "C-c a") 'org-agenda)                                       ;; (5)
 (setq org-agenda-include-diary t)                                                ;; (7)
+(setq diary-file "~/Documents/personal/journal.org")
 (setq org-agenda-include-all-todo t)
 
 
