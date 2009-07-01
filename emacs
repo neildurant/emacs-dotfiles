@@ -48,7 +48,9 @@
 (setq org-agenda-include-diary t)                                                ;; (7)
 (setq diary-file "~/Documents/personal/journal.org")
 (setq org-agenda-include-all-todo t)
-
+;; If an item is SCHEDULED, then don't show the TODO
+;; entry until the day it's due.
+(setq org-agenda-todo-ignore-scheduled t)
 
 ;; Standard key bindings
 (global-set-key "\C-cl" 'org-store-link)
