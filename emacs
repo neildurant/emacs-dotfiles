@@ -10,7 +10,6 @@
 ;; Use environment variable $WORKORG to get dir for org-directory
 (setq org-directory (getenv "WORKORG"))
 
-;; Set agenda files = contegix org file by default, meow
 (require 'org-install)
 ;;http://orgmode.org/manual/Setting-up-Remember.html#Setting-up-Remember
 
@@ -181,3 +180,7 @@
 (autoload 'groovy-mode "groovy-mode" "Groovy editing mode." t)
 (add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
 (add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
+;; Set clockreport orange in agenda list to list things 3 levels and below, MMk?
+;; http://www.mail-archive.com/emacs-orgmode@gnu.org/msg14212.html
+(setq 
+org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
