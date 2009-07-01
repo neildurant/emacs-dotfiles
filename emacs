@@ -24,14 +24,18 @@
 (require 'remember-autoloads)
 (setq org-remember-templates
       '(
-	("Personal" ?p "* %U %?\n\n  %i\n  %a" "~/Documents/personal/notes.org")
-	("Notesmine" ?n "* %U %?\n\n  %i\n  %a" "~/Documents/notesmine-org/notes.org")
-        ("Tasks" ?T "* TODO %U %?\n\n  %i\n  %a" "~/Documents/personal/tasks.org")
-	("Journal" ?j "* %U %?\n\n  %i\n  %a" "~/Documents/personal/journal.org")
-        ("Work Tasks" ?t "* TODO %U %?\n\n  %i\n  %a" "tasks.org")
-        ("Ideas" ?i "* %^{Title}\n  %i\n  %a" "~/Documents/personal/ideas.org" "New Ideas")
+        ("Programming Task (Bug)" ?p "* TODO %^{topic}\n %t%(org-new-work-issue)" "tasks.org" bottom)
+        ("Generic Work Task/Note" ?t "* %?\n\n  %i\n%U\n\n %a" "tasks.org")
+	("Personal" ?n "* %?\n\n%U  %i\n  %a" "~/Documents/personal/notes.org")
 ))
 
+
+(defun org-new-work-issue ()
+  "\n  :PROPERTIES:\n  :CATEGORY: %^{issueNum}\n  :ISSUENUM: %^{issueNum}\n  :END:\n** TODO Start progress on issue in mgmt tool\n** TODO Update working copy of source code\n** TODO Check out new branch\n** TODO Verify requirements\n** TODO Look for any tests that pertain to issue\n** TODO Check in code\n** TODO Mark issue resolved\n** TODO Fill out test instructions on wiki")
+
+
+
+(org-remember-insinuate)
 
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
