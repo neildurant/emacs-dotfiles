@@ -184,3 +184,7 @@
 ;; http://www.mail-archive.com/emacs-orgmode@gnu.org/msg14212.html
 (setq 
 org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
+;; Hide leading stars to make org mode look cleaner
+;; http://orgmode.org/manual/Clean-view.html
+(setq org-hide-leading-stars t)
+(setq org-odd-levels-only t)
