@@ -75,6 +75,9 @@
               ("s" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
               ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
               ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
+              ;; Overview mode is same as default "a" agenda-mode, except doesn't show TODO
+              ;; items that are under another TODO item.
+              ("o" "Overview" agenda "" ((org-agenda-todo-list-sublevels nil)))
               ("n" "Notes" tags "NOTES" nil))))
 
 
