@@ -134,16 +134,16 @@
     (org-back-to-heading)
     (org-insert-heading)
     (org-move-subtree-down)
-    (end-of-line 1)
-    (org-todo))
+    (end-of-line 1))
 
-(global-set-key (kbd "C-M-<return>") 'org-new-heading-after-current)
+(define-key org-mode-map (kbd "M-<return>") 'org-new-heading-after-current)
 (setq default-case-fold-search 'foo)
 
 
 ;;in the .emacs
 (require 'ido)
 (ido-mode t)
+(setq ido-enable-flex-matching t) ;; fuzzy matching is a must have
 
 
 (defun sacha/org-agenda-clock (match)
