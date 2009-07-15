@@ -72,14 +72,12 @@
               ("o" "Overview" agenda "" ((org-agenda-todo-list-sublevels nil)))
               ("n" "Notes" tags "NOTES" nil))))
 
-
-
 ;; GUI Options ----------------
 (tool-bar-mode -1)            ;; No toolbar <evil laugh>
 
+
 ;; http://doc.norang.ca/org-mode.html#sec-1 ------------
 (setq org-todo-keywords (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
- (sequence "WAITING(w@/!)" "SOMEDAY(S!)" "PROJECT(P@)" "OPEN(O@)" "|" "CANCELLED(c@/!)"))))
 
 (setq org-todo-keyword-faces (quote (("TODO" :foreground "red" :weight bold)
  ("STARTED" :foreground "blue" :weight bold)
@@ -90,19 +88,8 @@
  ("OPEN" :foreground "blue" :weight bold)
  ("PROJECT" :foreground "red" :weight bold))))
 
-;; Automatically tags things when state is changed.
-(setq org-todo-state-tags-triggers
-      (quote (("CANCELLED" ("CANCELLED" . t))
-              ("WAITING" ("WAITING" . t) ("NEXT"))
-              ("SOMEDAY" ("WAITING" . t))
-              (done ("NEXT") ("WAITING"))
-              ("TODO" ("WAITING") ("CANCELLED"))
-              ("STARTED" ("WAITING"))
-              ("PROJECT" ("CANCELLED") ("PROJECT" . t)))))
-
 ;; Change task state to STARTED when clocking in
 (setq org-clock-in-switch-to-state "STARTED")
-
 
 ;; Change task state w/C-c C-t KEY
 (setq org-use-fast-todo-selection t)
