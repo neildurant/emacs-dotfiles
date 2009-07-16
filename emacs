@@ -153,18 +153,8 @@
  ("org" :components ("org-notes" "org-static"))
       ))
 
-;; From http://www.mail-archive.com/emacs-orgmode@gnu.org/msg03199.html
-;; Allows you to create a new heading after the current line, no matter where your
-;; cursor is.
-(defun org-new-heading-after-current ()
-    "Insert a new heading with same level as current, after current subtree."
-    (interactive)
-    (org-back-to-heading)
-    (org-insert-heading)
-    (org-move-subtree-down)
-    (end-of-line 1))
+(setq org-insert-heading-respect-content t)
 
-(define-key org-mode-map (kbd "M-<return>") 'org-new-heading-after-current)
 (setq default-case-fold-search 'foo)
 
 
