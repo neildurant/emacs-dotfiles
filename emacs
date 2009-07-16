@@ -186,39 +186,7 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 ;; http://orgmode.org/manual/Clean-view.html
 (setq org-hide-leading-stars t)
 (setq org-odd-levels-only t)
-
-
 (setq org-log-into-drawer t)
-
-
-
-
-;; Create function to insert new heading or plain list to a heading, no matter where in
-;; the heading the cursor is.
-;; http://www.mail-archive.com/emacs-orgmode@gnu.org/msg11526.html
-(defun pmade:org-list-append (&optional checkbox)
-  "Append a plain list item to the current heading.  If the
-current heading already has plain list items, a new one will be
-added, otherwise a new plain list will be created.  If checkbox
-is set, add a plain list item with a checkbox."
-  (interactive "P")
-  (when (not (org-insert-item (if checkbox 'checkbox)))
-    (org-back-to-heading)
-    (org-show-subtree)
-    (outline-next-heading)
-    (if (eolp) (newline)
-      (newline)
-      (previous-line))
-    (org-indent-line-function)
-    (insert (concat "-" (if checkbox " [ ] " " ")))))
-(define-key org-mode-map (kbd "C-M-<return>") 'pmade:org-list-append)
-
-
-(defun pmade:org-list-append-with-checkbox ()
-  "Calls `pmade:org-list-append' with checkbox set."
-  (interactive)
-  (pmade:org-list-append t))
-(define-key org-mode-map (kbd "M-S-<return>") 'pmade:org-list-append-with-checkbox)
 
 ;; Bookmark shortcuts
 (global-set-key [f7] 'bookmark-bmenu-list)
