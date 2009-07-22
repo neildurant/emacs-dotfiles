@@ -34,6 +34,7 @@
 (eval-after-load 'remember
                      '(add-hook 'remember-mode-hook 'org-remember-apply-template))
 (global-set-key (kbd "C-c r") 'remember)                                         ;; (3)
+(global-set-key (kbd "C-M-r") 'org-remember)
 
 (add-to-list 'auto-mode-alist '("\>org$" . org-mode))                           ;; (4)
 (global-set-key (kbd "C-c a") 'org-agenda)                                       ;; (5)
