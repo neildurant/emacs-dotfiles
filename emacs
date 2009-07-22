@@ -2,6 +2,7 @@
 
 ;; Add org-mode to path
 (setq load-path (cons "~/src/3rdparty/elisp/org-mode/lisp" load-path))
+(setq load-path (cons "~/src/3rdparty/elisp/org-mode/contrib/lisp" load-path))
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (setq org-log-done t)
