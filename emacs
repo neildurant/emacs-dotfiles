@@ -203,6 +203,8 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 (setq org-blank-before-new-entry (quote ((heading) (plain-list-item))))
 ;; C-M-<return> inserts a new subheading / sub list
 (define-key org-mode-map (kbd "C-M-<return>") 'org-insert-subheading)
+(define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
+
 
 ;; Define F6 to toggle between work-org files and home/personal org files
 ;; http://www.mail-archive.com/emacs-orgmode@gnu.org/msg08209.html
@@ -212,3 +214,14 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
      (setq org-agenda-files "~/Documents/personal/agenda_files_home")
    (setq org-agenda-files "~/Documents/personal/agenda_files_work"))
  (message "Using %s" org-agenda-files))
+
+(define-key org-mode-map (kbd "<f6>") 'org-my-toggle-agenda-file-set)
+
+(defun org-my-agenda-notesmine ()
+  (interactive)
+  (setq org-agenda-files "~/Documents/personal/agenda_files_notesmine")
+  (message "Using %s" org-agenda-files))
+
+(define-key org-mode-map (kbd "S-<f6>") 'org-my-agenda-notesmine)
+
+
