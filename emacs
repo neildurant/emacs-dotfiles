@@ -224,4 +224,6 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 
 (define-key org-mode-map (kbd "S-<f6>") 'org-my-agenda-notesmine)
 
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
 
