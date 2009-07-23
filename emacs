@@ -23,7 +23,7 @@
 (require 'remember-autoloads)
 (setq org-remember-templates
       '(
-        ("Programming" ?p "%[~/workdir/org/programming_template.org]" "work_notes.org" bottom)
+        ("Programming" ?P "%[~/workdir/org/programming_template.org]" "work_notes.org" bottom)
         ("Task" ?t "* %?\n\n  %i\n%U" "work_notes.org")
 	("Personal Note" ?p "* %?\n\n%U  %i" "~/Documents/personal/notes.org")
 	("Notesmine" ?n "* %?\n\n%U  %i" "~/Documents/notesmine-org/notesmine_notes.org")
