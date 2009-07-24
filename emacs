@@ -228,3 +228,5 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 (load custom-file)
 ;; Highlight the current line
 (global-hl-line-mode 1)
+;; Use windmove commands to move cursor between windows
+(windmove-default-keybindings 'control)
