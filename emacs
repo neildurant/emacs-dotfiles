@@ -226,4 +226,5 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
-
+;; Highlight the current line
+(global-hl-line-mode 1)
