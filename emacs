@@ -239,3 +239,24 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 
 
 (global-set-key [f2] 'show-buffers-and-switch)
+
+(defun set-clock-clockenspiel()
+(interactive)
+(setq org-agenda-log-mode-items (quote (clock)))
+  (message "Using %s" org-agenda-log-mode-items))
+
+
+(defun set-closed-clock-clockenspiel()
+(interactive)
+(setq org-agenda-log-mode-items (quote (closed clock)))
+  (message "Using %s" org-agenda-log-mode-items))
+
+(define-key org-mode-map (kbd "S-<f9>") 'set-clock-clockenspiel)
+(define-key org-mode-map (kbd "<f9>") 'set-closed-clock-clockenspiel)
+
+;; org-mode hook
+(add-hook 'org-mode-hook
+         (lambda ()
+           (local-set-key (kbd "\M-\C-n") 'outline-next-visible-heading)
+           (local-set-key (kbd "\M-\C-p") 'outline-previous-visible-heading)
+           (local-set-key (kbd "\M-\C-u") 'outline-up-heading)))
