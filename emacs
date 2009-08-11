@@ -24,7 +24,9 @@
 (setq org-remember-templates
       '(
         ("Programming" ?P "%[~/workdir/org/programming_template.org]" "work_notes.org" bottom)
+	("Enrollment" ?e "%[~/Documents/personal/byteworks_enrollment_template.org]" "~/Documents/personal/byteworks_enrollments.org" bottom)
         ("Task" ?t "* %?\n\n  %i\n%U" "work_notes.org")
+	("Byteworks" ?b "* %?  :byteworks:\n\n  %i\n%U" "~/Documents/personal/notes.org")
 	("Personal Note" ?p "* %?\n\n%U  %i" "~/Documents/personal/notes.org")
 	("Notesmine" ?n "* %?\n\n%U  %i" "~/Documents/notesmine-org/notesmine_notes.org")
 ))
@@ -39,6 +41,7 @@
 
 (add-to-list 'auto-mode-alist '("\>org$" . org-mode))                           ;; (4)
 (global-set-key (kbd "C-c a") 'org-agenda)                                       ;; (5)
+
 (setq org-todo-keywords '("TODO" "STARTED" "WAITING" "DONE"))                    ;; (6)
 (setq org-agenda-include-diary t)                                                ;; (7)
 (setq diary-file "~/Documents/personal/journal.org")
@@ -68,7 +71,7 @@
 
 (setq org-agenda-custom-commands 
       (quote (("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
-              ("s" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
+              ("S" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
               ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
 	      ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
               ("o" "SOMEDAY" tags "SOMEDAY" ((org-use-tag-inheritance nil)))
@@ -99,13 +102,9 @@
 ;; Examples: @/! means leave a note and record time when entering.
 ;;               The ! means to leave a timestamp when exiting, unless the
 ;;               next state records the time.
-;;(setq org-todo-keywords (quote (
-;;(sequence "TODO(t)" "STARTED(s)" "|" "DONE(d@/@)")
-;;'((type "WAITING(w@/!)" "|" "DELEGATED(e@/!)" "PUT-OFF(p@/!)" "CANCELLED(c@/!)"))
-;;)))
-
+;; "D" means mark done/leave note, "d" is just quick "done" w/no note
 (setq org-todo-keywords '(
-(sequence "TODO(t)" "STARTED(s)" "|" "DONE(d@/@)")
+(sequence "TODO(t)" "STARTED(s)" "|" "DONE(n@/@)" "DONE(d!)")  
 (sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)")
 ))
 
@@ -186,8 +185,8 @@
 org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 ;; Hide leading stars to make org mode look cleaner
 ;; http://orgmode.org/manual/Clean-view.html
-(setq org-hide-leading-stars t)
-(setq org-odd-levels-only t)
+;;(setq org-hide-leading-stars t)
+;;(setq org-odd-levels-only t)
 (setq org-log-into-drawer t)
 
 ;; Bookmark shortcuts
@@ -230,3 +229,33 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 (global-hl-line-mode 1)
 ;; Use windmove commands to move cursor between windows
 (windmove-default-keybindings 'control)
+
+(defun show-buffers-and-switch ()
+  (interactive)
+  (list-buffers)
+  (other-window 1)
+)
+
+
+(global-set-key [f2] 'show-buffers-and-switch)
+
+(defun set-clock-clockenspiel()
+(interactive)
+(setq org-agenda-log-mode-items (quote (clock)))
+  (message "Using %s" org-agenda-log-mode-items))
+
+
+(defun set-closed-clock-clockenspiel()
+(interactive)
+(setq org-agenda-log-mode-items (quote (closed clock)))
+  (message "Using %s" org-agenda-log-mode-items))
+
+(define-key org-mode-map (kbd "S-<f9>") 'set-clock-clockenspiel)
+(define-key org-mode-map (kbd "<f9>") 'set-closed-clock-clockenspiel)
+
+;; org-mode hook
+(add-hook 'org-mode-hook
+         (lambda ()
+           (local-set-key (kbd "\M-\C-n") 'outline-next-visible-heading)
+           (local-set-key (kbd "\M-\C-p") 'outline-previous-visible-heading)
+           (local-set-key (kbd "\M-\C-u") 'outline-up-heading)))
