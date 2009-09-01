@@ -259,3 +259,9 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
            (local-set-key (kbd "\M-\C-n") 'outline-next-visible-heading)
            (local-set-key (kbd "\M-\C-p") 'outline-previous-visible-heading)
            (local-set-key (kbd "\M-\C-u") 'outline-up-heading)))
+
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+; (setq x-alt-keysym 'super)
+(setq x-meta-keysym 'super)
+(setq x-super-keysym 'meta)
