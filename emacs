@@ -103,7 +103,8 @@
 ;;               next state records the time.
 ;; "D" means mark done/leave note, "d" is just quick "done" w/no note
 (setq org-todo-keywords '(
-(sequence "TODO(t)" "STARTED(s)" "|" "DONE(n@/@)" "DONE(d!)")  
+(sequence "TODO(t)" "STARTED(s)" "|" "DONE(n@/@)")  
+(sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!)")
 (sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)")
 ))
 
