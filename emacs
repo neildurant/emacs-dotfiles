@@ -8,8 +8,8 @@
 (setq org-log-done t)
 (global-font-lock-mode 1)
 (add-to-list 'load-path "~/.emacs.d/remember")
-;; Use environment variable $WORKORG to get dir for org-directory
-(setq org-directory (getenv "WORKORG"))
+;; Use environment variable $ORGDIR to get dir for org-directory
+(setq org-directory (getenv "ORGDIR"))
 ;; Set agenda files = all files in the org-directory, meow
 (require 'org-install)
 (setq org-agenda-files (file-expand-wildcards (concat org-directory "/*.org")))
