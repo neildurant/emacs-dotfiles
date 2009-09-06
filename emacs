@@ -1,15 +1,15 @@
 
 
 ;; Add org-mode to path
-(setq load-path (cons "~/src/3rdparty/elisp/org-mode/lisp" load-path))
-(setq load-path (cons "~/src/3rdparty/elisp/org-mode/contrib/lisp" load-path))
+(setq load-path (cons "~/src/3rdparty/org-mode/lisp" load-path))
+(setq load-path (cons "~/src/3rdparty/org-mode/contrib/lisp" load-path))
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (setq org-log-done t)
 (global-font-lock-mode 1)
 (add-to-list 'load-path "~/.emacs.d/remember")
-;; Use environment variable $WORKORG to get dir for org-directory
-(setq org-directory (getenv "WORKORG"))
+;; Use environment variable $ORGDIR to get dir for org-directory
+(setq org-directory (getenv "ORGDIR"))
 ;; Set agenda files = all files in the org-directory, meow
 (require 'org-install)
 (setq org-agenda-files (file-expand-wildcards (concat org-directory "/*.org")))
@@ -23,10 +23,7 @@
 (require 'remember-autoloads)
 (setq org-remember-templates
       '(
-        ("Programming" ?P "%[~/workdir/org/programming_template.org]" "work_notes.org" bottom)
-	("Enrollment" ?e "%[~/Documents/personal/byteworks_enrollment_template.org]" "~/Documents/personal/byteworks_enrollments.org" bottom)
-	("Callback" ?c "%[~/Documents/personal/byteworks_callback_template.org]" "~/Documents/personal/byteworks_enrollments.org" bottom)
-        ("Task" ?t "* %?\n\n  %i\n%U" "work_notes.org")
+        ("Bworksdb" ?B "* TODO %?" "bworksdb.org" bottom)
 	("Byteworks" ?b "* %?  :byteworks:\n\n  %i\n%U" "~/Documents/personal/byteworks.org")
 	("Personal Note" ?p "* %?\n\n%U  %i" "~/Documents/personal/notes.org")
 	("Notesmine" ?n "* %?\n\n%U  %i" "~/Documents/notesmine-org/notesmine_notes.org")
@@ -105,7 +102,8 @@
 ;;               next state records the time.
 ;; "D" means mark done/leave note, "d" is just quick "done" w/no note
 (setq org-todo-keywords '(
-(sequence "TODO(t)" "STARTED(s)" "|" "DONE(n@/@)" "DONE(d!)")  
+(sequence "TODO(t)" "STARTED(s)" "|" "DONE(n@/@)")  
+(sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!)")
 (sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)")
 ))
 
@@ -231,7 +229,6 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 ;; Use windmove commands to move cursor between windows
 (windmove-default-keybindings 'control)
 
-
 (defun show-buffers-and-switch ()
   (interactive)
   (list-buffers)
@@ -261,3 +258,9 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
            (local-set-key (kbd "\M-\C-n") 'outline-next-visible-heading)
            (local-set-key (kbd "\M-\C-p") 'outline-previous-visible-heading)
            (local-set-key (kbd "\M-\C-u") 'outline-up-heading)))
+
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+; (setq x-alt-keysym 'super)
+(setq x-meta-keysym 'super)
+(setq x-super-keysym 'meta)
