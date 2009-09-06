@@ -25,8 +25,9 @@
       '(
         ("Programming" ?P "%[~/workdir/org/programming_template.org]" "work_notes.org" bottom)
 	("Enrollment" ?e "%[~/Documents/personal/byteworks_enrollment_template.org]" "~/Documents/personal/byteworks_enrollments.org" bottom)
+	("Callback" ?c "%[~/Documents/personal/byteworks_callback_template.org]" "~/Documents/personal/byteworks_enrollments.org" bottom)
         ("Task" ?t "* %?\n\n  %i\n%U" "work_notes.org")
-	("Byteworks" ?b "* %?  :byteworks:\n\n  %i\n%U" "~/Documents/personal/notes.org")
+	("Byteworks" ?b "* %?  :byteworks:\n\n  %i\n%U" "~/Documents/personal/byteworks.org")
 	("Personal Note" ?p "* %?\n\n%U  %i" "~/Documents/personal/notes.org")
 	("Notesmine" ?n "* %?\n\n%U  %i" "~/Documents/notesmine-org/notesmine_notes.org")
 ))
