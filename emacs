@@ -1,15 +1,20 @@
-
-
 ;; Add org-mode to path
 (setq load-path (cons "~/src/3rdparty/org-mode/lisp" load-path))
 (setq load-path (cons "~/src/3rdparty/org-mode/contrib/lisp" load-path))
+(add-to-list 'load-path "~/.emacs.d/remember")
 
+;; Show matching parenthesis
+(show-paren-mode 1)
+
+;; Trigger org-mode for files ending in .org .org_archive and .txt
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+
 (setq org-log-done t)
 (global-font-lock-mode 1)
-(add-to-list 'load-path "~/.emacs.d/remember")
+
 ;; Use environment variable $ORGDIR to get dir for org-directory
 (setq org-directory (getenv "ORGDIR"))
+(setq notesmine-dir ('~/Documents/notesmine-org'))
 ;; Set agenda files = all files in the org-directory, meow
 (require 'org-install)
 (setq org-agenda-files (file-expand-wildcards (concat org-directory "/*.org")))
@@ -23,11 +28,7 @@
 (require 'remember-autoloads)
 (setq org-remember-templates
       '(
-        ("Bworksdb" ?B "* TODO %?" "bworksdb.org" bottom)
-	("Enrollment" ?e "%[~/Documents/personal/byteworks_enrollment_template.org]" "~/Documents/personal/byteworks_enrollments.org" bottom)
-	("Byteworks" ?b "* %?  :byteworks:\n\n  %i\n%U" "~/Documents/personal/notes.org" "Todo List")
 	("Personal Note" ?p "* %?\n\n%U  %i" "~/Documents/personal/notes.org")
-	("Notesmine" ?n "* %?\n\n%U  %i" "~/Documents/notesmine-org/notesmine_notes.org")
 ))
 (org-remember-insinuate)
 
@@ -60,7 +61,16 @@
 (setq org-completion-use-ido t)
 
 ; Targets include this file and any file contributing to the agenda - up to 5 levels deep
-(setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5) (nil :maxlevel . 5))))
+(setq org-refile-targets 
+  (quote 
+    (
+      (org-agenda-files :maxlevel . 5) 
+      (notesmine-dir)))
+      (org-agenda-files :maxlevel . 5)
+      (nil :maxlevel . 5)
+    )
+  )
+)
 
 ; Targets start with the file name - allows creating level 1 tasks
 (setq org-refile-use-outline-path (quote file))
@@ -76,7 +86,11 @@
               ("o" "SOMEDAY" tags "SOMEDAY" ((org-use-tag-inheritance nil)))
               ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
               ;; Overview mode is same as default "a" agenda-mode, except doesn't show TODO
-              ;; items that are under another TODO item.
+              ;; items that are under another TODO (setq org-agenda-custom-commands 
+              ("e" "Enrollio" agenda ""
+               ((org-agenda-files '("~/Documents/personal/bworksdb.org"))))
+              ("*" "All" agenda ""
+               ((org-agenda-files (file-expand-wildcards (concat org-directory "/*.org")))))
               ("o" "Overview" agenda "" ((org-agenda-todo-list-sublevels nil)))
               ("n" "Notes" tags "NOTES" nil))))
 
@@ -103,8 +117,7 @@
 ;;               next state records the time.
 ;; "D" means mark done/leave note, "d" is just quick "done" w/no note
 (setq org-todo-keywords '(
-(sequence "TODO(t)" "STARTED(s)" "|" "DONE(n@/@)")  
-(sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!)")
+(sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!)")  
 (sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)")
 ))
 
@@ -265,3 +278,13 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 ; (setq x-alt-keysym 'super)
 (setq x-meta-keysym 'super)
 (setq x-super-keysym 'meta)
+
+
+;; recentf stuff
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+
+(setq org-use-speed-commands t)
+(setq org-agenda-diary-file (concat "~/Documents/personal/journal.org"))
