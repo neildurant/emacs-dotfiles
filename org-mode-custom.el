@@ -61,8 +61,7 @@
   (quote 
     (
       (org-agenda-files :maxlevel . 5) 
-      (notesmine-dir)
-      (notesmine-files :maxlevel .5)
+      (notesmine-files :maxlevel . 5)
     )
   )
 )
