@@ -1,15 +1,20 @@
+;; Add remember code to load path
+(add-to-list 'load-path "~/.emacs.d/remember")
+;; Add org-mode to path
+(setq load-path (cons "~/src/3rdparty/org-mode/lisp" load-path))
+(setq load-path (cons "~/src/3rdparty/org-mode/contrib/lisp" load-path))
+(require 'org-install)
+
 ;; Trigger org-mode for files ending in .org .org_archive and .txt
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
 (setq org-log-done t)
-(global-font-lock-mode 1)
 
 ;; Use environment variable $ORGDIR to get dir for org-directory
 (setq org-directory (getenv "ORGDIR"))
 (setq notesmine-dir "~/Documents/notesmine-org")
 
 ;; Set agenda files = all files in the org-directory, meow
-(require 'org-install)
 (setq org-agenda-files (file-expand-wildcards (concat org-directory "/*.org")))
 (setq notesmine-files (file-expand-wildcards (concat notesmine-dir "/*.org")))
 
@@ -23,18 +28,20 @@
       '(
 	("Personal Note" ?p "* TODO %?\n\n%U  %i" "~/Documents/personal/notes.org")
 	("Bworksdb" ?b "* %?\n\n%t  %i" "~/Documents/personal/bworksdb.org" "Timeline")
-)))
+))
 (org-remember-insinuate)
 
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
 (eval-after-load 'remember
                      '(add-hook 'remember-mode-hook 'org-remember-apply-template))
+;; Keyboard bindings
 (global-set-key (kbd "C-c r") 'remember)                                         ;; (3)
 (global-set-key (kbd "C-M-r") 'org-remember)
-
-(add-to-list 'auto-mode-alist '("\>org$" . org-mode))                           ;; (4)
 (global-set-key (kbd "C-c a") 'org-agenda)                                       ;; (5)
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cb" 'org-iswitchb)
+(add-to-list 'auto-mode-alist '("\>org$" . org-mode))                           ;; (4)
 
 (setq org-todo-keywords '("TODO" "STARTED" "WAITING" "DONE"))                    ;; (6)
 (setq org-agenda-include-diary t)                                                ;; (7)
@@ -45,10 +52,6 @@
 (setq org-agenda-todo-ignore-scheduled t)
 
 (setq org-agenda-include-all-todo t)    
-;; Standard key bindings
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
 
 ;; ---  http://doc.norang.ca/org-mode.html#sec-1
 ; Use IDO for target completion
@@ -59,6 +62,7 @@
   (quote 
     (
       (org-agenda-files :maxlevel . 5) 
+      (notesmine-dir)
       (notesmine-files :maxlevel .5)
     )
   )
@@ -174,10 +178,6 @@
        :tstart ,(format-time-string "%Y-%m-%d" (calendar-time-from-absolute (1+ org-starting-day) 0))
        :tend ,(format-time-string "%Y-%m-%d" (calendar-time-from-absolute (+ org-starting-day 2) 0))))))
 
-;;; use groovy-mode when file ends in .groovy or has #!/bin/groovy at start
-(autoload 'groovy-mode "groovy-mode" "Groovy editing mode." t)
-(add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
-(add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
 ;; Set clockreport orange in agenda list to list things 3 levels and below, MMk?
 ;; http://www.mail-archive.com/emacs-orgmode@gnu.org/msg14212.html
 (setq 
