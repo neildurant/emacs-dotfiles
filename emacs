@@ -14,7 +14,7 @@
 
 ;; Use environment variable $ORGDIR to get dir for org-directory
 (setq org-directory (getenv "ORGDIR"))
-(setq notesmine-dir ('~/Documents/notesmine-org'))
+(setq notesmine-dir '~/Documents/notesmine-org)
 ;; Set agenda files = all files in the org-directory, meow
 (require 'org-install)
 (setq org-agenda-files (file-expand-wildcards (concat org-directory "/*.org")))
@@ -65,8 +65,7 @@
   (quote 
     (
       (org-agenda-files :maxlevel . 5) 
-      (notesmine-dir)))
-      (org-agenda-files :maxlevel . 5)
+      (notesmine-dir)
       (nil :maxlevel . 5)
     )
   )
