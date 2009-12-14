@@ -36,9 +36,8 @@
 (eval-after-load 'remember
                      '(add-hook 'remember-mode-hook 'org-remember-apply-template))
 ;; Keyboard bindings
-(global-set-key (kbd "C-c r") 'remember)                                         ;; (3)
-(global-set-key (kbd "C-M-r") 'org-remember)
-(global-set-key (kbd "C-c a") 'org-agenda)                                       ;; (5)
+(global-set-key (kbd "<f6> r") 'org-remember)
+(global-set-key (kbd "<f6> a") 'org-agenda)                                       ;; (5)
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cb" 'org-iswitchb)
 (add-to-list 'auto-mode-alist '("\>org$" . org-mode))                           ;; (4)
