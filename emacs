@@ -28,6 +28,7 @@
 (require 'remember-autoloads)
 (setq org-remember-templates
       '(
+        ("Bworksdb" ?B "* TODO %?" "bworksdb.org" bottom)
 	("Personal Note" ?p "* %?\n\n%U  %i" "~/Documents/personal/notes.org")
 ))
 (org-remember-insinuate)
@@ -277,8 +278,6 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 ; (setq x-alt-keysym 'super)
 (setq x-meta-keysym 'super)
 (setq x-super-keysym 'meta)
-
-
 ;; recentf stuff
 (require 'recentf)
 (recentf-mode 1)
