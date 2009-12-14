@@ -1,6 +1,3 @@
-;; Show matching parenthesis
-(show-paren-mode 1)
-
 ;; Trigger org-mode for files ending in .org .org_archive and .txt
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
