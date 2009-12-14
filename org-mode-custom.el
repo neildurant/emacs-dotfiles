@@ -136,36 +136,35 @@
 (setq org-publish-project-alist
       '(
 
-;; Define publishing mode for notesmine!
-("notesmine-org"
- :base-directory notesmine-dir
- :base-extension "org"
- :publishing-directory (concat notesmine-dir "-html")
- :recursive t
- :publishing-function org-publish-org-to-html
- :style "<link rel=stylesheet href=\"./css/org.css\" type=\"text/css\">"
- :headline-levels 4             ; Just the default for this project.
- :auto-preamble t
- :auto-index t
- :index-filename "sitemap.org"  ; ... call it sitemap.org ...
- :index-title "Notesmine"         ; ... with title 'Sitemap'.
- )
-;; Define publishing mode for static notesmine stuff.
-("notesmine-org-static"
- :base-directory notesmine-dir
- :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
- :publishing-directory (concat notesmine-dir "-html")
- :recursive t
- :publishing-function org-publish-attachment
- )
+        ;; Define publishing mode for notesmine!
+        ("notesmine-org"
+         :base-directory notesmine-dir
+         :base-extension "org"
+         :publishing-directory (concat notesmine-dir "-html")
+         :recursive t
+         :publishing-function org-publish-org-to-html
+         :style "<link rel=stylesheet href=\"./css/org.css\" type=\"text/css\">"
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t
+         :auto-index t
+         :index-filename "sitemap.org"  ; ... call it sitemap.org ...
+         :index-title "Notesmine"         ; ... with title 'Sitemap'.
+         )
+        ;; Define publishing mode for static notesmine stuff.
+        ("notesmine-org-static"
+         :base-directory notesmine-dir
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory (concat notesmine-dir "-html")
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
 
- ("org" :components ("org-notes" "org-static"))
-      ))
+        ("org" :components ("org-notes" "org-static"))
+        ))
 
 (setq org-insert-heading-respect-content t)
 
 (setq default-case-fold-search 'foo)
-
 
 (defun sacha/org-agenda-clock (match)
   ;; Find out when today is
