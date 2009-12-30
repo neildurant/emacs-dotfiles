@@ -44,8 +44,8 @@
 (add-to-list 'auto-mode-alist '("\>org$" . org-mode))                           ;; (4)
 
 (setq org-todo-keywords '("TODO" "STARTED" "WAITING" "DONE"))                    ;; (6)
-(setq org-agenda-include-diary t)                                                ;; (7)
-(setq diary-file "~/Documents/personal/journal.org")
+;; (setq diary-file "~/Documents/journal")
+(setq org-agenda-diary-file "~/Documents/personal/journal.org")
 (setq org-agenda-include-all-todo t)
 ;; If an item is SCHEDULED, then don't show the TODO
 ;; entry until the day it's due.
@@ -227,4 +227,3 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
 (setq org-use-speed-commands t)
-(setq org-agenda-diary-file (concat "~/Documents/personal/journal.org"))
