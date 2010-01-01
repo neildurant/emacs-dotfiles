@@ -10,16 +10,21 @@
 
 (setq org-log-done t)
 
-;; Use environment variable $ORGDIR to get dir for org-directory
-(setq org-directory (getenv "ORGDIR"))
-(setq notesmine-dir "~/Documents/notesmine-org")
+;; Use environment variables to set org directories
+(setq personal-org-dir (getenv "ORG_DIR"))
+(setq notesmine-dir (getenv "NOTESMINE_DIR"))
 
-;; Set agenda files = all files in the org-directory, meow
-(setq org-agenda-files (file-expand-wildcards (concat org-directory "/*.org")))
-(setq notesmine-files (file-expand-wildcards (concat notesmine-dir "/*.org")))
+;; Define lists of agenda files for use later.
+(setq personal-org-files (file-expand-wildcards (concat personal-org-dir "/*.org")))
+(setq notesmine-org-files (file-expand-wildcards (concat notesmine-dir "/*.org")))
+(setq enrollio-org-files (file-expand-wildcards (concat personal-org-dir "/*bworksdb.org")))
+(setq main-org-files (file-expand-wildcards (concat personal-org-dir "/nate.org")))
+
+;; Default to main org files for agenda
+(setq org-agenda-files main-org-files)
 
 ;;http://orgmode.org/manual/Setting-up-Remember.html#Setting-up-Remember
-(setq org-default-notes-file (concat org-directory "/notes.org"))
+(setq org-default-notes-file (concat personal-org-dir "/notes.org"))
 (define-key global-map "\C-cr" 'org-remember)
 ;; "GTD" mode for emacs
 ;; From http://sachachua.com/wp/2007/12/28/emacs-getting-things-done-with-org-basic/
@@ -61,8 +66,8 @@
 (setq org-refile-targets 
   (quote 
     (
-      (org-agenda-files :maxlevel . 5) 
-      (notesmine-files :maxlevel . 5)
+      (personal-org-files :maxlevel . 5) 
+      (notesmine-org-files :maxlevel . 5)
     )
   )
 )
@@ -73,6 +78,7 @@
 ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc 
 (setq org-outline-path-complete-in-steps t)
 
+; Custom agenda commands
 (setq org-agenda-custom-commands 
       (quote (("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
               ("S" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
@@ -80,15 +86,28 @@
 	      ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
               ("o" "SOMEDAY" tags "SOMEDAY" ((org-use-tag-inheritance nil)))
               ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
+              ("p" "Personal Agenda" agenda ""
+               ((org-agenda-files personal-org-files)))
+              ("e" "Enrollio Agenda" agenda ""
+               ((org-agenda-files enrollio-org-files)))
+              ("n" "Notesmine Agenda" agenda ""
+               ((org-agenda-files notesmine-org-files)))
+              ("g" "Geek Agenda" agenda ""
+               ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*geek.org")))))
               ;; Overview mode is same as default "a" agenda-mode, except doesn't show TODO
               ;; items that are under another TODO (setq org-agenda-custom-commands 
-              ("e" "Enrollio" agenda ""
-               ((org-agenda-files '("~/Documents/personal/bworksdb.org"))))
-              ("*" "All" agenda ""
-               ((org-agenda-files (file-expand-wildcards (concat org-directory "/*.org")))))
               ("o" "Overview" agenda "" ((org-agenda-todo-list-sublevels nil)))
-              ("n" "Notes" tags "NOTES" nil))))
-
+              ;; Separate menu, with custom searches
+              ("f" . "Find in Agenda Files")
+              ("fa" "Archive search" search ""
+               ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*.org_archive")))))
+              ("fn" "Notesmine search" search ""
+               ((org-agenda-files notesmine-org-files)))
+              ("fp" "Personal search" search ""
+               ((org-agenda-files personal-org-files)))
+              ("fe" "Enrollio search" search ""
+               ((org-agenda-files enrollio-org-files)))
+)))
 ;; GUI Options ----------------
 (tool-bar-mode -1)            ;; No toolbar <evil laugh>
 
