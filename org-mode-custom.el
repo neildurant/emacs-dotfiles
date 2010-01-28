@@ -92,6 +92,8 @@
                ((org-agenda-files enrollio-org-files)))
               ("n" "Notesmine Agenda" agenda ""
                ((org-agenda-files notesmine-org-files)))
+              ("j" "Journal" agenda ""
+               ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/journal.org")))))
               ("g" "Geek Agenda" agenda ""
                ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*geek.org")))))
               ;; Overview mode is same as default "a" agenda-mode, except doesn't show TODO
