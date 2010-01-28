@@ -41,9 +41,13 @@
 (eval-after-load 'remember
                      '(add-hook 'remember-mode-hook 'org-remember-apply-template))
 ;; Keyboard bindings
-(global-set-key (kbd "<f6> r") 'org-remember)
 (global-set-key (kbd "<f12>") 'org-agenda)
 (global-set-key (kbd "<f6> a") 'org-agenda)
+(global-set-key (kbd "<f6> i") 'org-clock-in)
+(global-set-key (kbd "<f6> j") 'org-clock-goto)
+(global-set-key (kbd "<f6> n") 'org-remember)
+(global-set-key (kbd "<f6> o") 'org-clock-out)
+(global-set-key (kbd "<f6> r") 'org-remember)
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cb" 'org-iswitchb)
 (add-to-list 'auto-mode-alist '("\>org$" . org-mode))                           ;; (4)
