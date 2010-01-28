@@ -246,3 +246,12 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
 (setq org-use-speed-commands t)
+(setq org-speed-commands-user (quote (("0" . delete-window)
+                                      ("1" . delete-other-windows)
+                                      ("2" . split-window-vertically)
+                                      ("3" . split-window-horizontally)
+                                      ("h" . hide-other)
+                                      ("k" . org-kill-note-or-show-branches)
+                                      ;; Zap the current subtree
+                                      ("d" . org-cut-special)
+                                      ("r" . org-reveal))))
