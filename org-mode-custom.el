@@ -96,6 +96,8 @@
                ((org-agenda-files enrollio-org-files)))
               ("n" "Notesmine Agenda" agenda ""
                ((org-agenda-files notesmine-org-files)))
+              ("j" "Journal" agenda ""
+               ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/journal.org")))))
               ("g" "Geek Agenda" agenda ""
                ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*geek.org")))))
               ;; Overview mode is same as default "a" agenda-mode, except doesn't show TODO
@@ -250,3 +252,12 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
 (setq org-use-speed-commands t)
+(setq org-speed-commands-user (quote (("0" . delete-window)
+                                      ("1" . delete-other-windows)
+                                      ("2" . split-window-vertically)
+                                      ("3" . split-window-horizontally)
+                                      ("h" . hide-other)
+                                      ("k" . org-kill-note-or-show-branches)
+                                      ;; Zap the current subtree
+                                      ("d" . org-cut-special)
+                                      ("r" . org-reveal))))
