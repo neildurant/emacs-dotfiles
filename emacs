@@ -62,4 +62,10 @@
 (setq recentf-max-menu-items 25)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
-(load "~/.emacs.d/org-mode-custom.el")
+;; Platform-specific stuff
+(when (eq system-type 'darwin)
+       (mac-key-mode)
+       (set-face-font 'default "-apple-monaco-medium-r-normal--14-120-72-72-m-120-iso10646-1")
+)
+
+(load "/Users/nate/.emacs.d/org-mode-custom.el")

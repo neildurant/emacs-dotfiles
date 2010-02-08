@@ -43,6 +43,7 @@
 ;; Keyboard bindings
 (global-set-key (kbd "<f12>") 'org-agenda)
 (global-set-key (kbd "<f6> a") 'org-agenda)
+(global-set-key (kbd "<f6> p") 'org-timer-pause-or-continue)
 (global-set-key (kbd "<f6> i") 'org-clock-in)
 (global-set-key (kbd "<f6> j") 'org-clock-goto)
 (global-set-key (kbd "<f6> n") 'org-remember)
