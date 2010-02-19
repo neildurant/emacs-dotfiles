@@ -38,21 +38,27 @@
 	("Personal Note" ?p "* TODO %?\n\n%U  %i" "~/Documents/personal/notes.org")
 	("Bworksdb" ?b "* %?\n\n%t  %i" "~/Documents/personal/bworksdb.org" "Timeline")
 ))
-(org-remember-insinuate)
 
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
 (eval-after-load 'remember
                      '(add-hook 'remember-mode-hook 'org-remember-apply-template))
+
+(defun agenda-this-file-only ()
+  (interactive)
+  (org-agenda-set-restriction-lock 'file)
+  (org-agenda-list)
+)
+
 ;; Keyboard bindings
-(global-set-key (kbd "<f12>") 'org-agenda)
-(global-set-key (kbd "<f6> a") 'org-agenda)
-(global-set-key (kbd "<f6> p") 'org-timer-pause-or-continue)
+(global-set-key (kbd "<f5>") 'org-agenda)
+(global-set-key (kbd "<f6> l") 'agenda-this-file-only)
+(global-set-key (kbd "<f6> f") 'org-agenda-list)
 (global-set-key (kbd "<f6> i") 'org-clock-in)
 (global-set-key (kbd "<f6> j") 'org-clock-goto)
-(global-set-key (kbd "<f6> n") 'org-remember)
 (global-set-key (kbd "<f6> o") 'org-clock-out)
-(global-set-key (kbd "<f6> r") 'org-remember)
+(global-set-key (kbd "<f6> r") 'org-resolve-clocks)
+(global-set-key (kbd "<f6> n") 'org-remember)
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cb" 'org-iswitchb)
 (add-to-list 'auto-mode-alist '("\>org$" . org-mode))                           ;; (4)
@@ -215,10 +221,6 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 ;;(setq org-hide-leading-stars t)
 ;;(setq org-odd-levels-only t)
 (setq org-log-into-drawer t)
-
-;; Bookmark shortcuts
-(global-set-key [f7] 'bookmark-bmenu-list)
-(global-set-key [(shift f7)] 'bookmark-set)
 
 (if (< emacs-major-version 23)
    (defun characterp (obj)
