@@ -283,3 +283,39 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
        )
      )
   )
+;; From norang.org -- when adding a note, clock into it.
+(add-hook 'remember-mode-hook 'org-clock-in 'append)
+(add-hook 'org-remember-before-finalize-hook 'bh/clock-in-interrupted-task)
+
+(defun bh/clock-in-interrupted-task ()
+ "Clock in the interrupted task if there is one"
+ (interactive)
+ (if (and (not org-clock-resolving-clocks-due-to-idleness)
+          (marker-buffer org-clock-marker)
+          (marker-buffer org-clock-interrupted-task))
+     (org-with-point-at org-clock-interrupted-task
+       (org-clock-in nil))
+   (org-clock-out)))
+
+(global-set-key (kbd "<f11>") 'org-clock-goto)
+(global-set-key (kbd "C-<f11>") 'org-clock-in)
+
+(global-set-key (kbd "<f9> m") 'bh/clock-in-read-mail-and-news-task)
+(global-set-key (kbd "<f9> o") 'bh/clock-in-organization-task)
+(global-set-key (kbd "<f9> O") 'org-clock-out)
+
+(defun njn/clock-in-task-by-id (id)
+ "Clock in a task by id"
+ (require 'org-id)
+ (save-restriction
+   (widen)
+   (org-with-point-at (org-id-find id 'marker)
+     (org-clock-in nil))))
+
+(defun njn/clock-in-organization-task ()
+ (interactive)
+ (njn/clock-in-task-by-id "437c2cde-fbf0-491f-92ba-51bae487b338"))
+
+(defun njn/clock-in-read-mail-and-news-task ()
+ (interactive)
+ (njn/clock-in-task-by-id "85c2e69b-6f37-4236-8896-4f7dd86047c1"))
