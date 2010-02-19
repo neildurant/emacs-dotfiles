@@ -64,8 +64,10 @@
 
 ;; Platform-specific stuff
 (when (eq system-type 'darwin)
-       (mac-key-mode)
        (set-face-font 'default "-apple-monaco-medium-r-normal--14-120-72-72-m-120-iso10646-1")
 )
+
+
+(setq default-major-mode 'org-mode)
 
 (load "/Users/nate/.emacs.d/org-mode-custom.el")
