@@ -3,7 +3,11 @@
 ;; Add org-mode to path
 (setq load-path (cons "~/src/3rdparty/org-mode/lisp" load-path))
 (setq load-path (cons "~/src/3rdparty/org-mode/contrib/lisp" load-path))
+
 (require 'org-install)
+(require 'org-list)
+(require 'remember)
+(org-remember-insinuate)
 
 ;; Trigger org-mode for files ending in .org .org_archive and .txt
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
@@ -262,3 +266,20 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
                                       ;; Zap the current subtree
                                       ("d" . org-cut-special)
                                       ("r" . org-reveal))))
+
+(easy-menu-define njn-menu org-mode-map "Nate's Org"
+  '("Norg"
+
+     ("Clock" ;; submenu
+       ["In" org-clock-in]
+       ["Out" org-clock-out]
+       ["Resolve" org-resolve-clocks]
+       ["Goto" org-clock-goto]
+       )
+     ("Agenda" ;; submenu
+       ["Limit to file" agenda-this-file-only]
+       ["Regular View" org-agenda-list]
+       ["Show Agenda" org-agenda]
+       )
+     )
+  )
