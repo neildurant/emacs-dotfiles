@@ -35,8 +35,9 @@
 (require 'remember-autoloads)
 (setq org-remember-templates
       '(
-	("Personal Note" ?p "* TODO %?\n\n%U  %i" "~/Documents/personal/notes.org")
-	("Bworksdb" ?b "* %?\n\n%t  %i" "~/Documents/personal/bworksdb.org" "Timeline")
+	("Note" ?n "* TODO %?\n\n%U  %i" "~/Documents/personal/notes.org")
+        ("Journal" ?j "* %U %?\n\n  %i\n  %a" "~/Documents/personal/journal.org" "X" my-check)
+
 ))
 
 (setq remember-annotation-functions '(org-remember-annotation))
