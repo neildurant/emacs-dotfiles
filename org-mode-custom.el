@@ -333,3 +333,8 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 (defun njn/clock-in-read-mail-and-news-task ()
  (interactive)
  (njn/clock-in-task-by-id "85c2e69b-6f37-4236-8896-4f7dd86047c1"))
+
+
+(org-defkey org-mode-map (kbd "M-j")
+           '(lambda () (interactive)
+              (org-show-subtree) (end-of-line) (org-return-indent)))
