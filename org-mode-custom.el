@@ -162,9 +162,6 @@
  ("OPEN" :foreground "blue" :weight bold)
  ("PROJECT" :foreground "red" :weight bold))))
 
-;; Change task state to STARTED when clocking in
-(setq org-clock-in-switch-to-state "STARTED")
-
 ;; Change task state w/C-c C-t KEY
 (setq org-use-fast-todo-selection t)
 (require 'org-publish)
@@ -286,7 +283,21 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
        )
      )
   )
+
+
+
 ;; From norang.org -- when adding a note, clock into it.
+
+;; Change task state to STARTED from TODO when clocking in
+(defun bh/clock-in-to-started (kw)
+  "Switch task from TODO to STARTED when clocking in"
+  (if (and (string-equal kw "TODO")
+           (not (string-equal (buffer-name) "*Remember*")))
+      "STARTED"
+    nil))
+
+(setq org-clock-in-switch-to-state (quote bh/clock-in-to-started))
+
 (add-hook 'remember-mode-hook 'org-clock-in 'append)
 (add-hook 'org-remember-before-finalize-hook 'bh/clock-in-interrupted-task)
 
