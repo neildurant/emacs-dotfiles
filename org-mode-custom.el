@@ -344,3 +344,12 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 (org-defkey org-mode-map (kbd "M-j")
            '(lambda () (interactive)
               (org-show-subtree) (end-of-line) (org-return-indent)))
+
+;; Insert immediate timestamp
+;; From russell on org-mode mailing list.
+(define-key global-map (kbd "<f9>")
+ '(lambda () (interactive)
+    (when (eq major-mode 'org-mode)
+      (insert "\n")
+      (org-insert-time-stamp nil t t)
+      (insert "\n"))))
