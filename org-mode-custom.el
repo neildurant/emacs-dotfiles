@@ -234,19 +234,23 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
-;; Clock in-clock out
-(defun set-clock-clockenspiel()
-(interactive)
-(setq org-agenda-log-mode-items (quote (clock)))
-  (message "Using %s" org-agenda-log-mode-items))
+;; Agenda showing closed items -------------
+(setq njn/org-agenda-show-closed nil)
 
-(defun set-closed-clock-clockenspiel()
-(interactive)
-(setq org-agenda-log-mode-items (quote (closed clock)))
-  (message "Using %s" org-agenda-log-mode-items))
+(defun njn/toggle-agenda-log-show-closed()
+  "Toggle whether closed clock thingies are shown in the agenda"
+  (interactive)
+  (if (eq njn/org-agenda-show-closed nil)
+      (progn (setq org-agenda-log-mode-items (quote (closed clock)))
+	     (setq njn/org-agenda-show-closed 't)
+	     (message "Showing closed clock entries in agenda"))
+    (progn (setq org-agenda-log-mode-items (quote (clock)))
+	   (setq njn/org-agenda-show-closed nil)
+	   (message "NOT showing closed clock entries in agenda"))
+    ))
 
-(define-key org-mode-map (kbd "S-<f9>") 'set-clock-clockenspiel)
-(define-key org-mode-map (kbd "<f9>") 'set-closed-clock-clockenspiel)
+(define-key org-mode-map (kbd "<f6> s") 'njn/toggle-agenda-log-show-closed)
+
 
 ;; org-mode hook
 (add-hook 'org-mode-hook
