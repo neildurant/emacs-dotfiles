@@ -353,3 +353,5 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
       (insert "\n")
       (org-insert-time-stamp nil t t)
       (insert "\n"))))
+
+(setq org-M-RET-may-split-line nil)
