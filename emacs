@@ -82,4 +82,11 @@
 (define-key global-map (kbd "M-n") '(lambda() (interactive) (next-error)))
 
 
+;; Prevent us from having to type entire 'yes' or 'no' when answering
+;; "Do you want to save?" questions :-/
+;; http://blog.enqueue.eu/emacs-mac-3
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Load org-mode customizations!  Yay!
 (load "/Users/nate/.emacs.d/org-mode-custom.el")
+
