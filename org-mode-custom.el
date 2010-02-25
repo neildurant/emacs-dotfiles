@@ -306,17 +306,17 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 (setq org-clock-in-switch-to-state (quote bh/clock-in-to-started))
 
 (add-hook 'remember-mode-hook 'org-clock-in 'append)
-(add-hook 'org-remember-before-finalize-hook 'bh/clock-in-interrupted-task)
+;; (add-hook 'org-remember-before-finalize-hook 'bh/clock-in-interrupted-task)
 
-(defun bh/clock-in-interrupted-task ()
- "Clock in the interrupted task if there is one"
- (interactive)
- (if (and (not org-clock-resolving-clocks-due-to-idleness)
-          (marker-buffer org-clock-marker)
-          (marker-buffer org-clock-interrupted-task))
-     (org-with-point-at org-clock-interrupted-task
-       (org-clock-in nil))
-   (org-clock-out)))
+;; (defun bh/clock-in-interrupted-task ()
+;;  "Clock in the interrupted task if there is one"
+;;  (interactive)
+;;  (if (and (not org-clock-resolving-clocks-due-to-idleness)
+;;           (marker-buffer org-clock-marker)
+;;           (marker-buffer org-clock-interrupted-task))
+;;      (org-with-point-at org-clock-interrupted-task
+;;        (org-clock-in nil))
+;;    (org-clock-out)))
 
 
 
