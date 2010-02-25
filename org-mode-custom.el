@@ -53,7 +53,8 @@
 
 ;; Keyboard bindings
 (global-set-key (kbd "<f5>") 'org-agenda)
-(global-set-key (kbd "<f6> l") 'agenda-this-file-only)
+(global-set-key (kbd "<f6> l") 'agenda-this-file-only)              ;; Lock agenda (and other org-functions)
+(global-set-key (kbd "<f6> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
 (global-set-key (kbd "<f6> f") 'org-agenda-list)
 (global-set-key (kbd "<f6> i") 'org-clock-in)
 (global-set-key (kbd "<f6> j") 'org-clock-goto)
@@ -278,6 +279,7 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
        )
      ("Agenda" ;; submenu
        ["Limit to file" agenda-this-file-only]
+       ["Remove Limit to file" org-agenda-remove-restriction-lock]
        ["Regular View" org-agenda-list]
        ["Show Agenda" org-agenda]
        )
