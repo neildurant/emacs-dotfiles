@@ -58,6 +58,7 @@
 (global-set-key (kbd "<f6> f") 'org-agenda-list)
 (global-set-key (kbd "<f6> i") 'org-clock-in)
 (global-set-key (kbd "<f6> j") 'org-clock-goto)
+(global-set-key (kbd "<f6> p") '(lambda() (interactive) (org-clock-goto 't)))
 (global-set-key (kbd "<f6> o") 'org-clock-out)
 (global-set-key (kbd "<f6> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f6> n") 'org-remember)
