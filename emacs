@@ -70,4 +70,16 @@
 
 (setq default-major-mode 'org-mode)
 
+;; Used for idiotic Cocoa Emacs that doesn't get the DEL key set correctly.
+;; http://www.gnu.org/software/emacs/manual/html_node/emacs/DEL-Does-Not-Delete.html
+(normal-erase-is-backspace-mode 1)
+
+
+
+;; Used to go through grep/occur findings.
+;; Setting these in org-mode only to avoid potential conflicts?
+(define-key global-map (kbd "M-p") '(lambda() (interactive) (previous-error)))
+(define-key global-map (kbd "M-n") '(lambda() (interactive) (next-error)))
+
+
 (load "/Users/nate/.emacs.d/org-mode-custom.el")
