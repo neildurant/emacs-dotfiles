@@ -317,12 +317,12 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
        (org-clock-in nil))
    (org-clock-out)))
 
-(global-set-key (kbd "<f11>") 'org-clock-goto)
-(global-set-key (kbd "C-<f11>") 'org-clock-in)
 
-(global-set-key (kbd "<f9> m") 'bh/clock-in-read-mail-and-news-task)
-(global-set-key (kbd "<f9> o") 'bh/clock-in-organization-task)
-(global-set-key (kbd "<f9> O") 'org-clock-out)
+
+
+;; (global-set-key (kbd "<f9> m") 'bh/clock-in-read-mail-and-news-task)
+;; (global-set-key (kbd "<f9> o") 'bh/clock-in-organization-task)
+;; (global-set-key (kbd "<f9> O") 'org-clock-out)
 
 (defun njn/clock-in-task-by-id (id)
  "Clock in a task by id"
