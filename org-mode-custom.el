@@ -291,36 +291,36 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
      )
   )
 
-
-
-;; From norang.org -- when adding a note, clock into it.
-
-;; Change task state to STARTED from TODO when clocking in
+;; From norang.org -- Change task state to STARTED from TODO when clocking in -------
 (defun bh/clock-in-to-started (kw)
   "Switch task from TODO to STARTED when clocking in"
-  (if (and (string-equal kw "TODO")
+  (if (and (string-equal kw "TODO") ;; Unless we're in a remember buffer
            (not (string-equal (buffer-name) "*Remember*")))
       "STARTED"
     nil))
 
 (setq org-clock-in-switch-to-state (quote bh/clock-in-to-started))
 
+;; Keep clocks running if started from remember mode
+(setq org-remember-clock-out-on-exit nil)
+
+;; Automatically clock in when adding a note
 (add-hook 'remember-mode-hook 'org-clock-in 'append)
-;; (add-hook 'org-remember-before-finalize-hook 'bh/clock-in-interrupted-task)
 
-;; (defun bh/clock-in-interrupted-task ()
-;;  "Clock in the interrupted task if there is one"
-;;  (interactive)
-;;  (if (and (not org-clock-resolving-clocks-due-to-idleness)
-;;           (marker-buffer org-clock-marker)
-;;           (marker-buffer org-clock-interrupted-task))
-;;      (org-with-point-at org-clock-interrupted-task
-;;        (org-clock-in nil))
-;;    (org-clock-out)))
+;; If there's an existing clocked task, then prompt to clock back in.
+(add-hook 'org-remember-before-finalize-hook 'njn/clock-in-interrupted-task)
 
+(defun njn/clock-in-interrupted-task ()
+ "Clock in the interrupted task if there is one"
+ (interactive)
+ (if (and (not org-clock-resolving-clocks-due-to-idleness)
+          (marker-buffer org-clock-marker)
+          (marker-buffer org-clock-interrupted-task)
+          (y-or-n-p "Clock back in to prev. task? "))
+     (org-with-point-at org-clock-interrupted-task
+       (org-clock-in nil))))
 
-
-
+;; TODO: Use these after getting UUIDs of often used tasks
 ;; (global-set-key (kbd "<f9> m") 'bh/clock-in-read-mail-and-news-task)
 ;; (global-set-key (kbd "<f9> o") 'bh/clock-in-organization-task)
 ;; (global-set-key (kbd "<f9> O") 'org-clock-out)
