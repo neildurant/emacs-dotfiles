@@ -62,6 +62,9 @@
 (global-set-key (kbd "<f6> o") 'org-clock-out)
 (global-set-key (kbd "<f6> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f6> n") 'org-remember)
+(global-set-key (kbd "<f11> o") '(lambda() (interactive) (org-id-goto "49E0DC6B-D78C-4C7A-88BF-545DA0907FFE")))
+(global-set-key (kbd "<f11> m") '(lambda() (interactive) (org-id-goto "2B8F0265-6509-4E79-9355-312F4B340503")))
+
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cb" 'org-iswitchb)
 (add-to-list 'auto-mode-alist '("\>org$" . org-mode))                           ;; (4)
@@ -332,14 +335,6 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
    (widen)
    (org-with-point-at (org-id-find id 'marker)
      (org-clock-in nil))))
-
-(defun njn/clock-in-organization-task ()
- (interactive)
- (njn/clock-in-task-by-id "437c2cde-fbf0-491f-92ba-51bae487b338"))
-
-(defun njn/clock-in-read-mail-and-news-task ()
- (interactive)
- (njn/clock-in-task-by-id "85c2e69b-6f37-4236-8896-4f7dd86047c1"))
 
 
 (org-defkey org-mode-map (kbd "M-j")
