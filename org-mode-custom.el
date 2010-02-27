@@ -30,14 +30,17 @@
 ;;http://orgmode.org/manual/Setting-up-Remember.html#Setting-up-Remember
 (setq org-default-notes-file (concat personal-org-dir "/notes.org"))
 (define-key global-map "\C-cr" 'org-remember)
-;; "GTD" mode for emacs
-;; From http://sachachua.com/wp/2007/12/28/emacs-getting-things-done-with-org-basic/
+
+
+
 (require 'remember-autoloads)
+
+
 (setq org-remember-templates
       '(
-	("Note" ?n "* TODO %?\n\n%U  %i" "~/Documents/personal/notes.org")
+	("Todo" ?t "* TODO %?\n\n%U  %i" "~/Documents/personal/notes.org")
         ("Journal" ?j "* %U %?\n\n  %i\n  %a" "~/Documents/personal/journal.org" "X" my-check)
-
+        ("note" ?n "* %?" nil bottom nil)
 ))
 
 (setq remember-annotation-functions '(org-remember-annotation))
