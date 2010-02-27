@@ -83,15 +83,30 @@
 ; Use IDO for target completion
 (setq org-completion-use-ido t)
 
-; Targets include this file and any file contributing to the agenda - up to 5 levels deep
-(setq org-refile-targets 
-  (quote 
-    (
-      (personal-org-files :maxlevel . 5) 
-      (notesmine-org-files :maxlevel . 5)
-    )
+; Refile targets default to only filez found in personal-org-files directory
+(defun njn/set-default-refile-targets() 
+  (setq org-refile-targets 
+	(quote 
+	 (
+	  (personal-org-files :maxlevel . 5) 
+	  ;; (notesmine-org-files :maxlevel . 5)
+	  )
+	 )
+	)
   )
-)
+(njn/set-default-refile-targets)
+
+(defun njn/add-notesmine-to-refile-targets() 
+  (interactive)
+  (setq org-refile-targets 
+	(quote 
+	 (
+	  (personal-org-files :maxlevel . 5) 
+	  (notesmine-org-files :maxlevel . 5)
+	  )
+	 )
+	)
+  )
 
 ; Targets start with the file name - allows creating level 1 tasks
 (setq org-refile-use-outline-path (quote file))
