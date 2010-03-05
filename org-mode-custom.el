@@ -1,8 +1,9 @@
 ;; Add remember code to load path
 (add-to-list 'load-path "~/.emacs.d/remember")
+
 ;; Add org-mode to path
-(setq load-path (cons "~/src/3rdparty/org-mode/lisp" load-path))
-(setq load-path (cons "~/src/3rdparty/org-mode/contrib/lisp" load-path))
+(setq load-path (cons "~/.emacs.d/src/org-mode/contrib/lisp" load-path))
+(setq load-path (cons "~/.emacs.d/src/org-mode/lisp" load-path))
 
 (require 'org-install)
 (require 'org-list)
