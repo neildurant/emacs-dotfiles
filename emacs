@@ -46,8 +46,7 @@
 ;; Use f2 to show buffers
 (defun show-buffers-and-switch ()
   (interactive)
-  (list-buffers)
-  (other-window 1)
+  (ibuffer)
 )
 
 (global-set-key [f2] 'show-buffers-and-switch)
