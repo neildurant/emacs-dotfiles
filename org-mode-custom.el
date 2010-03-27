@@ -66,8 +66,9 @@
 (global-set-key (kbd "<f6> o") 'org-clock-out)
 (global-set-key (kbd "<f6> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f6> n") 'org-remember)
-(global-set-key (kbd "<f11> o") '(lambda() (interactive) (org-id-goto "49E0DC6B-D78C-4C7A-88BF-545DA0907FFE")))
-(global-set-key (kbd "<f11> m") '(lambda() (interactive) (org-id-goto "2B8F0265-6509-4E79-9355-312F4B340503")))
+(global-set-key (kbd "<f6> s") 'njn/toggle-agenda-log-show-closed)
+(global-set-key (kbd "<f11> m") '(lambda() "Goto some task" (interactive) (org-id-goto "49E0DC6B-D78C-4C7A-88BF-545DA0907FFE")))
+(global-set-key (kbd "<f11> o") '(lambda() "Goto org-mode task" (interactive) (org-id-goto "2B8F0265-6509-4E79-9355-312F4B340503")))
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cb" 'org-iswitchb)
@@ -258,22 +259,21 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 (load custom-file)
 
 ;; Agenda showing closed items -------------
-(setq njn/org-agenda-show-closed nil)
+;; Default to only show clock items, not the closed ones.
+(setq org-agenda-log-mode-items (quote (clock)))
+(setq njn/org-agenda-show-closed 't)
 
 (defun njn/toggle-agenda-log-show-closed()
   "Toggle whether closed clock thingies are shown in the agenda"
   (interactive)
-  (if (eq njn/org-agenda-show-closed nil)
-      (progn (setq org-agenda-log-mode-items (quote (closed clock)))
-	     (setq njn/org-agenda-show-closed 't)
-	     (message "Showing closed clock entries in agenda"))
-    (progn (setq org-agenda-log-mode-items (quote (clock)))
-	   (setq njn/org-agenda-show-closed nil)
-	   (message "NOT showing closed clock entries in agenda"))
+  (if (eq njn/org-agenda-show-closed 't)
+      (progn (setq org-agenda-log-mode-items (quote (clock)))
+	     (setq njn/org-agenda-show-closed nil)
+	     (message "NOT Showing closed clock entries in agenda"))
+    (progn (setq org-agenda-log-mode-items (quote (closed clock)))
+	   (setq njn/org-agenda-show-closed 't)
+	   (message "Showing closed clock entries in agenda"))
     ))
-
-(define-key org-mode-map (kbd "<f6> s") 'njn/toggle-agenda-log-show-closed)
-
 
 ;; org-mode hook
 (add-hook 'org-mode-hook
