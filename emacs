@@ -90,3 +90,5 @@
 ;; Load org-mode customizations!  Yay!
 (load "/Users/nate/.emacs.d/org-mode-custom.el")
 
+
+(setq minibuffer-max-depth nil)
