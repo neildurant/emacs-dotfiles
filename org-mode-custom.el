@@ -370,3 +370,9 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
       (insert "\n"))))
 
 (setq org-M-RET-may-split-line nil)
+(setq org-insert-heading-always-after-current t)
+
+(require 'org-babel-init)     
+(require 'org-babel-perl)
+(require 'org-babel-python)
+(require 'org-babel-groovy)
