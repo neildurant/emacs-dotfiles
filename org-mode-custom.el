@@ -326,8 +326,14 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 ;; Keep clocks running if started from remember mode
 (setq org-remember-clock-out-on-exit nil)
 
+;; Separate drawers for clocking and logs
+(setq org-drawers (quote ("PROPERTIES" "LOGBOOK" "CLOCK")))
 ;; Automatically clock in when adding a note
 (add-hook 'remember-mode-hook 'org-clock-in 'append)
+;; Save clock data in the CLOCK drawer and state changes and notes in the LOGBOOK drawer
+(setq org-clock-into-drawer "CLOCK")
+;; Don't clock out when moving task to a done state
+(setq org-clock-out-when-done nil)
 
 ;; If there's an existing clocked task, then prompt to clock back in.
 (add-hook 'org-remember-before-finalize-hook 'njn/clock-in-interrupted-task)
