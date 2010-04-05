@@ -67,8 +67,8 @@
 (global-set-key (kbd "<f6> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f6> n") 'org-remember)
 (global-set-key (kbd "<f6> s") 'njn/toggle-agenda-log-show-closed)
-(global-set-key (kbd "<f11> m") '(lambda() "Goto some task" (interactive) (org-id-goto "49E0DC6B-D78C-4C7A-88BF-545DA0907FFE")))
-(global-set-key (kbd "<f11> o") '(lambda() "Goto org-mode task" (interactive) (org-id-goto "2B8F0265-6509-4E79-9355-312F4B340503")))
+(global-set-key (kbd "<f11> m") 'njn/goto-some-task)
+(global-set-key (kbd "<f11> o") 'njn/goto-org-mode-task)
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cb" 'org-iswitchb)
@@ -377,6 +377,19 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 
 (setq org-M-RET-may-split-line nil)
 (setq org-insert-heading-always-after-current t)
+
+;; -- pers. functions
+(defun njn/goto-some-task()
+ "Goto some task"
+ (interactive) 
+ (org-id-goto "49E0DC6B-D78C-4C7A-88BF-545DA0907FFE"))
+
+(defun njn/goto-org-mode-task()
+  "Goto umbrella org-mode task" 
+  (interactive) 
+  (org-id-goto "2B8F0265-6509-4E79-9355-312F4B340503"))
+
+
 
 (require 'org-babel-init)     
 (require 'org-babel-perl)
