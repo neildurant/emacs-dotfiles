@@ -57,16 +57,16 @@
 
 ;; Keyboard bindings
 (global-set-key (kbd "<f5>") 'org-agenda)
-(global-set-key (kbd "<f6> l") 'agenda-this-file-only)              ;; Lock agenda (and other org-functions)
-(global-set-key (kbd "<f6> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
 (global-set-key (kbd "<f6> f") 'org-agenda-list)
 (global-set-key (kbd "<f6> i") 'org-clock-in)
 (global-set-key (kbd "<f6> j") 'org-clock-goto)
-(global-set-key (kbd "<f6> p") '(lambda() (interactive) (org-clock-goto 't)))
-(global-set-key (kbd "<f6> o") 'org-clock-out)
-(global-set-key (kbd "<f6> r") 'org-resolve-clocks)
+(global-set-key (kbd "<f6> l") 'agenda-this-file-only)              ;; Lock agenda (and other org-functions)
 (global-set-key (kbd "<f6> n") 'org-remember)
+(global-set-key (kbd "<f6> o") 'org-clock-out)
+(global-set-key (kbd "<f6> p") '(lambda() (interactive) (org-clock-goto 't)))
+(global-set-key (kbd "<f6> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f6> s") 'njn/toggle-agenda-log-show-closed)
+(global-set-key (kbd "<f6> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
 (global-set-key (kbd "<f11> m") 'njn/goto-some-task)
 (global-set-key (kbd "<f11> o") 'njn/goto-org-mode-task)
 
