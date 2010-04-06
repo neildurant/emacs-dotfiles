@@ -8,6 +8,7 @@
 (require 'org-install)
 (require 'org-list)
 (require 'remember)
+
 (org-remember-insinuate)
 
 ;; Trigger org-mode for files ending in .org .org_archive and .txt
@@ -89,28 +90,19 @@
 (setq org-completion-use-ido t)
 
 ; Refile targets default to only filez found in personal-org-files directory
-(defun njn/set-default-refile-targets() 
+(defun njn/set-default-refile-targets 
   (setq org-refile-targets 
-	(quote 
-	 (
-	  (personal-org-files :maxlevel . 5) 
-	  ;; (notesmine-org-files :maxlevel . 5)
-	  )
-	 )
-	)
-  )
+	(quote ((personal-org-files :maxlevel . 5))))
+)
+
 (njn/set-default-refile-targets)
 
 (defun njn/add-notesmine-to-refile-targets() 
   (interactive)
   (setq org-refile-targets 
 	(quote 
-	 (
-	  (personal-org-files :maxlevel . 5) 
-	  (notesmine-org-files :maxlevel . 5)
-	  )
-	 )
-	)
+	 ((personal-org-files :maxlevel . 5)
+          (notesmine-org-files :maxlevel . 5))))
   )
 
 ; Targets start with the file name - allows creating level 1 tasks
