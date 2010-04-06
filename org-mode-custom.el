@@ -169,7 +169,7 @@
 (sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!)")  
 (sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)")
 ))
-
+(add-to-list 'org-modules 'org-habit)
 (setq org-todo-keyword-faces (quote (("TODO" :foreground "red" :weight bold)
  ("STARTED" :foreground "blue" :weight bold)
  ("DONE" :foreground "forest green" :weight bold)
