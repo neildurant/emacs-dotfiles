@@ -95,7 +95,8 @@
 (setq org-completion-use-ido t)
 
 ; Refile targets default to only filez found in personal-org-files directory
-(defun njn/set-default-refile-targets 
+(defun njn/set-default-refile-targets() 
+  (interactive) 
   (setq org-refile-targets 
 	(quote ((personal-org-files :maxlevel . 5))))
 )
