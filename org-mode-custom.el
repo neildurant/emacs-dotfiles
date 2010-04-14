@@ -110,6 +110,8 @@
           (notesmine-org-files :maxlevel . 5))))
   )
 
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+
 ; Targets start with the file name - allows creating level 1 tasks
 (setq org-refile-use-outline-path (quote file))
 
