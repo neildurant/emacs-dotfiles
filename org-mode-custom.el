@@ -386,7 +386,27 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
   (interactive) 
   (org-id-goto "2B8F0265-6509-4E79-9355-312F4B340503"))
 
+(defun njn/goto-org-mode-notesmine()
+  "Goto notesmine org-mode file" 
+  (interactive) 
+  (org-id-goto "F10D261F-0AFB-448F-BB34-8CAF652144CE"))
 
+(defun njn/goto-notes()
+  "Goto notes org-mode file" 
+  (interactive) 
+  (org-id-goto "7E945130-2544-4600-A46E-07B774601C80"))
+
+(defun njn/goto-home()
+  "Goto notes org-mode file" 
+  (interactive) 
+  (org-id-goto "772DFBDD-38A3-4E92-8860-6904CC9D4F49"))
+
+(defun njn/goto-customer1()
+  "Goto customer1's org-mode file" 
+  (interactive) 
+  (org-id-goto "5C3263D1-949E-4E01-937A-201A8E83E1C0"))
+
+(setq org-clock-report-include-clocking-task 't)
 
 (require 'org-babel-init)     
 (require 'org-babel-perl)
