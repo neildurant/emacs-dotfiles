@@ -50,26 +50,6 @@
 (eval-after-load 'remember
                      '(add-hook 'remember-mode-hook 'org-remember-apply-template))
 
-(defun agenda-this-file-only ()
-  (interactive)
-  (org-agenda-set-restriction-lock 'file)
-  (org-agenda-list)
-)
-
-;; Keyboard bindings
-(global-set-key (kbd "<f5>") 'org-agenda)
-(global-unset-key (kbd "<f3>"))
-(global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
-(global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
-(global-set-key (kbd "<f3> i") 'org-clock-in)
-(global-set-key (kbd "<f3> j") 'org-clock-goto)
-(global-set-key (kbd "<f3> l") 'agenda-this-file-only)              ;; Lock agenda (and other org-functions)
-(global-set-key (kbd "<f3> n") 'org-remember)
-(global-set-key (kbd "<f3> o") 'org-clock-out)
-(global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
-(global-set-key (kbd "<f3> r") 'org-resolve-clocks)
-(global-set-key (kbd "<f3> s") 'njn/toggle-agenda-log-show-closed)
-(global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cb" 'org-iswitchb)

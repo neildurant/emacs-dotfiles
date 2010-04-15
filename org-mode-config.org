@@ -2,6 +2,37 @@
   :PROPERTIES:
   :ID:       BCFE2FAF-6510-4949-B182-66521BB14A5D
   :END:
+
+* Agenda
+#+begin_src emacs-lisp
+  
+(defun agenda-this-file-only ()
+  (interactive)
+  (org-agenda-set-restriction-lock 'file)
+  (org-agenda-list)
+)
+
+#+end_src
+* Keyboard Shortcuts
+#+begin_src emacs-lisp
+;; Keyboard bindings
+(global-set-key (kbd "<f5>") 'org-agenda)
+(global-unset-key (kbd "<f3>"))
+(global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
+(global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
+(global-set-key (kbd "<f3> i") 'org-clock-in)
+(global-set-key (kbd "<f3> j") 'org-clock-goto)
+(global-set-key (kbd "<f3> l") 'agenda-this-file-only)              ;; Lock agenda (and other org-functions)
+(global-set-key (kbd "<f3> n") 'org-remember)
+(global-set-key (kbd "<f3> o") 'org-clock-out)
+(global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
+(global-set-key (kbd "<f3> r") 'org-resolve-clocks)
+(global-set-key (kbd "<f3> s") 'njn/toggle-agenda-log-show-closed)
+(global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
+#+end_src
+
+#+results:
+: org-agenda-remove-restriction-lock
 * Fast Navigation to Files
 #+begin_src emacs-lisp
 
