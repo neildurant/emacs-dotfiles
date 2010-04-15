@@ -26,6 +26,7 @@
 (global-set-key [f7] 'bookmark-bmenu-list)
 (global-set-key [(shift f7)] 'bookmark-set)
 
+(global-set-key [f4] 'ido-switch-buffer)
 (if (< emacs-major-version 23)
    (defun characterp (obj)
      (and (char-or-string-p obj) (not (stringp obj)))))
