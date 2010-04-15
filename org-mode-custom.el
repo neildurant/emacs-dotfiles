@@ -70,11 +70,6 @@
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f3> s") 'njn/toggle-agenda-log-show-closed)
 (global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
-(global-set-key (kbd "<f6> m") 'njn/goto-some-task)
-(global-set-key (kbd "<f6> o") 'njn/goto-org-mode-task)
-(global-set-key (kbd "<f6> n") 'njn/goto-notes)
-(global-set-key (kbd "<f6> g") 'njn/goto-org-mode-notesmine)
-(global-set-key (kbd "<f6> h") 'njn/goto-home)
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cb" 'org-iswitchb)
