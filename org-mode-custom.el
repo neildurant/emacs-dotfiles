@@ -378,40 +378,12 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 (setq org-M-RET-may-split-line nil)
 (setq org-insert-heading-always-after-current t)
 
-;; -- pers. functions
-(defun njn/goto-some-task()
- "Goto some task"
- (interactive) 
- (org-id-goto "49E0DC6B-D78C-4C7A-88BF-545DA0907FFE"))
-
-(defun njn/goto-org-mode-task()
-  "Goto umbrella org-mode task" 
-  (interactive) 
-  (org-id-goto "2B8F0265-6509-4E79-9355-312F4B340503"))
-
-(defun njn/goto-org-mode-notesmine()
-  "Goto notesmine org-mode file" 
-  (interactive) 
-  (org-id-goto "F10D261F-0AFB-448F-BB34-8CAF652144CE"))
-
-(defun njn/goto-notes()
-  "Goto notes org-mode file" 
-  (interactive) 
-  (org-id-goto "7E945130-2544-4600-A46E-07B774601C80"))
-
-(defun njn/goto-home()
-  "Goto notes org-mode file" 
-  (interactive) 
-  (org-id-goto "772DFBDD-38A3-4E92-8860-6904CC9D4F49"))
-
-(defun njn/goto-customer1()
-  "Goto customer1's org-mode file" 
-  (interactive) 
-  (org-id-goto "5C3263D1-949E-4E01-937A-201A8E83E1C0"))
 
 (setq org-clock-report-include-clocking-task 't)
 
 (require 'org-babel-init)     
 (require 'org-babel-perl)
 (require 'org-babel-python)
-(require 'org-babel-groovy)
+;;(require 'org-babel-groovy)
+
+(org-babel-load-file "~/.emacs.d/org-mode-config.org")
