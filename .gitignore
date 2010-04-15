@@ -3,3 +3,4 @@ custom.el
 url/
 .org-id-locations
 \#*
+org-mode-config.el
