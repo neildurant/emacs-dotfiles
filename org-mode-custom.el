@@ -40,9 +40,9 @@
 
 (setq org-remember-templates
       '(
-	("Todo" ?t "* TODO %?\n\n%U  %i" "~/Documents/personal/notes.org")
+	("Todo" ?t "* TODO %?\n\n%U  %i" "~/Documents/personal/notes.org" top)
         ("Journal" ?j "* %U %?\n\n  %i\n  %a" "~/Documents/personal/journal.org" "X" my-check)
-        ("note" ?n "* %?" nil bottom nil)
+        ("note" ?n "* %?" nil top nil)
 ))
 
 (setq remember-annotation-functions '(org-remember-annotation))
