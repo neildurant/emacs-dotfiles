@@ -4,3 +4,7 @@ url/
 .org-id-locations
 \#*
 org-mode-config.el
+*~
+.#*
+\#*\#
+*.log
