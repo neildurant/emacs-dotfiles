@@ -16,20 +16,6 @@
   (setq njn/current-buffer-name (buffer-file-name))
   (org-agenda)
 )
-
-
-
-(setq org-agenda-custom-commands
-      '(
-         
-         ("x" "This doesn't Work.  It gets the right data, but wont
-      let you issue any other agenda commands" agenda ""
-           ((org-agenda-files (list (buffer-file-name))))
-         )
-       )
-)
-
-
 #+end_src
 
 #+results:
@@ -39,10 +25,7 @@
 ; Custom agenda commands
 (setq org-agenda-custom-commands 
       (quote (("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
-	      
-	      ("c" "Current Buffer" agenda ""
-	       ((org-agenda-files (list njn/current-buffer-name)))
-	       )
+	      ("." "Current Buffer" agenda "" ((org-agenda-files (list njn/current-buffer-name))))
 	      ("S" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
               ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
 	      ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
@@ -156,4 +139,3 @@
 
 #+results:
 : njn/goto-customer1
-* TODO Bonk
