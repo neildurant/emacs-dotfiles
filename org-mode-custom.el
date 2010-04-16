@@ -94,38 +94,7 @@
 ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc 
 (setq org-outline-path-complete-in-steps t)
 
-; Custom agenda commands
-(setq org-agenda-custom-commands 
-      (quote (("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
-              ("S" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
-              ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
-	      ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
-              ("o" "SOMEDAY" tags "SOMEDAY" ((org-use-tag-inheritance nil)))
-              ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
-              ("p" "Personal Agenda" agenda ""
-               ((org-agenda-files personal-org-files)))
-              ("e" "Enrollio Agenda" agenda ""
-               ((org-agenda-files enrollio-org-files)))
-              ("n" "Notesmine Agenda" agenda ""
-               ((org-agenda-files notesmine-org-files)))
-              ("j" "Journal" agenda ""
-               ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/journal.org")))))
-              ("g" "Geek Agenda" agenda ""
-               ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*geek.org")))))
-              ;; Overview mode is same as default "a" agenda-mode, except doesn't show TODO
-              ;; items that are under another TODO (setq org-agenda-custom-commands 
-              ("o" "Overview" agenda "" ((org-agenda-todo-list-sublevels nil)))
-              ;; Separate menu, with custom searches
-              ("f" . "Find in Agenda Files")
-              ("fa" "Archive search" search ""
-               ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*.org_archive")))))
-              ("fn" "Notesmine search" search ""
-               ((org-agenda-files notesmine-org-files)))
-              ("fp" "Personal search" search ""
-               ((org-agenda-files personal-org-files)))
-              ("fe" "Enrollio search" search ""
-               ((org-agenda-files enrollio-org-files)))
-)))
+
 ;; GUI Options ----------------
 (tool-bar-mode -1)            ;; No toolbar <evil laugh>
 

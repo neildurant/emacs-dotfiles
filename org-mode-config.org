@@ -4,19 +4,80 @@
   :END:
 
 * Agenda
+** Misc Functions
 #+begin_src emacs-lisp
-  
-(defun agenda-this-file-only ()
+
+(defun njn/org-agenda ()
+  "Set a variable called njn/current-buffer-file-name to record the
+  name of the org-mode file that was active when org-agenda is called.  This
+  variable is used by the 'Current Buffer' custom agenda view to show only
+  items from the current buffer"
   (interactive)
-  (org-agenda-set-restriction-lock 'file)
-  (org-agenda-list)
+  (setq njn/current-buffer-name (buffer-file-name))
+  (org-agenda)
 )
 
+
+
+(setq org-agenda-custom-commands
+      '(
+         
+         ("x" "This doesn't Work.  It gets the right data, but wont
+      let you issue any other agenda commands" agenda ""
+           ((org-agenda-files (list (buffer-file-name))))
+         )
+       )
+)
+
+
+#+end_src
+
+#+results:
+| c | Current Buffer | agenda |   | ((org-agenda-files (list njn-current-buffer-name))) |
+** Custom Commands
+#+begin_src
+; Custom agenda commands
+(setq org-agenda-custom-commands 
+      (quote (("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
+	      
+	      ("c" "Current Buffer" agenda ""
+	       ((org-agenda-files (list njn/current-buffer-name)))
+	       )
+	      ("S" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
+              ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
+	      ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
+              ("o" "SOMEDAY" tags "SOMEDAY" ((org-use-tag-inheritance nil)))
+              ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
+              ("p" "Personal Agenda" agenda ""
+               ((org-agenda-files personal-org-files)))
+              ("e" "Enrollio Agenda" agenda ""
+               ((org-agenda-files enrollio-org-files)))
+              ("n" "Notesmine Agenda" agenda ""
+               ((org-agenda-files notesmine-org-files)))
+              ("j" "Journal" agenda ""
+               ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/journal.org")))))
+              ("g" "Geek Agenda" agenda ""
+               ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*geek.org")))))
+              ;; Overview mode is same as default "a" agenda-mode, except doesn't show TODO
+              ;; items that are under another TODO (setq org-agenda-custom-commands 
+              ("o" "Overview" agenda "" ((org-agenda-todo-list-sublevels nil)))
+              ;; Separate menu, with custom searches
+              ("f" . "Find in Agenda Files")
+              ("fa" "Archive search" search ""
+               ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*.org_archive")))))
+              ("fn" "Notesmine search" search ""
+               ((org-agenda-files notesmine-org-files)))
+              ("fp" "Personal search" search ""
+               ((org-agenda-files personal-org-files)))
+              ("fe" "Enrollio search" search ""
+               ((org-agenda-files enrollio-org-files)))
+	      )))
+)
 #+end_src
 * Keyboard Shortcuts
 #+begin_src emacs-lisp
 ;; Keyboard bindings
-(global-set-key (kbd "<f5>") 'org-agenda)
+(global-set-key (kbd "<f5>") 'njn/org-agenda)
 (global-unset-key (kbd "<f3>"))
 (global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
 (global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
@@ -40,6 +101,14 @@
     (interactive)
     (org-id-goto "49E0DC6B-D78C-4C7A-88BF-545DA0907FFE"))) 
 
+(global-set-key (kbd "<f6> e") (lambda () "Goto Enrollio"
+    (interactive)
+    (org-id-goto "997DDAB8-DDFF-4517-90F2-CEFB0A2727E7"))) 
+
+
+(global-set-key (kbd "<f6> b") (lambda () "Goto Byteworks"
+    (interactive)
+    (org-id-goto "BFBDC32E-915B-418A-9B94-9791CDA49DD3"))) 
 
 (global-set-key (kbd "<f6> c") (lambda () "Org Mode Custom"
     (interactive)
@@ -87,3 +156,4 @@
 
 #+results:
 : njn/goto-customer1
+* TODO Bonk
