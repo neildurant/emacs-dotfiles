@@ -74,21 +74,21 @@
 ;; http://www.gnu.org/software/emacs/manual/html_node/emacs/DEL-Does-Not-Delete.html
 (normal-erase-is-backspace-mode 1)
 
-
-
 ;; Used to go through grep/occur findings.
 ;; Setting these in org-mode only to avoid potential conflicts?
 (define-key global-map (kbd "M-p") '(lambda() (interactive) (previous-error)))
 (define-key global-map (kbd "M-n") '(lambda() (interactive) (next-error)))
-
 
 ;; Prevent us from having to type entire 'yes' or 'no' when answering
 ;; "Do you want to save?" questions :-/
 ;; http://blog.enqueue.eu/emacs-mac-3
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; Load Yasnippets
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/yasnippet"))
+    (require 'yasnippet)
+    (yas/initialize)
+    (yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
+
 ;; Load org-mode customizations!  Yay!
 (load "/Users/nate/.emacs.d/org-mode-custom.el")
-
-
-(setq minibuffer-max-depth nil)
