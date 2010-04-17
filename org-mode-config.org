@@ -170,3 +170,13 @@
 ))
 #+end_src
 
+* Yasnippets
+#+begin_src emacs-lisp
+;; Make TAB the yas trigger key in the org-mode-hook and turn on flyspell mode
+(add-hook 'org-mode-hook
+          (let ((original-command (lookup-key org-mode-map [tab])))
+            `(lambda ()
+               (setq yas/fallback-behavior
+                     '(apply ,original-command))
+               (local-set-key [tab] 'yas/expand))))
+#+end_src
