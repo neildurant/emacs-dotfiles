@@ -8,3 +8,4 @@ org-mode-config.el
 .#*
 \#*\#
 *.log
+.DS_Store
