@@ -38,12 +38,7 @@
 (require 'remember-autoloads)
 
 
-(setq org-remember-templates
-      '(
-	("Todo" ?t "* TODO %?\n\n%U  %i" "~/Documents/personal/notes.org" top)
-        ("Journal" ?j "* %U %?\n\n  %i\n  %a" "~/Documents/personal/journal.org" "X" my-check)
-        ("note" ?n "* %?" nil top nil)
-))
+
 
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
@@ -267,8 +262,6 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 
 (setq org-clock-in-switch-to-state (quote bh/clock-in-to-started))
 
-;; Keep clocks running if started from remember mode
-(setq org-remember-clock-out-on-exit nil)
 
 ;; Separate drawers for clocking and logs
 (setq org-drawers (quote ("PROPERTIES" "LOGBOOK" "CLOCK")))

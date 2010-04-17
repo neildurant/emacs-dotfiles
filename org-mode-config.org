@@ -154,3 +154,17 @@
 
 #+results:
 : njn/goto-customer1
+* Remember
+** Keep clocks running if started from remember mode
+#+begin_src emacs-lisp
+(setq org-remember-clock-out-on-exit nil)
+#+end_src
+** Templates
+#+begin_src emacs-lisp :results silent
+(setq org-remember-templates
+      '(
+	("Todo" ?t "* TODO %?\n\n%U  %i" "~/Documents/personal/notes.org" top)
+        ("Journal" ?j "* %U %?\n\n  %i\n  %a" "~/Documents/personal/journal.org" "X" my-check)
+        ("note" ?n "* %?" nil top nil)
+))
+#+end_src
