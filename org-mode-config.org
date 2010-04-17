@@ -1,3 +1,4 @@
+#+property: results silent
 * Org Mode Configuration
   :PROPERTIES:
   :ID:       BCFE2FAF-6510-4949-B182-66521BB14A5D
@@ -90,8 +91,7 @@
 (global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
 #+end_src
 
-#+results:
-: org-agenda-remove-restriction-lock
+
 * Fast Navigation to Files
 #+begin_src emacs-lisp
 
