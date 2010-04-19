@@ -11,6 +11,15 @@
 #+end_src
 
 * Agenda
+** Tweaks
+#+begin_src emacs-lisp
+;; Start the weekly agenda today
+(setq org-agenda-start-on-weekday nil)
+
+;; Display tags farther right
+(setq org-agenda-tags-column -102)
+
+#+end_src
 ** Misc Functions
 #+begin_src emacs-lisp
 
