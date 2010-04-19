@@ -41,6 +41,7 @@
 	      ("." "Current Buffer" agenda "" ((org-agenda-files (list njn/current-buffer-name))))
 	      ("S" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
               ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
+
 	      ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
               ("o" "SOMEDAY" tags "SOMEDAY" ((org-use-tag-inheritance nil)))
               ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
@@ -90,6 +91,13 @@
 (global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
 #+end_src
 
+** Editing
+#+begin_src emacs-lisp
+  (org-defkey org-mode-map (kbd "M-j")
+    '(lambda () (interactive)
+    (org-show-subtree) (end-of-line)
+    (org-return-indent)))
+#+end_src
 
 * Fast Navigation to Files
 #+begin_src emacs-lisp
