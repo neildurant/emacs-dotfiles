@@ -70,25 +70,9 @@
 
 #+end_src
 
-#+results:
-| P  | Projects                   | tags   | /!PROJECT | ((org-use-tag-inheritance nil))                                                       |
-| .  | Current Buffer             | agenda |           | ((org-agenda-files (list njn/current-buffer-name)))                                   |
-| S  | Started Tasks              | todo   | STARTED   | ((org-agenda-todo-ignore-with-date nil))                                              |
-| w  | Tasks waiting on something | tags   | WAITING   | ((org-use-tag-inheritance nil))                                                       |
-| d  | DELEGATED                  | tags   | DELEGATED | ((org-use-tag-inheritance nil))                                                       |
-| o  | SOMEDAY                    | tags   | SOMEDAY   | ((org-use-tag-inheritance nil))                                                       |
-| r  | Refile New Notes and Tasks | tags   | REFILE    | ((org-agenda-todo-ignore-with-date nil))                                              |
-| p  | Personal Agenda            | agenda |           | ((org-agenda-files personal-org-files))                                               |
-| e  | Enrollio Agenda            | agenda |           | ((org-agenda-files enrollio-org-files))                                               |
-| n  | Notesmine Agenda           | agenda |           | ((org-agenda-files notesmine-org-files))                                              |
-| j  | Journal                    | agenda |           | ((org-agenda-files (file-expand-wildcards (concat personal-org-dir /journal.org))))   |
-| g  | Geek Agenda                | agenda |           | ((org-agenda-files (file-expand-wildcards (concat personal-org-dir /*geek.org))))     |
-| o  | Overview                   | agenda |           | ((org-agenda-todo-list-sublevels nil))                                                |
-| fa | Archive search             | search |           | ((org-agenda-files (file-expand-wildcards (concat personal-org-dir /*.org_archive)))) |
-| fn | Notesmine search           | search |           | ((org-agenda-files notesmine-org-files))                                              |
-| fp | Personal search            | search |           | ((org-agenda-files personal-org-files))                                               |
-| fe | Enrollio search            | search |           | ((org-agenda-files enrollio-org-files))                                               |
+
 * Keyboard Shortcuts
+** Something
 #+begin_src emacs-lisp
 ;; Keyboard bindings
 (global-set-key (kbd "<f5>") 'njn/org-agenda)
