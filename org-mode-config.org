@@ -48,8 +48,9 @@
                 ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
                 ("o" "SOMEDAY" tags "SOMEDAY" ((org-use-tag-inheritance nil)))
                 ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
-                ("p" "Personal Agenda" agenda ""
-                 ((org-agenda-files (directory-files personal-org-dir 't "^[^.].*org$"))))
+                ("p" "Personal Agenda" ((agenda ""))
+                 ((org-agenda-files (directory-files personal-org-dir 't "^[^.].*org$"))
+                  (org-agenda-show-log t)))
                 ("e" "Enrollio Agenda" agenda ""
                  ((org-agenda-files enrollio-org-files)))
                 ("n" "Notesmine Agenda" agenda ""
