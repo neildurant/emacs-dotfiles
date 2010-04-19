@@ -3,6 +3,12 @@
   :PROPERTIES:
   :ID:       BCFE2FAF-6510-4949-B182-66521BB14A5D
   :END:
+* Tasks
+#+begin_src emacs-lisp
+  ;; Don't allow setting a task to DONE if it has TODO 
+  ;; subtasks
+  (setq org-enforce-todo-dependencies t)
+#+end_src
 
 * Agenda
 ** Misc Functions
