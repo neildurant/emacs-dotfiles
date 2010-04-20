@@ -10,7 +10,50 @@ Set directories here.
      
 #+end_src
 
+** Remember Files
+I use three files for notes that I create using Org-mode's "Remember"
+feature.
+
+  - Notes and TODOs go to notes.org
+  - Appointments go to nate.org/Appointments
+  - Journal entries go to journal.org
+
+These settings are used in the [[Remember Templates]] section of this file.
+
+#+begin_src emacs-lisp
+
+
+  (setq njn/main-org-file (concat personal-org-dir "/nate.org"))
+  (setq njn/journal-org-file (concat personal-org-dir "/nate.org"))
+  (setq njn/notes-org-file (concat personal-org-dir "/nate.org"))
+  
+#+end_src
+* Remember 
+** Keep clocks running if started from remember mode
+   :PROPERTIES:
+   :ID:       6B4E5193-54C1-4531-8D22-1CC6255045F3
+   :END:
+#+begin_src emacs-lisp
+(setq org-remember-clock-out-on-exit nil)
+#+end_src
+** Remember Templates
+   :PROPERTIES:
+   :ID:       D39D0B00-2A7A-48BC-9A5F-450627F69709
+   :END:
+#+begin_src emacs-lisp
+  
+  
+  (setq org-remember-templates
+     (list
+        (list "Appointment" ?a "* %?\n  %U" njn/main-org-file "Appointments" nil)
+        (list "Journal" ?j "* %U %?\n\n  %i\n  %a" njn/journal-org-file "X" 'my-check)
+        (list "Todo" ?t "* TODO %?\n\n%U  %i" njn/notes-org-file 'top)
+        (list "Note" ?n "* %?" nil 'top nil)
+  ))
+#+end_src
+
 * Tasks
+
 #+begin_src emacs-lisp
   ;; Don't allow setting a task to DONE if it has TODO 
   ;; subtasks
@@ -19,6 +62,9 @@ Set directories here.
 
 * Agenda
 ** Tweaks
+   :PROPERTIES:
+   :ID:       FEDEAA2D-621D-47E5-9A31-12531D29EFC9
+   :END:
 #+begin_src emacs-lisp
 ;; Start the weekly agenda today
 (setq org-agenda-start-on-weekday nil)
@@ -184,29 +230,16 @@ Set directories here.
 
 #+results:
 : njn/goto-customer1
-* Remember
-** Keep clocks running if started from remember mode
-#+begin_src emacs-lisp
-(setq org-remember-clock-out-on-exit nil)
-#+end_src
-** Templates
-#+begin_src emacs-lisp
-(setq org-remember-templates
-   '(
-      ("Appointment" ?a "* %?\n  %U" "~/Documents/personal/nate.org" "Appointments" nil)
-      ("Journal" ?j "* %U %?\n\n  %i\n  %a" "~/Documents/personal/journal.org" "X" my-check)
-      ("Todo" ?t "* TODO %?\n\n%U  %i" "~/Documents/personal/notes.org" top)
-      ("Note" ?n "* %?" nil top nil)
-))
-#+end_src
 
 * Clocking
+
 #+begin_src emacs-lisp
   ;; Use 10 minute increments
   (setq org-time-stamp-rounding-minutes (quote (1 10)))
 #+end_src
 
 * Yasnippets
+
 #+begin_src emacs-lisp
 ;; Make TAB the yas trigger key in the org-mode-hook and turn on flyspell mode
 (add-hook 'org-mode-hook
