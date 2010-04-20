@@ -194,9 +194,6 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 (define-key org-mode-map (kbd "C-M-<return>") 'org-insert-subheading)
 (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
 
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
-
 ;; Agenda showing closed items -------------
 ;; Default to only show clock items, not the closed ones.
 (setq org-agenda-log-mode-items (quote (clock)))
