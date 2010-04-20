@@ -36,7 +36,7 @@
 ;; screen
 (setq custom-file "~/.emacs.d/custom.el")
 (when 
-   (file-exists-p (custom-file))
+   (file-exists-p custom-file)
    (load custom-file)
 )
 
