@@ -41,7 +41,9 @@
   ; Custom agenda commands
   (setq org-agenda-custom-commands 
         (quote (("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
-                ("." "Current Buffer" agenda "" ((org-agenda-files (list njn/current-buffer-name))))
+                ("." "Current Buffer" ((agenda "" ))
+                  ((org-agenda-files (list njn/current-buffer-name))
+                   (org-agenda-show-log t)))
                 ("S" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
                 ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
   
