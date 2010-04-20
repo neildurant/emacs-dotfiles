@@ -22,10 +22,9 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 #+begin_src emacs-lisp
 
-
   (setq njn/main-org-file (concat personal-org-dir "/nate.org"))
-  (setq njn/journal-org-file (concat personal-org-dir "/nate.org"))
-  (setq njn/notes-org-file (concat personal-org-dir "/nate.org"))
+  (setq njn/journal-org-file (concat personal-org-dir "/journal.org"))
+  (setq njn/notes-org-file (concat personal-org-dir "/notes.org"))
   
 #+end_src
 * Remember 
