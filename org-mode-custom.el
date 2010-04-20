@@ -20,7 +20,7 @@
 (if 
    (getenv "ORG_DIR")
     (setq personal-org-dir (getenv "ORG_DIR"))
-   (setq personal-org-dir (concat (getenv "HOME") "/Documents")
+   (setq personal-org-dir (concat (getenv "HOME") "/Documents/personal")
 ))
 
 (if 
