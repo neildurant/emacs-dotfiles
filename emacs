@@ -94,4 +94,4 @@
     (yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
 
 ;; Load org-mode customizations!  Yay!
-(load "/Users/nate/.emacs.d/org-mode-custom.el")
+(load "~/.emacs.d/org-mode-custom.el")
