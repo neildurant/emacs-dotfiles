@@ -3,6 +3,13 @@
   :PROPERTIES:
   :ID:       BCFE2FAF-6510-4949-B182-66521BB14A5D
   :END:
+* Main Settings
+** TODO Directories
+Set directories here.
+#+begin_src emacs-lisp
+     
+#+end_src
+
 * Tasks
 #+begin_src emacs-lisp
   ;; Don't allow setting a task to DONE if it has TODO 
