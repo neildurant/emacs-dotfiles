@@ -193,6 +193,12 @@
 ))
 #+end_src
 
+* Clocking
+#+begin_src emacs-lisp
+  ;; Use 10 minute increments
+  (setq org-time-stamp-rounding-minutes (quote (1 10)))
+#+end_src
+
 * Yasnippets
 #+begin_src emacs-lisp
 ;; Make TAB the yas trigger key in the org-mode-hook and turn on flyspell mode
