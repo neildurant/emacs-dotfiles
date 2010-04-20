@@ -35,7 +35,10 @@
 ;; settings that were set using emacs' custom
 ;; screen
 (setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+(when 
+   (file-exists-p (custom-file))
+   (load custom-file)
+)
 
 ;; Highlight the current line
 (global-hl-line-mode 1)
