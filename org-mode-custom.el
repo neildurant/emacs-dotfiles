@@ -17,7 +17,18 @@
 (setq org-log-done t)
 
 ;; Use environment variables to set org directories
-(setq personal-org-dir (getenv "ORG_DIR"))
+(if 
+   (getenv "ORG_DIR")
+    (setq personal-org-dir (getenv "ORG_DIR"))
+   (setq personal-org-dir (concat (getenv "HOME") "/Documents")
+))
+
+(if 
+   (getenv "NOTESMINE_DIR")
+    (setq notesmine-dir (getenv "ORG_DIR"))
+   (setq notesmine-dir (concat (getenv "HOME") "/Documents/notesmine")
+))
+
 (setq notesmine-dir (getenv "NOTESMINE_DIR"))
 
 ;; Define lists of agenda files for use later.
