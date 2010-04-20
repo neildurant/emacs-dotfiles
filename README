@@ -1,6 +1,19 @@
-To use this junk, check out this stuff to ~/.emacs.d
-or download to SOMEDIR and symlink ~/.emacs.d to SOMEDIR.
+* Emacs-dotfiles
 
-Then run
+These are my emacs dotfiles.  They mainly pertain to org-mode 'cause that's
+what I mainly use Emacs for.
 
-  ln -s ~/.emacs.d/emacs ~/.emacs
+* Installation:
+
+  - Rename your ~/.emacs.d to a backup folder
+  - git clone http://github.com/NathanNeff/emacs-dotfiles.git ~/.emacs.d
+  - ln -s ~/.emacs.d/emacs ~/.emacs
+  - cd ~/.emacs.d
+  - git submodule init
+  - git submodule update
+
+* Refresh / update
+
+  - cd ~/.emacs.d
+  - git pull origin master
+  - (I don't know if you have to do anything w/submodules) git submodule 
