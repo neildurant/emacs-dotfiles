@@ -181,33 +181,6 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 	   (message "Showing closed clock entries in agenda"))
     ))
 
-;; org-mode hook
-(add-hook 'org-mode-hook
-         (lambda ()
-           (local-set-key (kbd "\M-\C-n") 'outline-next-visible-heading)
-           (local-set-key (kbd "\M-\C-p") 'outline-previous-visible-heading)
-           (local-set-key (kbd "\M-\C-u") 'outline-up-heading)))
-
-(add-hook 'org-mode-hook 'turn-on-auto-fill)
-
-(easy-menu-define njn-menu org-mode-map "Nate's Org"
-  '("Norg"
-
-     ("Clock" ;; submenu
-       ["In" org-clock-in]
-       ["Out" org-clock-out]
-       ["Resolve" org-resolve-clocks]
-       ["Goto" org-clock-goto]
-       )
-     ("Agenda" ;; submenu
-       ["Limit to file" agenda-this-file-only]
-       ["Remove Limit to file" org-agenda-remove-restriction-lock]
-       ["Regular View" org-agenda-list]
-       ["Show Agenda" org-agenda]
-       )
-     )
-  )
-
 ;; From norang.org -- Change task state to STARTED from TODO when clocking in -------
 (defun bh/clock-in-to-started (kw)
   "Switch task from TODO to STARTED when clocking in"

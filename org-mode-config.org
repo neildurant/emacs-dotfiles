@@ -39,45 +39,15 @@ These settings are used in the [[Remember Templates]] section of this file.
   
 #+end_src
 
-** TODO State / TODO settings
-*** States
-  - Typical
-    - Todo
-    - Started
-    - Done
-    - Cancelled
-  - Non-Typical
-    - Waiting means I'm waiting on someone else to proceed w/this.
-    - Someday means I might consider this task
-    - Delegated means some other weenie is doing this job :-)
-
-  - @/! means leave a note and record time when entering.
-  - ! means to leave a timestamp when exiting unless the next state records the time.
-  - "D" means mark done/leave note, "d" is just quick "done" w/no note
+** State / TODO settings
 
 #+begin_src emacs-lisp
-(setq org-todo-keywords '(
-(sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!)")  
-(sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)")
-))
-#+end_src
+  ;; Change task state w/C-c C-t KEY
+  (setq org-use-fast-todo-selection t)
 
-#+begin_src emacs-lisp
-    ;; From norang.org -- Change task state to STARTED from TODO when clocking in -------
-    (defun bh/clock-in-to-started (kw)
-      "Switch task from TODO to STARTED when clocking in"
-      (if (and (string-equal kw "TODO") ;; Unless we're in a remember buffer
-               (not (string-equal (buffer-name) "*Remember*")))
-          "STARTED"
-        nil))
-
-    (setq org-clock-in-switch-to-state (quote bh/clock-in-to-started))
-    ;; Change task state w/C-c C-t KEY
-    (setq org-use-fast-todo-selection t)
-
-    ;; shift-left and shift-right change state (as always),
-    ;; but they don't trigger a prompt for notes, and timestamps, etc.
-    (setq org-treat-S-cursor-todo-selection-as-state-change nil)
+  ;; shift-left and shift-right change state (as always),
+  ;; but they don't trigger a prompt for notes, and timestamps, etc.
+  (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 #+end_src
 
 * Remember 
@@ -213,6 +183,27 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 #+end_src
 
+* Menus
+#+begin_src emacs-lisp
+
+(easy-menu-define njn-menu org-mode-map "Nate's Org"
+  '("Nate"
+
+     ("Clock" ;; submenu
+       ["In" org-clock-in]
+       ["Out" org-clock-out]
+       ["Resolve" org-resolve-clocks]
+       ["Goto" org-clock-goto]
+       )
+     ("Agenda" ;; submenu
+       ["Limit to file" agenda-this-file-only]
+       ["Remove Limit to file" org-agenda-remove-restriction-lock]
+       ["Regular View" org-agenda-list]
+       ["Show Agenda" org-agenda]
+       )
+     )
+  )
+#+end_src
 * Keyboard Shortcuts
 ** Speed Keys
 
