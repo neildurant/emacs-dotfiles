@@ -13,24 +13,13 @@
 (setq personal-org-files (file-expand-wildcards (concat personal-org-dir "/*.org")))
 (setq notesmine-org-files (file-expand-wildcards (concat notesmine-dir "/*.org")))
 
-;;http://orgmode.org/manual/Setting-up-Remember.html#Setting-up-Remember
-(setq org-default-notes-file (concat personal-org-dir "/notes.org"))
-
-
-
-(require 'remember-autoloads)
 
 
 
 
-(setq remember-annotation-functions '(org-remember-annotation))
-(setq remember-handler-functions '(org-remember-handler))
-(eval-after-load 'remember
-                     '(add-hook 'remember-mode-hook 'org-remember-apply-template))
 
 
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cb" 'org-iswitchb)
+
 (add-to-list 'auto-mode-alist '("\>org$" . org-mode))                           ;; (4)
 
 (setq org-todo-keywords '("TODO" "STARTED" "WAITING" "DONE"))                    ;; (6)
