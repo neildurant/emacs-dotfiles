@@ -247,6 +247,16 @@ These settings are used in the [[Remember Templates]] section of this file.
 #+end_src
 
 * Yasnippets
+** Initialization
+
+#+begin_src emacs-lisp
+;; Load Yasnippets
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/yasnippet"))
+    (require 'yasnippet)
+    (yas/initialize)
+    (yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
+#+end_src
+
 
 #+begin_src emacs-lisp
 ;; Make TAB the yas trigger key in the org-mode-hook and turn on flyspell mode

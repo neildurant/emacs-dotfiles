@@ -87,12 +87,6 @@
 ;; http://blog.enqueue.eu/emacs-mac-3
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; Load Yasnippets
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/yasnippet"))
-    (require 'yasnippet)
-    (yas/initialize)
-    (yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
-
 ;; Add org-mode to path
 (setq load-path (cons "~/.emacs.d/src/org/contrib/lisp" load-path))
 (setq load-path (cons "~/.emacs.d/src/org/lisp" load-path))
