@@ -93,9 +93,6 @@
     (yas/initialize)
     (yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
 
-;; Add remember code to load path
-(add-to-list 'load-path "~/.emacs.d/remember")
-
 ;; Add org-mode to path
 (setq load-path (cons "~/.emacs.d/src/org/contrib/lisp" load-path))
 (setq load-path (cons "~/.emacs.d/src/org/lisp" load-path))

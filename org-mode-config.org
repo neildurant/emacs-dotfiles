@@ -39,6 +39,13 @@ These settings are used in the [[Remember Templates]] section of this file.
   
 #+end_src
 * Remember 
+** Initialization
+;; Integrate org-mode w/remember
+(add-to-list 'load-path "~/.emacs.d/remember")
+(require 'remember)
+(org-remember-insinuate)
+
+
 ** Keep clocks running if started from remember mode
    :PROPERTIES:
    :ID:       6B4E5193-54C1-4531-8D22-1CC6255045F3

@@ -1,10 +1,6 @@
 
 
 (require 'org-list)
-(require 'remember)
-
-(org-remember-insinuate)
-
 ;; Trigger org-mode for files ending in .org .org_archive and .txt
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
@@ -24,7 +20,6 @@
 
 ;;http://orgmode.org/manual/Setting-up-Remember.html#Setting-up-Remember
 (setq org-default-notes-file (concat personal-org-dir "/notes.org"))
-(define-key global-map "\C-cr" 'org-remember)
 
 
 
