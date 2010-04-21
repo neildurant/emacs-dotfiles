@@ -70,14 +70,7 @@
 
 
 (add-to-list 'org-modules 'org-habit)
-(setq org-todo-keyword-faces (quote (("TODO" :foreground "red" :weight bold)
- ("STARTED" :foreground "blue" :weight bold)
- ("DONE" :foreground "forest green" :weight bold)
- ("WAITING" :foreground "orange" :weight bold)
- ("SOMEDAY" :foreground "magenta" :weight bold)
- ("CANCELLED" :foreground "forest green" :weight bold)
- ("OPEN" :foreground "blue" :weight bold)
- ("PROJECT" :foreground "red" :weight bold))))
+
 
 (require 'org-publish)
 ;; Zap junk css in exported org files    
