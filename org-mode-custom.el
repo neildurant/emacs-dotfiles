@@ -65,28 +65,10 @@
 (tool-bar-mode -1)            ;; No toolbar <evil laugh>
 
 
-;; http://doc.norang.ca/org-mode.html#sec-1 ------------
-;;(setq org-todo-keywords (quote (
-;;(sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-;;(sequence "WAITING(w@/!)" "DELEGATED(e!)" "|" "DEFERRED" "CANCELLED")
-;;)))
 
-;; TODO States --
-;; I only like the TODO STARTED DONE sequence.  Everything else,
-;; I would rather just pick from a list, instead of getting surprised w/more junk
-;;             WAITING    means I'm waiting on some other weenie to complete something
-;;             DELEGATED  means some other weenie is doing this job :-)
-;;             SOMEDAY    means item has been postponed indefinitely, but 
-;;                        isn't started and doesn't have a planned start
-;;             CANCELLED  means item won't be done (Yay!)
-;; Examples: @/! means leave a note and record time when entering.
-;;               The ! means to leave a timestamp when exiting, unless the
-;;               next state records the time.
-;; "D" means mark done/leave note, "d" is just quick "done" w/no note
-(setq org-todo-keywords '(
-(sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!)")  
-(sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)")
-))
+  
+
+
 (add-to-list 'org-modules 'org-habit)
 (setq org-todo-keyword-faces (quote (("TODO" :foreground "red" :weight bold)
  ("STARTED" :foreground "blue" :weight bold)
