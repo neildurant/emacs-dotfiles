@@ -232,25 +232,12 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 
 ;; Separate drawers for clocking and logs
 (setq org-drawers (quote ("PROPERTIES" "LOGBOOK" "CLOCK")))
-;; Automatically clock in when adding a note
-(add-hook 'remember-mode-hook 'org-clock-in 'append)
 ;; Save clock data in the CLOCK drawer and state changes and notes in the LOGBOOK drawer
 (setq org-clock-into-drawer "CLOCK")
 ;; Don't clock out when moving task to a done state
 (setq org-clock-out-when-done nil)
 
-;; If there's an existing clocked task, then prompt to clock back in.
-(add-hook 'org-remember-before-finalize-hook 'njn/clock-in-interrupted-task)
 
-(defun njn/clock-in-interrupted-task ()
- "Clock in the interrupted task if there is one"
- (interactive)
- (if (and (not org-clock-resolving-clocks-due-to-idleness)
-          (marker-buffer org-clock-marker)
-          (marker-buffer org-clock-interrupted-task)
-          (y-or-n-p "Clock back in to prev. task? "))
-     (org-with-point-at org-clock-interrupted-task
-       (org-clock-in nil))))
 
 ;; TODO: Use these after getting UUIDs of often used tasks
 ;; (global-set-key (kbd "<f9> m") 'bh/clock-in-read-mail-and-news-task)

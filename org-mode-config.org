@@ -62,9 +62,27 @@ These settings are used in the [[Remember Templates]] section of this file.
 (org-remember-insinuate)
 #+end_src
 
-** Keep clocks running if started from remember mode
+** Custom Remember Functions
 #+begin_src emacs-lisp
-(setq org-remember-clock-out-on-exit nil)
+(defun njn/clock-in-interrupted-task ()
+ "Clock in the interrupted task if there is one"
+ (interactive)
+ (if (and (not org-clock-resolving-clocks-due-to-idleness)
+          (marker-buffer org-clock-marker)
+          (marker-buffer org-clock-interrupted-task)
+          (y-or-n-p "Clock back in to prev. task? "))
+     (org-with-point-at org-clock-interrupted-task
+       (org-clock-in nil))))
+#+end_src
+** Clock Settings
+#+begin_src emacs-lisp
+    ;; Start clock in a remember buffer and switch back to previous clocking task on save
+    (add-hook 'remember-mode-hook 'org-clock-in 'append)
+    (add-hook 'org-remember-before-finalize-hook 'njn/clock-in-interrupted-task)
+    ;; Keep clocks running
+    (setq org-remember-clock-out-on-exit nil)
+    ;; Automatically clock in when adding a note
+    (add-hook 'remember-mode-hook 'org-clock-in 'append)
 #+end_src
 ** Remember Templates
 #+begin_src emacs-lisp
