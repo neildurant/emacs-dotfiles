@@ -22,7 +22,6 @@
 
 (add-to-list 'auto-mode-alist '("\>org$" . org-mode))                           ;; (4)
 
-(setq org-todo-keywords '("TODO" "STARTED" "WAITING" "DONE"))                    ;; (6)
 ;; (setq diary-file "~/Documents/journal")
 (setq org-agenda-diary-file "~/Documents/personal/journal.org")
 (setq org-agenda-include-all-todo t)
