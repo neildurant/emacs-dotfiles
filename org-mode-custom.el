@@ -109,8 +109,6 @@
  ("OPEN" :foreground "blue" :weight bold)
  ("PROJECT" :foreground "red" :weight bold))))
 
-;; Change task state w/C-c C-t KEY
-(setq org-use-fast-todo-selection t)
 (require 'org-publish)
 ;; Zap junk css in exported org files    
 (setq org-export-html-style-default "")
