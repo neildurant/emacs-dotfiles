@@ -181,41 +181,6 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 	   (message "Showing closed clock entries in agenda"))
     ))
 
-;; From norang.org -- Change task state to STARTED from TODO when clocking in -------
-(defun bh/clock-in-to-started (kw)
-  "Switch task from TODO to STARTED when clocking in"
-  (if (and (string-equal kw "TODO") ;; Unless we're in a remember buffer
-           (not (string-equal (buffer-name) "*Remember*")))
-      "STARTED"
-    nil))
-
-(setq org-clock-in-switch-to-state (quote bh/clock-in-to-started))
-
-
-;; Separate drawers for clocking and logs
-(setq org-drawers (quote ("PROPERTIES" "LOGBOOK" "CLOCK")))
-;; Save clock data in the CLOCK drawer and state changes and notes in the LOGBOOK drawer
-(setq org-clock-into-drawer "CLOCK")
-;; Don't clock out when moving task to a done state
-(setq org-clock-out-when-done nil)
-
-
-
-;; TODO: Use these after getting UUIDs of often used tasks
-;; (global-set-key (kbd "<f9> m") 'bh/clock-in-read-mail-and-news-task)
-;; (global-set-key (kbd "<f9> o") 'bh/clock-in-organization-task)
-;; (global-set-key (kbd "<f9> O") 'org-clock-out)
-
-(defun njn/clock-in-task-by-id (id)
- "Clock in a task by id"
- (require 'org-id)
- (save-restriction
-   (widen)
-   (org-with-point-at (org-id-find id 'marker)
-     (org-clock-in nil))))
-
-
-
 
 ;; Insert immediate timestamp
 ;; From russell on org-mode mailing list.

@@ -106,13 +106,20 @@ These settings are used in the [[Remember Templates]] section of this file.
 #+end_src
 ** Clock Settings
 #+begin_src emacs-lisp
-    ;; Start clock in a remember buffer and switch back to previous clocking task on save
-    (add-hook 'remember-mode-hook 'org-clock-in 'append)
-    (add-hook 'org-remember-before-finalize-hook 'njn/clock-in-interrupted-task)
-    ;; Keep clocks running
-    (setq org-remember-clock-out-on-exit nil)
-    ;; Automatically clock in when adding a note
-    (add-hook 'remember-mode-hook 'org-clock-in 'append)
+  ;; Separate drawers for clocking and logs
+  (setq org-drawers (quote ("PROPERTIES" "LOGBOOK" "CLOCK")))
+  ;; Save clock data in the CLOCK drawer and state changes and notes in the LOGBOOK drawer
+  (setq org-clock-into-drawer "CLOCK")
+  ;; Don't clock out when moving task to a done state
+  (setq org-clock-out-when-done nil)
+
+  ;; Start clock in a remember buffer and switch back to previous clocking task on save
+  (add-hook 'remember-mode-hook 'org-clock-in 'append)
+  (add-hook 'org-remember-before-finalize-hook 'njn/clock-in-interrupted-task)
+  ;; Keep clocks running
+  (setq org-remember-clock-out-on-exit nil)
+  ;; Automatically clock in when adding a note
+  (add-hook 'remember-mode-hook 'org-clock-in 'append)
 #+end_src
 ** Remember Templates
 #+begin_src emacs-lisp
