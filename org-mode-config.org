@@ -14,6 +14,15 @@ Set directories here.
        (setq personal-org-dir (concat (getenv "HOME") "/Documents/personal")
     ))
 
+    ;; define a function to read contents of personal-org-dir and
+    ;; return *.org files.  Use this function when we need to know
+    ;; what files are in personal-org-dir :-)
+
+    (defun njn/personal-org-files()
+       (interactive)
+       (directory-files personal-org-dir 't "^[^.].*org$")
+    )
+
     (if 
        (getenv "NOTESMINE_DIR")
         (setq notesmine-dir (getenv "ORG_DIR"))
@@ -396,4 +405,33 @@ These settings are used in the [[Remember Templates]] section of this file.
                (setq yas/fallback-behavior
                      '(apply ,original-command))
                (local-set-key [tab] 'yas/expand))))
+#+end_src
+* Refiling
+#+begin_src emacs-lisp
+; Refile targets default to only filez found in personal-org-files directory
+(defun njn/set-default-refile-targets() 
+  (interactive) 
+  (setq org-refile-targets 
+	(quote ((njn/personal-org-files :maxlevel . 5))))
+)
+
+(njn/set-default-refile-targets)
+
+(defun njn/add-notesmine-to-refile-targets() 
+  (interactive)
+  (setq org-refile-targets 
+	(quote 
+	 ((personal-org-files :maxlevel . 5)
+          (notesmine-org-files :maxlevel . 5))))
+  )
+
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+
+; Targets start with the file name - allows creating level 1 tasks
+(setq org-refile-use-outline-path (quote file))
+
+; Targets complete in steps so we start with filename, TAB shows the next level of targets etc 
+(setq org-outline-path-complete-in-steps t)
+
+
 #+end_src

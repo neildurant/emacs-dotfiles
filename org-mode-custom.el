@@ -35,30 +35,6 @@
 ; Use IDO for target completion
 (setq org-completion-use-ido t)
 
-; Refile targets default to only filez found in personal-org-files directory
-(defun njn/set-default-refile-targets() 
-  (interactive) 
-  (setq org-refile-targets 
-	(quote ((personal-org-files :maxlevel . 5))))
-)
-
-(njn/set-default-refile-targets)
-
-(defun njn/add-notesmine-to-refile-targets() 
-  (interactive)
-  (setq org-refile-targets 
-	(quote 
-	 ((personal-org-files :maxlevel . 5)
-          (notesmine-org-files :maxlevel . 5))))
-  )
-
-(setq org-refile-allow-creating-parent-nodes 'confirm)
-
-; Targets start with the file name - allows creating level 1 tasks
-(setq org-refile-use-outline-path (quote file))
-
-; Targets complete in steps so we start with filename, TAB shows the next level of targets etc 
-(setq org-outline-path-complete-in-steps t)
 
 
 ;; GUI Options ----------------
