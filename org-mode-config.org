@@ -40,11 +40,15 @@ These settings are used in the [[Remember Templates]] section of this file.
 #+end_src
 * Remember 
 ** Initialization
+#+begin_src emacs-lisp
+   
+
+
 ;; Integrate org-mode w/remember
 (add-to-list 'load-path "~/.emacs.d/remember")
 (require 'remember)
 (org-remember-insinuate)
-
+#+end_src
 
 ** Keep clocks running if started from remember mode
 #+begin_src emacs-lisp
