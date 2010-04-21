@@ -12,11 +12,6 @@
 ;; Define lists of agenda files for use later.
 (setq personal-org-files (file-expand-wildcards (concat personal-org-dir "/*.org")))
 (setq notesmine-org-files (file-expand-wildcards (concat notesmine-dir "/*.org")))
-(setq enrollio-org-files (file-expand-wildcards (concat personal-org-dir "/*bworksdb.org")))
-(setq main-org-files (file-expand-wildcards (concat personal-org-dir "/nate.org")))
-
-;; Default to main org files for agenda
-(setq org-agenda-files main-org-files)
 
 ;;http://orgmode.org/manual/Setting-up-Remember.html#Setting-up-Remember
 (setq org-default-notes-file (concat personal-org-dir "/notes.org"))
