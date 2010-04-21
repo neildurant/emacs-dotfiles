@@ -7,7 +7,18 @@
 ** TODO Directories
 Set directories here.
 #+begin_src emacs-lisp
-     
+    ;; Use environment variables to set org directories
+    (if 
+       (getenv "ORG_DIR")
+        (setq personal-org-dir (getenv "ORG_DIR"))
+       (setq personal-org-dir (concat (getenv "HOME") "/Documents/personal")
+    ))
+
+    (if 
+       (getenv "NOTESMINE_DIR")
+        (setq notesmine-dir (getenv "ORG_DIR"))
+       (setq notesmine-dir (concat (getenv "HOME") "/Documents/notesmine")
+    ))
 #+end_src
 
 ** Remember Files

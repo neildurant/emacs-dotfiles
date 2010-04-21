@@ -93,5 +93,18 @@
     (yas/initialize)
     (yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
 
+;; Add remember code to load path
+(add-to-list 'load-path "~/.emacs.d/remember")
+
+;; Add org-mode to path
+(setq load-path (cons "~/.emacs.d/src/org/contrib/lisp" load-path))
+(setq load-path (cons "~/.emacs.d/src/org/lisp" load-path))
+
+(require 'org-babel-init)     
+(require 'org-install)
+
+(org-babel-load-file "~/.emacs.d/org-mode-config.org")
+
+
 ;; Load org-mode customizations!  Yay!
-(load "~/.emacs.d/org-mode-custom.el")
+;;(load "~/.emacs.d/org-mode-custom.el")

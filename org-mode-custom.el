@@ -1,11 +1,5 @@
-;; Add remember code to load path
-(add-to-list 'load-path "~/.emacs.d/remember")
 
-;; Add org-mode to path
-(setq load-path (cons "~/.emacs.d/src/org/contrib/lisp" load-path))
-(setq load-path (cons "~/.emacs.d/src/org/lisp" load-path))
 
-(require 'org-install)
 (require 'org-list)
 (require 'remember)
 
@@ -16,18 +10,6 @@
 
 (setq org-log-done t)
 
-;; Use environment variables to set org directories
-(if 
-   (getenv "ORG_DIR")
-    (setq personal-org-dir (getenv "ORG_DIR"))
-   (setq personal-org-dir (concat (getenv "HOME") "/Documents/personal")
-))
-
-(if 
-   (getenv "NOTESMINE_DIR")
-    (setq notesmine-dir (getenv "ORG_DIR"))
-   (setq notesmine-dir (concat (getenv "HOME") "/Documents/notesmine")
-))
 
 (setq notesmine-dir (getenv "NOTESMINE_DIR"))
 
@@ -324,9 +306,9 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 
 (setq org-clock-report-include-clocking-task 't)
 
-(require 'org-babel-init)     
+
 (require 'org-babel-perl)
 (require 'org-babel-python)
 ;;(require 'org-babel-groovy)
 
-(org-babel-load-file "~/.emacs.d/org-mode-config.org")
+
