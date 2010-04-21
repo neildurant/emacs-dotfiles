@@ -47,16 +47,10 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 
 ** Keep clocks running if started from remember mode
-   :PROPERTIES:
-   :ID:       6B4E5193-54C1-4531-8D22-1CC6255045F3
-   :END:
 #+begin_src emacs-lisp
 (setq org-remember-clock-out-on-exit nil)
 #+end_src
 ** Remember Templates
-   :PROPERTIES:
-   :ID:       D39D0B00-2A7A-48BC-9A5F-450627F69709
-   :END:
 #+begin_src emacs-lisp
   
   
@@ -79,9 +73,6 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 * Agenda
 ** Tweaks
-   :PROPERTIES:
-   :ID:       FEDEAA2D-621D-47E5-9A31-12531D29EFC9
-   :END:
 #+begin_src emacs-lisp
 ;; Start the weekly agenda today
 (setq org-agenda-start-on-weekday nil)
