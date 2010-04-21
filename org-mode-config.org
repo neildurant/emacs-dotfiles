@@ -185,8 +185,11 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 (global-set-key (kbd "<f6> e") (lambda () "Goto Enrollio"
     (interactive)
-    (org-id-goto "997DDAB8-DDFF-4517-90F2-CEFB0A2727E7"))) 
+    (org-id-goto "997DDAB8-DDFF-4517-90F2-CEFB0A2727E7")))
 
+(global-set-key (kbd "<f6> a") (lambda () "Goto Appointments"
+    (interactive)
+    (org-id-goto "A33F7A0C-F974-4C7F-A4FD-1AAA6CF9C60E")))
 
 (global-set-key (kbd "<f6> b") (lambda () "Goto Byteworks"
     (interactive)
