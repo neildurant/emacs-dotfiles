@@ -302,6 +302,10 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 (global-set-key "\C-cb" 'org-iswitchb)
 
+(global-set-key (kbd "<f6> f") (lambda () "Goto Foo Org File"
+    (interactive)
+    (org-id-goto "F3B14102-A66D-408C-8833-1F9CF7E5047C")))
+
 (global-set-key (kbd "<f6> m") (lambda () "Goto some task"
     (interactive)
     (org-id-goto "49E0DC6B-D78C-4C7A-88BF-545DA0907FFE"))) 
