@@ -184,6 +184,21 @@ These settings are used in the [[Remember Templates]] section of this file.
 #+end_src
 
 * Keyboard Shortcuts
+** Speed Keys
+
+#+begin_src emacs-lisp
+(setq org-use-speed-commands t)
+(setq org-speed-commands-user (quote (("0" . delete-window)
+                                      ("1" . delete-other-windows)
+                                      ("2" . split-window-vertically)
+                                      ("3" . split-window-horizontally)
+                                      ("h" . hide-other)
+                                      ("k" . org-kill-note-or-show-branches)
+                                      ;; Zap the current subtree
+                                      ("d" . org-cut-special)
+                                      ("r" . org-reveal))))
+
+#+end_src
 ** Something
 #+begin_src emacs-lisp
 ;; Keyboard bindings
