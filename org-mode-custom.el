@@ -84,7 +84,6 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
 ;; http://orgmode.org/manual/Clean-view.html
 ;;(setq org-hide-leading-stars t)
 ;;(setq org-odd-levels-only t)
-(setq org-log-into-drawer t)
 
 (if (< emacs-major-version 23)
    (defun characterp (obj)
