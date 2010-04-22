@@ -1,10 +1,10 @@
-#+property: results silent
+#+property: results silent indent
 * Org Mode Configuration
   :PROPERTIES:
   :ID:       BCFE2FAF-6510-4949-B182-66521BB14A5D
   :END:
 * Main Settings
-** TODO Directories
+** Directories
 Set directories here.
 #+begin_src emacs-lisp
     ;; Use environment variables to set org directories
