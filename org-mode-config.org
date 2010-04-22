@@ -306,6 +306,9 @@ These settings are used in the [[Remember Templates]] section of this file.
 ** Editing
 #+begin_src emacs-lisp
   (org-defkey org-mode-map (kbd "M-j")
+  ;; Insert subheading shortcuts
+  (define-key org-mode-map (kbd "C-M-<return>") 'org-insert-subheading)
+  (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
     '(lambda () (interactive)
     (org-show-subtree) (end-of-line)
     (org-return-indent)))

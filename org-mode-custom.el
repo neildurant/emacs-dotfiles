@@ -108,9 +108,7 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
    (defun characterp (obj)
      (and (char-or-string-p obj) (not (stringp obj)))))
 
-;; C-M-<return> inserts a new subheading / sub list
-(define-key org-mode-map (kbd "C-M-<return>") 'org-insert-subheading)
-(define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
+
 
 ;; Agenda showing closed items -------------
 ;; Default to only show clock items, not the closed ones.
