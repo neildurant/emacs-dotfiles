@@ -10,3 +10,4 @@ org-mode-config.el
 *.log
 .DS_Store
 config
+org-clock-save.el
