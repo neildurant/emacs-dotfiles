@@ -201,9 +201,13 @@ These settings are used in the [[Remember Templates]] section of this file.
   ; Custom agenda commands
   (setq org-agenda-custom-commands 
         (quote (("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
-                ("." "Current Buffer" ((agenda "" ))
+                ("." "Cur Buffer - Regular" ((agenda "" ))
                   ((org-agenda-files (list njn/current-buffer-name))
                    (org-agenda-show-log t)))
+                ("," "Current Buffer - TODO" 
+                  ((alltodo))
+                  ((org-agenda-files (list njn/current-buffer-name))
+                  ))
                 ("S" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
                 ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
   
@@ -305,13 +309,24 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 ** Editing
 #+begin_src emacs-lisp
+  ;; Alt-j starts a new blank text line at the correct indent, even if 
+  ;; the file's #+property indent is not set
+
   (org-defkey org-mode-map (kbd "M-j")
+    '(lambda () 
+     (interactive)
+     (end-of-line)
+     (org-return-indent)))
+
+  ;; Alt-return normally breaks the headline if you press it in the
+  ;; middle of a headline.  Disable that behavior
+  (setq org-M-RET-may-split-line nil)
+
   ;; Insert subheading shortcuts
   (define-key org-mode-map (kbd "C-M-<return>") 'org-insert-subheading)
   (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
-    '(lambda () (interactive)
-    (org-show-subtree) (end-of-line)
-    (org-return-indent)))
+
+
 #+end_src
 
 * Fast Navigation to Files
@@ -389,8 +404,17 @@ These settings are used in the [[Remember Templates]] section of this file.
 * Clocking
 
 #+begin_src emacs-lisp
+  ;; Save the running clock and all clock history when exiting Emacs, load it on startup
+  (require 'org-clock)
+  (setq org-clock-persist 't)
+  (org-clock-persistence-insinuate)
+
   ;; Use 10 minute increments
   (setq org-time-stamp-rounding-minutes (quote (1 10)))
+
+  ;; Show 10 items in prev. clocked tasks.
+  ;; Yes it's long... but more is better ;)
+  (setq org-clock-history-length 10)
 #+end_src
 
 * Yasnippets
