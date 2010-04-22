@@ -48,8 +48,7 @@ These settings are used in the [[Remember Templates]] section of this file.
   
 #+end_src
 
-** todo State / todo settings
-*** States
+** Task States
   - Typical
     - Todo
     - Started
