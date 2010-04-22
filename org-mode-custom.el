@@ -108,8 +108,6 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
    (defun characterp (obj)
      (and (char-or-string-p obj) (not (stringp obj)))))
 
-;; Don't put blank lines after headings.
-(setq org-blank-before-new-entry (quote ((heading) (plain-list-item))))
 ;; C-M-<return> inserts a new subheading / sub list
 (define-key org-mode-map (kbd "C-M-<return>") 'org-insert-subheading)
 (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)

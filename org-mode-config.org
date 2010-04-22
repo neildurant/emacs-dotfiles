@@ -89,6 +89,11 @@ These settings are used in the [[Remember Templates]] section of this file.
     (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 #+end_src
 
+* Outlines
+#+begin_src emacs-lisp
+  ;; Don't put blank lines after headings.
+(setq org-blank-before-new-entry (quote ((heading) (plain-list-item))))
+#+end_src
 * Remember 
 ** Initialization
 #+begin_src emacs-lisp
