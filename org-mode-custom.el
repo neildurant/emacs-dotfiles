@@ -17,34 +17,18 @@
 
 
 
-
 (add-to-list 'auto-mode-alist '("\>org$" . org-mode))                           ;; (4)
 
-;; (setq diary-file "~/Documents/journal")
-(setq org-agenda-diary-file "~/Documents/personal/journal.org")
-(setq org-agenda-include-all-todo t)
-;; If an item is SCHEDULED, then don't show the TODO
-;; entry until the day it's due.
-(setq org-agenda-todo-ignore-scheduled t)
 
-(setq org-agenda-include-all-todo t)    
+;; If an item is SCHEDULED, then don't show the TODO
+;; in the TODO list until the day it's scheduled to start.
+(setq org-agenda-todo-ignore-scheduled t)
 
 ;; ---  http://doc.norang.ca/org-mode.html#sec-1
 ; Use IDO for target completion
 (setq org-completion-use-ido t)
 
-
-
-;; GUI Options ----------------
-(tool-bar-mode -1)            ;; No toolbar <evil laugh>
-
-
-
-  
-
-
 (add-to-list 'org-modules 'org-habit)
-
 
 (require 'org-publish)
 ;; Zap junk css in exported org files    
@@ -136,14 +120,9 @@ org-agenda-clockreport-parameter-plist '(:link t :maxlevel 99 ))
       (insert "\n"))))
 
 
-(setq org-insert-heading-always-after-current t)
-
-
 (setq org-clock-report-include-clocking-task 't)
 
 
 (require 'org-babel-perl)
 (require 'org-babel-python)
 ;;(require 'org-babel-groovy)
-
-
