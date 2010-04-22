@@ -89,6 +89,12 @@ These settings are used in the [[Remember Templates]] section of this file.
     (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 #+end_src
 
+** File Types
+#+begin_src emacs-lisp
+    ;; Trigger org-mode for files ending in .org .org_archive and .txt
+    (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+#+end_src
+
 * Outlines
 #+begin_src emacs-lisp
   ;; Don't put blank lines after headings.

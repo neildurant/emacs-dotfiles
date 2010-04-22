@@ -1,8 +1,6 @@
 
 
 (require 'org-list)
-;; Trigger org-mode for files ending in .org .org_archive and .txt
-(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
 (setq org-log-done t)
 
