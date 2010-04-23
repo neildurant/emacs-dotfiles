@@ -476,3 +476,105 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 
 #+end_src
+* Publishing
+#+begin_src emacs-lisp
+  ; Inline images in HTML instead of producting links to the image
+(setq org-export-html-inline-images t)
+; Do not use sub or superscripts - I currently don't need this functionality in my documents
+(setq org-export-with-sub-superscripts nil)
+; Use org.css from the norang website for export document stylesheets
+(setq org-export-html-style-extra "<link rel=\"stylesheet\" href=\"http://doc.norang.ca/org.css\" type=\"text/css\" />")
+(setq org-export-html-style-include-default nil)
+; Do not generate internal css formatting for HTML exports
+(setq org-export-htmlize-output-type (quote css))
+
+; List of projects
+; orgmode.nateneff.com
+; notesmine.com
+(setq org-publish-project-alist
+;
+; http://orgmode.nateneff.com/
+; norang-org are the org-files that generate the content
+; norang-extra are images and css files that need to be included
+; norang is the top-level project that gets published
+      (quote (("norang-org"
+               :base-directory "~/git/www.norang.ca"
+               :publishing-directory "/ssh:www-data@www:~/www.norang.ca/htdocs"
+               :recursive t
+               :section_numbers nil
+               :table-of-contents nil
+               :base-extension "org"
+               :publishing-function org-publish-org-to-html
+               :style-include-default nil
+               :section-numbers nil
+               :table-of-contents nil
+               :style-include-default nil
+               :style "<link rel=\"stylesheet\" href=\"norang.css\" type=\"text/css\">"
+               :author-info nil
+               :creator-info nil)
+              ("norang-extra"
+               :base-directory "~/git/www.norang.ca/"
+               :publishing-directory "/ssh:www-data@www:~/www.norang.ca/htdocs"
+               :base-extension "css\\|pdf\\|png\\|jpg\\|gif"
+               :publishing-function org-publish-attachment
+               :recursive t
+               :author nil)
+              ("norang"
+               :components ("norang-org" "norang-extra"))
+;
+; http://doc.norang.ca/  (norang website)
+; doc-org are the org-files that generate the content
+; doc-extra are images and css files that need to be included
+; doc is the top-level project that gets published
+              ("doc-org"
+               :base-directory "~/git/doc.norang.ca/"
+               :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs"
+               :recursive t
+               :section_numbers nil
+               :table-of-contents nil
+               :base-extension "org"
+               :publishing-function (org-publish-org-to-html org-publish-org-to-org)
+               :plain-source t
+               :htmlized-source t
+               :style-include-default nil
+               :style "<link rel=\"stylesheet\" href=\"/org.css\" type=\"text/css\">"
+               :author-info nil
+               :creator-info nil)
+              ("doc-extra"
+               :base-directory "~/git/doc.norang.ca/"
+               :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs"
+               :base-extension "css\\|pdf\\|png\\|jpg\\|gif"
+               :publishing-function org-publish-attachment
+               :recursive t
+               :author nil)
+              ("doc"
+               :components ("doc-org" "doc-extra"))
+;
+; Miscellaneous pages for other websites
+; org are the org-files that generate the content
+              ("org"
+               :base-directory "~/git/org/"
+               :publishing-directory "/ssh:www-data@www:~/org"
+               :recursive t
+               :section_numbers nil
+               :table-of-contents nil
+               :base-extension "org"
+               :publishing-function org-publish-org-to-html
+               :style-include-default nil
+               :style "<link rel=\"stylesheet\" href=\"/org.css\" type=\"text/css\">"
+               :author-info nil
+               :creator-info nil))))
+
+; I'm lazy and don't want to remember the name of the project to publish when I modify
+; a file that is part of a project.  So this function saves the file, and publishes
+; the project that includes this file
+;
+; It's bound to C-S-F12 so I just edit and hit C-S-F12 when I'm done and move on to the next thing
+(defun bh/save-then-publish ()
+  (interactive)
+  (save-buffer)
+  (org-save-all-org-buffers)
+  (org-publish-current-project))
+
+(global-set-key (kbd "C-s-<f12>") 'bh/save-then-publish)
+#+end_src
