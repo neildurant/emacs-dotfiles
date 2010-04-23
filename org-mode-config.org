@@ -191,6 +191,8 @@ These settings are used in the [[Remember Templates]] section of this file.
 ;; Keep tasks with dates off the global todo lists
 (setq org-agenda-todo-ignore-with-date t)
 
+;; In agenda searches, indent the search results according to their
+   indent level.  This helps to show sub-items in agenda searches
 #+end_src
 ** Misc Functions
 #+begin_src emacs-lisp
