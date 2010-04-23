@@ -209,10 +209,14 @@ These settings are used in the [[Remember Templates]] section of this file.
 #+begin_src emacs-lisp
   ; Custom agenda commands
   (setq org-agenda-custom-commands 
-        (quote (("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
+        (quote (
+                ("p" "Projects/issues/questions" (
+                     (tags-todo "project|issue|question/!-DONE")
+                      (tags "question/-DONE")))
                 ("." "Cur Buffer - Regular" ((agenda "" ))
                   ((org-agenda-files (list njn/current-buffer-name))
-                   (org-agenda-show-log t)))
+                   (org-agenda-show-log t))
+                )
                 ("," "Current Buffer - TODO" 
                   ((alltodo))
                   ((org-agenda-files (list njn/current-buffer-name))
@@ -223,7 +227,7 @@ These settings are used in the [[Remember Templates]] section of this file.
                 ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
                 ("o" "SOMEDAY" tags "SOMEDAY" ((org-use-tag-inheritance nil)))
                 ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
-                ("p" "Personal Agenda" ((agenda ""))
+                ("*" "All Personal Files" ((agenda ""))
                  ((org-agenda-files (directory-files personal-org-dir 't "^[^.].*org$"))
                   (org-agenda-show-log t)))
                 ("e" "Enrollio Agenda" agenda ""
