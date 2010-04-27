@@ -497,6 +497,7 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 #+end_src
 * Publishing
+** Publishing
 #+begin_src emacs-lisp
   ; Inline images in HTML instead of producting links to the image
 (setq org-export-html-inline-images t)
@@ -554,5 +555,43 @@ These settings are used in the [[Remember Templates]] section of this file.
   (org-save-all-org-buffers)
   (org-publish-current-project))
 
+
+#+end_src
+** Jekyll
+#+begin_src emacs-lisp
+   (require 'org-jekyll)
+(setq org-publish-jr "~/cjr/jr/publish/")
+(setq org-publish-jr-blog (concat org-publish-jr "blog/"))
+
+(add-to-list 'org-publish-project-alist
+             `("jr-org"
+               :base-directory "~/cjr/jr/"
+               :recursive t
+               :base-extension "org"
+               :publishing-directory ,org-publish-jr
+               :blog-publishing-directory ,org-publish-jr-blog
+               :site-root "http://localhost:4000"
+               :jekyll-sanitize-permalinks t
+               :publishing-function org-publish-org-to-html
+               :section-numbers nil
+               :headline-levels 4
+               :table-of-contents t
+               :auto-index nil
+               :auto-preamble nil
+               :body-only t
+               :auto-postamble nil))
+
+(add-to-list 'org-publish-project-alist
+             `("jr-img"
+               :base-directory "~/cjr/jr/"
+               :recursive t
+               :exclude "^publish"
+               :base-extension "jpg\\|gif\\|png"
+               :publishing-directory ,org-publish-jr
+               :publishing-function org-publish-attachment))
+
+(add-to-list 'org-publish-project-alist
+             '("jr" :components ("jr-org"
+                                 "jr-img")))
 
 #+end_src
