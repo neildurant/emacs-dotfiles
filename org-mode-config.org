@@ -165,6 +165,12 @@ These settings are used in the [[Remember Templates]] section of this file.
 #+end_src
 
 * Tasks / TODOs
+#+begin_src emacs-lisp
+  ;; org-checklist can un-set all checkboxes after you mark a task as
+  ;; DONE.  Handy for recurring tasks.
+  (require 'org-checklist)
+#+end_src
+
 ** Custom Faces
 #+begin_src emacs-lisp
    (setq org-todo-keyword-faces (quote (("TODO" :foreground "red" :weight bold)
@@ -199,7 +205,8 @@ These settings are used in the [[Remember Templates]] section of this file.
 (setq org-agenda-todo-ignore-with-date t)
 
 ;; In agenda searches, indent the search results according to their
-   indent level.  This helps to show sub-items in agenda searches
+;;   indent level.  This helps to show sub-items in agenda searches
+(setq org-tags-match-list-sublevels 'indented)
 #+end_src
 ** Misc Functions
 #+begin_src emacs-lisp
