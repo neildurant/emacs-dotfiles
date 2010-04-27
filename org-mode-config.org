@@ -25,9 +25,16 @@ Set directories here.
 
     (if 
        (getenv "NOTESMINE_DIR")
-        (setq notesmine-dir (getenv "ORG_DIR"))
-       (setq notesmine-dir (concat (getenv "HOME") "/Documents/notesmine")
+        (setq njn/notesmine-dir (getenv "NOTESMINE_DIR"))
+       (setq njn/notesmine-dir (concat (getenv "HOME") "/Documents/notesmine-org")
     ))
+
+
+    (defun njn/notesmine-org-files()
+       (interactive)
+       (directory-files njn/notesmine-dir 't "^[^.].*org$")
+    )
+
 #+end_src
 
 ** Remember Files
@@ -235,7 +242,7 @@ These settings are used in the [[Remember Templates]] section of this file.
                 ("e" "Enrollio Agenda" agenda ""
                  ((org-agenda-files enrollio-org-files)))
                 ("n" "Notesmine Agenda" agenda ""
-                 ((org-agenda-files notesmine-org-files)))
+                 ((org-agenda-files njn/notesmine-org-files)))
                 ("j" "Journal" agenda ""
                  ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/journal.org")))))
                 ("g" "Geek Agenda" agenda ""
@@ -468,8 +475,8 @@ These settings are used in the [[Remember Templates]] section of this file.
   (interactive)
   (setq org-refile-targets 
 	(quote 
-	 ((personal-org-files :maxlevel . 5)
-          (notesmine-org-files :maxlevel . 5))))
+	 ((njn/personal-org-files :maxlevel . 5)
+          (njn/notesmine-org-files :maxlevel . 5))))
   )
 
 (setq org-refile-allow-creating-parent-nodes 'confirm)
