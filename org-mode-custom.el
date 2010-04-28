@@ -62,7 +62,6 @@
         ("org" :components ("org-notes" "org-static"))
         ))
 
-(setq org-insert-heading-respect-content t)
 
 (setq default-case-fold-search 'foo)
 

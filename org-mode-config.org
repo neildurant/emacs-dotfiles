@@ -302,6 +302,7 @@ These settings are used in the [[Remember Templates]] section of this file.
      )
   )
 #+end_src
+
 * Keyboard Shortcuts
 ** Speed Keys
 
@@ -338,6 +339,11 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 ** Editing
 #+begin_src emacs-lisp
+
+  ;; When inserting headings, jump past the clock, and properties, and content
+  ;; of current heading.
+  (setq org-insert-heading-respect-content t)
+
   ;; Alt-j starts a new blank text line at the correct indent, even if 
   ;; the file's #+property indent is not set
 
