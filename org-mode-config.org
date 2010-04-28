@@ -319,7 +319,7 @@ These settings are used in the [[Remember Templates]] section of this file.
                                       ("r" . org-reveal))))
 
 #+end_src
-** Something
+** Misc.
 #+begin_src emacs-lisp
 ;; Keyboard bindings
 (global-set-key (kbd "<f5>") 'njn/org-agenda)
@@ -328,7 +328,10 @@ These settings are used in the [[Remember Templates]] section of this file.
 (global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
 (global-set-key (kbd "<f3> i") 'org-clock-in)
 (global-set-key (kbd "<f3> j") 'org-clock-goto)
-(global-set-key (kbd "<f3> l") 'agenda-this-file-only)              ;; Lock agenda (and other org-functions)
+;; Lock agenda (and other org-functions)
+(global-set-key (kbd "<f3> l") 'agenda-this-file-only)
+(global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
+(global-set-key (kbd "<f3> m") 'org-mark-ring-push)
 (global-set-key (kbd "<f3> n") 'org-remember)
 (global-set-key (kbd "<f3> o") 'org-clock-out)
 (global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
