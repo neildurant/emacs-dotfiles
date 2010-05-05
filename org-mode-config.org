@@ -100,7 +100,6 @@ These settings are used in the [[Remember Templates]] section of this file.
     ;; Trigger org-mode for files ending in .org .org_archive and .txt
     (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 #+end_src
-
 * Outlines
 #+begin_src emacs-lisp
   ;; Don't put blank lines after headings.
@@ -108,6 +107,13 @@ These settings are used in the [[Remember Templates]] section of this file.
 
   ;; Log notes and state changes into LOGBOOK property
   (setq org-log-into-drawer t)
+
+  ;; Function to insert subheading here
+  ;; Insert subheading right here, don't respect content
+(defun njn/org-insert-subheading()
+  (interactive)
+  (let ((org-insert-heading-respect-content nil))
+    (org-insert-subheading t)))
 
 #+end_src
 * Remember 
@@ -163,7 +169,6 @@ These settings are used in the [[Remember Templates]] section of this file.
         (list "Note" ?n "* %?" njn/notes-org-file 'top nil)
   ))
 #+end_src
-
 * Tasks / TODOs
 #+begin_src emacs-lisp
   ;; org-checklist can un-set all checkboxes after you mark a task as
@@ -188,7 +193,6 @@ These settings are used in the [[Remember Templates]] section of this file.
   ;; subtasks
   (setq org-enforce-todo-dependencies t)
 #+end_src
-
 * Agenda
 ** Tweaks
 #+begin_src emacs-lisp
@@ -268,7 +272,6 @@ These settings are used in the [[Remember Templates]] section of this file.
                  ((org-agenda-files enrollio-org-files)))
                 )))
 #+end_src
-
 * Appt Notifications
 #+begin_src emacs-lisp
   (setq appt-message-warning-time 15
@@ -280,7 +283,6 @@ These settings are used in the [[Remember Templates]] section of this file.
   (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 
 #+end_src
-
 * Menus
 #+begin_src emacs-lisp
 
@@ -302,7 +304,6 @@ These settings are used in the [[Remember Templates]] section of this file.
      )
   )
 #+end_src
-
 * Keyboard Shortcuts
 ** Speed Keys
 
@@ -361,16 +362,22 @@ These settings are used in the [[Remember Templates]] section of this file.
   (setq org-M-RET-may-split-line nil)
 
   ;; Insert subheading shortcuts
-  (define-key org-mode-map (kbd "C-M-<return>") 'org-insert-subheading)
+  (define-key org-mode-map (kbd "C-M-<return>") 'njn/org-insert-subheading)
   (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
 
 
 #+end_src
-
 * Fast Navigation to Files
 #+begin_src emacs-lisp
 
 (global-set-key "\C-cb" 'org-iswitchb)
+
+(global-set-key (kbd "<f6> v") (lambda () "Goto Vim"
+    (interactive)
+    (org-id-goto "733BD03F-0938-432F-B59A-BE235A2DE7E2")))
+
+ 
+
 
 (global-set-key (kbd "<f6> f") (lambda () "Goto Foo Org File"
     (interactive)
@@ -438,7 +445,6 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 #+results:
 : njn/goto-customer1
-
 * Clocking
 
 #+begin_src emacs-lisp
@@ -454,7 +460,6 @@ These settings are used in the [[Remember Templates]] section of this file.
   ;; Yes it's long... but more is better ;)
   (setq org-clock-history-length 10)
 #+end_src
-
 * Yasnippets
 ** Initialization
 
@@ -534,6 +539,7 @@ These settings are used in the [[Remember Templates]] section of this file.
                :recursive t
                :section_numbers nil
                :table-of-contents nil
+               :tags nil
                :base-extension "org"
                :publishing-function org-publish-org-to-html
                :style-include-default nil
@@ -568,39 +574,27 @@ These settings are used in the [[Remember Templates]] section of this file.
 #+end_src
 ** Jekyll
 #+begin_src emacs-lisp
-   (require 'org-jekyll)
-(setq org-publish-jr "~/cjr/jr/publish/")
-(setq org-publish-jr-blog (concat org-publish-jr "blog/"))
+
+(require 'org-publish)
+(require 'org-jekyll)
 
 (add-to-list 'org-publish-project-alist
-             `("jr-org"
-               :base-directory "~/cjr/jr/"
+             `("crazynate"
+               :base-directory "~/Documents/crazynate/content/"
                :recursive t
+               :exclude "blog.org\\|blog_ideas.org"
                :base-extension "org"
-               :publishing-directory ,org-publish-jr
-               :blog-publishing-directory ,org-publish-jr-blog
-               :site-root "http://localhost:4000"
-               :jekyll-sanitize-permalinks t
+               :publishing-directory "~/Documents/crazynate/"
+               :blog-publishing-directory "~/Documents/crazynate/content/"
                :publishing-function org-publish-org-to-html
                :section-numbers nil
                :headline-levels 4
-               :table-of-contents t
+               :table-of-contents nil
                :auto-index nil
                :auto-preamble nil
                :body-only t
+               :tags nil
                :auto-postamble nil))
 
-(add-to-list 'org-publish-project-alist
-             `("jr-img"
-               :base-directory "~/cjr/jr/"
-               :recursive t
-               :exclude "^publish"
-               :base-extension "jpg\\|gif\\|png"
-               :publishing-directory ,org-publish-jr
-               :publishing-function org-publish-attachment))
-
-(add-to-list 'org-publish-project-alist
-             '("jr" :components ("jr-org"
-                                 "jr-img")))
-
 #+end_src
+	       
