@@ -95,9 +95,5 @@
 
 (require 'org-babel-init)     
 (require 'org-install)
-
+(org-babel-load-file "~/.emacs.d/emacs-config.org")
 (org-babel-load-file "~/.emacs.d/org-mode-config.org")
-
-
-;; Load org-mode customizations!  Yay!
-;;(load "~/.emacs.d/org-mode-custom.el")
