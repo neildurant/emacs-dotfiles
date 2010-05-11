@@ -317,7 +317,9 @@ These settings are used in the [[Remember Templates]] section of this file.
                                       ("k" . org-kill-note-or-show-branches)
                                       ;; Zap the current subtree
                                       ("d" . org-cut-special)
-                                      ("r" . org-reveal))))
+                                      ("r" . org-reveal)
+                                      ("z" . org-tree-to-indirect-buffer)
+)))
 
 #+end_src
 ** Misc.
