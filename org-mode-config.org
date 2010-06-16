@@ -346,6 +346,23 @@ These settings are used in the [[Remember Templates]] section of this file.
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f3> s") 'njn/toggle-agenda-log-show-closed)
 (global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
+
+(global-set-key (kbd "<f9> I") 'bh/org-info)
+
+(defun bh/org-info ()
+  (interactive)
+  (info "~/git/org-mode/doc/org.info"))
+
+(global-set-key (kbd "<f9> i") 'bh/clock-in)
+(global-set-key (kbd "<f9> o") 'bh/clock-out)
+(global-set-key (kbd "<f9> r") 'boxquote-region)
+(global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
+
+(defun bh/go-to-scratch ()
+  (interactive)
+  (switch-to-buffer "*scratch*")
+  (delete-other-windows))
+
 #+end_src
 
 ** Editing
