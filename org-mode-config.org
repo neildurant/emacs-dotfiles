@@ -164,7 +164,7 @@ These settings are used in the [[Remember Templates]] section of this file.
   (setq org-remember-templates
      (list
         (list "Appointment" ?a "* %?\n  %U" njn/main-org-file "Appointments" nil)
-        (list "Journal" ?j "* %U %?\n\n  %i\n  %a" njn/journal-org-file "X" 'my-check)
+        (list "Journal" ?j "* %?\n\n  %i\n  %a" njn/journal-org-file 'date-tree)
         (list "Todo" ?t "* TODO %?\n\n%U  %i" njn/notes-org-file 'top)
         (list "Note" ?n "* %?" njn/notes-org-file 'top nil)
   ))
