@@ -131,14 +131,18 @@ These settings are used in the [[Remember Templates]] section of this file.
 ** Custom Remember Functions
 #+begin_src emacs-lisp
 (defun njn/clock-in-interrupted-task ()
- "Clock in the interrupted task if there is one"
- (interactive)
- (if (and (not org-clock-resolving-clocks-due-to-idleness)
-          (marker-buffer org-clock-marker)
-          (marker-buffer org-clock-interrupted-task)
-          (y-or-n-p "Clock back in to prev. task? "))
-     (org-with-point-at org-clock-interrupted-task
-       (org-clock-in nil))))
+"Clock in the interrupted task if there is one"
+  (interactive)
+  (let ((clock-in-to-task))
+    (if (org-clock-is-active)
+        (when (marker-buffer org-clock-interrupted-task)
+          (if (equal org-clock-interrupted-task org-clock-hd-marker)
+              (setq clock-in-to-task (cadr org-clock-history))
+            (setq clock-in-to-task org-clock-interrupted-task))))
+    (if clock-in-to-task
+        (org-with-point-at clock-in-to-task
+          (org-clock-in nil))
+      (org-clock-out))))
 #+end_src
 ** Clock Settings
 #+begin_src emacs-lisp
