@@ -1,0 +1,9 @@
+#+begin_src emacs-lisp
+(defun org-dblock-write:image (params)
+  (let ((file (plist-get params :file)))
+     (clear-image-cache file)
+     (insert-image (create-image file) )))
+#+end_src
+
+#+results:
+: org-dblock-write:image

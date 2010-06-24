@@ -131,14 +131,18 @@ These settings are used in the [[Remember Templates]] section of this file.
 ** Custom Remember Functions
 #+begin_src emacs-lisp
 (defun njn/clock-in-interrupted-task ()
- "Clock in the interrupted task if there is one"
- (interactive)
- (if (and (not org-clock-resolving-clocks-due-to-idleness)
-          (marker-buffer org-clock-marker)
-          (marker-buffer org-clock-interrupted-task)
-          (y-or-n-p "Clock back in to prev. task? "))
-     (org-with-point-at org-clock-interrupted-task
-       (org-clock-in nil))))
+"Clock in the interrupted task if there is one"
+  (interactive)
+  (let ((clock-in-to-task))
+    (if (org-clock-is-active)
+        (when (marker-buffer org-clock-interrupted-task)
+          (if (equal org-clock-interrupted-task org-clock-hd-marker)
+              (setq clock-in-to-task (cadr org-clock-history))
+            (setq clock-in-to-task org-clock-interrupted-task))))
+    (if clock-in-to-task
+        (org-with-point-at clock-in-to-task
+          (org-clock-in nil))
+      (org-clock-out))))
 #+end_src
 ** Clock Settings
 #+begin_src emacs-lisp
@@ -164,7 +168,7 @@ These settings are used in the [[Remember Templates]] section of this file.
   (setq org-remember-templates
      (list
         (list "Appointment" ?a "* %?\n  %U" njn/main-org-file "Appointments" nil)
-        (list "Journal" ?j "* %U %?\n\n  %i\n  %a" njn/journal-org-file "X" 'my-check)
+        (list "Journal" ?j "* %?\n\n  %i\n  %a" njn/journal-org-file 'date-tree)
         (list "Todo" ?t "* TODO %?\n\n%U  %i" njn/notes-org-file 'top)
         (list "Note" ?n "* %?" njn/notes-org-file 'top nil)
   ))
@@ -234,6 +238,11 @@ These settings are used in the [[Remember Templates]] section of this file.
   ; Custom agenda commands
   (setq org-agenda-custom-commands 
         (quote (
+                ("c" "Select default clocking task" tags "LEVEL=2-REFILE"
+               ((org-agenda-skip-function
+                 '(org-agenda-skip-subtree-if 'notregexp "^\\*\\* Organization"))
+                (org-agenda-overriding-header "Set default clocking task with C-u C-u I")))
+
                 ("p" "Projects/issues/questions" (
                      (tags-todo "project|issue|question/!-DONE")
                       (tags "question/-DONE")))
@@ -321,7 +330,9 @@ These settings are used in the [[Remember Templates]] section of this file.
                                       ("k" . org-kill-note-or-show-branches)
                                       ;; Zap the current subtree
                                       ("d" . org-cut-special)
-                                      ("r" . org-reveal))))
+                                      ("r" . org-reveal)
+                                      ("z" . org-tree-to-indirect-buffer)
+)))
 
 #+end_src
 ** Misc.
@@ -343,6 +354,23 @@ These settings are used in the [[Remember Templates]] section of this file.
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f3> s") 'njn/toggle-agenda-log-show-closed)
 (global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
+
+(global-set-key (kbd "<f9> I") 'bh/org-info)
+
+(defun bh/org-info ()
+  (interactive)
+  (info "~/git/org-mode/doc/org.info"))
+
+(global-set-key (kbd "<f9> i") 'bh/clock-in)
+(global-set-key (kbd "<f9> o") 'bh/clock-out)
+(global-set-key (kbd "<f9> r") 'boxquote-region)
+(global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
+
+(defun bh/go-to-scratch ()
+  (interactive)
+  (switch-to-buffer "*scratch*")
+  (delete-other-windows))
+
 #+end_src
 
 ** Editing
@@ -372,83 +400,44 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 #+end_src
 * Fast Navigation to Files
+  :PROPERTIES:
+  :ID:       FC8A103B-5959-4A13-9735-F175C36CDC01
+  :END:
+  - Create an ID using org-id-get-create (See the :ID: in
+    the :PROPERTIES: for this heading) 
+  - Put that ID in the table below, along with your favorite shortcut
+    sequence and a description
+  - See "Nav Shortcuts" below for an example
+  - Save oodles of time with your shortcuts, but waste the time
+    writing lisp code to implement the shortcut list :-)
+
+
+#+tblname:shortcut-definition-list
+| Appointments       | <f6> a    | A33F7A0C-F974-4C7F-A4FD-1AAA6CF9C60E |
+| Byteworks          | <f6> b    | BFBDC32E-915B-418A-9B94-9791CDA49DD3 |
+| Customer 1         | <f6> l    | 5C3263D1-949E-4E01-937A-201A8E83E1C0 |
+| Customer 2         | <f6> m    | 49E0DC6B-D78C-4C7A-88BF-545DA0907FFE |
+| Enrollio           | <f6> e    | 997DDAB8-DDFF-4517-90F2-CEFB0A2727E7 |
+| Foo Org File       | <f6> f    | F3B14102-A66D-408C-8833-1F9CF7E5047C |
+| Home               | <f6> h    | 772DFBDD-38A3-4E92-8860-6904CC9D4F49 |
+| Nav Shortcuts      | <f6> <f6> | FC8A103B-5959-4A13-9735-F175C36CDC01 |
+| Notes              | <f6> n    | 7E945130-2544-4600-A46E-07B774601C80 |
+| Notesmine Org Mode | <f6> g    | F10D261F-0AFB-448F-BB34-8CAF652144CE |
+| Org Mode           | <f6> o    | 2B8F0265-6509-4E79-9355-312F4B340503 |
+| Org Mode Custom    | <f6> c    | BCFE2FAF-6510-4949-B182-66521BB14A5D |
+| Vim                | <f6> v    | 733BD03F-0938-432F-B59A-BE235A2DE7E2 |
+
+#+srcname: map-nav(shortcut-definition-list=shortcut-definition-list)
 #+begin_src emacs-lisp
-
-(global-set-key "\C-cb" 'org-iswitchb)
-
-(global-set-key (kbd "<f6> v") (lambda () "Goto Vim"
-    (interactive)
-    (org-id-goto "733BD03F-0938-432F-B59A-BE235A2DE7E2")))
-
- 
-
-
-(global-set-key (kbd "<f6> f") (lambda () "Goto Foo Org File"
-    (interactive)
-    (org-id-goto "F3B14102-A66D-408C-8833-1F9CF7E5047C")))
-
-(global-set-key (kbd "<f6> m") (lambda () "Goto some task"
-    (interactive)
-    (org-id-goto "49E0DC6B-D78C-4C7A-88BF-545DA0907FFE"))) 
-
-(global-set-key (kbd "<f6> e") (lambda () "Goto Enrollio"
-    (interactive)
-    (org-id-goto "997DDAB8-DDFF-4517-90F2-CEFB0A2727E7")))
-
-(global-set-key (kbd "<f6> a") (lambda () "Goto Appointments"
-    (interactive)
-    (org-id-goto "A33F7A0C-F974-4C7F-A4FD-1AAA6CF9C60E")))
-
-(global-set-key (kbd "<f6> b") (lambda () "Goto Byteworks"
-    (interactive)
-    (org-id-goto "BFBDC32E-915B-418A-9B94-9791CDA49DD3"))) 
-
-(global-set-key (kbd "<f6> c") (lambda () "Org Mode Custom"
-    (interactive)
-    (org-id-goto "BCFE2FAF-6510-4949-B182-66521BB14A5D")))
-
-(global-set-key (kbd "<f6> o") 'njn/goto-org-mode-task)
-(global-set-key (kbd "<f6> g") 'njn/goto-org-mode-notesmine)
-(global-set-key (kbd "<f6> h") 'njn/goto-home)
-(global-set-key (kbd "<f6> l") 'njn/goto-customer1)
-
-(defun njn/goto-org-mode-task()
-  "Goto umbrella org-mode task" 
-  (interactive) 
-  (org-id-goto "2B8F0265-6509-4E79-9355-312F4B340503"))
-
-
-(defun njn/goto-org-mode-notesmine()
-  "Goto notesmine org-mode file" 
-  (interactive) 
-  (org-id-goto "F10D261F-0AFB-448F-BB34-8CAF652144CE"))
-
-
-(global-set-key (kbd "<f6> n") 'njn/goto-notes)
-(defun njn/goto-notes()
-  "Goto notes org-mode file" 
-  (interactive) 
-  (org-id-goto "7E945130-2544-4600-A46E-07B774601C80"))
-
-
-(defun njn/goto-home()
-  "Goto notes org-mode file" 
-  (interactive) 
-  (org-id-goto "772DFBDD-38A3-4E92-8860-6904CC9D4F49"))
-
-
-(defun njn/goto-customer1()
-  "Goto customer1's org-mode file" 
-  (interactive) 
-  (org-id-goto "5C3263D1-949E-4E01-937A-201A8E83E1C0"))
-
-
-
-
+(defun map-navigation-shortcuts(shortcut-def)
+(global-set-key (read-kbd-macro (second shortcut-def))
+                 (lexical-let ((shortcut-def shortcut-def))
+                   (lambda ()
+                     (interactive)
+                     (org-id-goto (third shortcut-def))))))
+(mapcar #'map-navigation-shortcuts shortcut-definition-list)
 #+end_src
 
-#+results:
-: njn/goto-customer1
 * Clocking
 
 #+begin_src emacs-lisp
@@ -463,6 +452,40 @@ These settings are used in the [[Remember Templates]] section of this file.
   ;; Show 10 items in prev. clocked tasks.
   ;; Yes it's long... but more is better ;)
   (setq org-clock-history-length 10)
+
+  (setq bh/keep-clock-running nil)
+
+  (defun bh/clock-in ()
+  (interactive)
+  (setq bh/keep-clock-running t)
+  (if (marker-buffer org-clock-default-task)
+      (unless (org-clock-is-active)
+        (bh/clock-in-default-task))
+    (unless (marker-buffer org-clock-default-task)
+      (org-agenda nil "c"))))
+
+  (defun bh/clock-out ()
+  (interactive)
+  (setq bh/keep-clock-running nil)
+  (when (org-clock-is-active)
+    (org-clock-out)))
+
+  (defun bh/clock-in-default-task ()
+  (save-excursion
+    (org-with-point-at org-clock-default-task
+      (org-clock-in))))
+
+  (defun bh/clock-out-maybe ()
+  (when (and bh/keep-clock-running (not org-clock-clocking-in) (marker-buffer org-clock-default-task))
+    (bh/clock-in-default-task)))
+
+(add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
+
+
+
+
+
+
 #+end_src
 * Yasnippets
 ** Initialization
