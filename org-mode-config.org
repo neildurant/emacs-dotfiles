@@ -211,6 +211,10 @@ These settings are used in the [[Remember Templates]] section of this file.
 ;; In agenda searches, indent the search results according to their
 ;;   indent level.  This helps to show sub-items in agenda searches
 (setq org-tags-match-list-sublevels 'indented)
+
+;; Agenda clock report parameters (no links, 6 levels deep)
+(setq org-agenda-clockreport-parameter-plist (quote (:link t :maxlevel 6)))
+
 #+end_src
 ** Misc Functions
 #+begin_src emacs-lisp
