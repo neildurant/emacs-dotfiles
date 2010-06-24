@@ -429,12 +429,14 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 #+srcname: map-nav(shortcut-definition-list=shortcut-definition-list)
 #+begin_src emacs-lisp
+
+(require 'cl)
 (defun map-navigation-shortcuts(shortcut-def)
-(global-set-key (read-kbd-macro (second shortcut-def))
+(global-set-key (read-kbd-macro (nth 1 shortcut-def))
                  (lexical-let ((shortcut-def shortcut-def))
                    (lambda ()
                      (interactive)
-                     (org-id-goto (third shortcut-def))))))
+                     (org-id-goto (nth 2 shortcut-def))))))
 (mapcar #'map-navigation-shortcuts shortcut-definition-list)
 #+end_src
 
