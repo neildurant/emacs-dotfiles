@@ -572,7 +572,6 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 #+end_src
 * Publishing
-** Publishing
 #+begin_src emacs-lisp
   ; Inline images in HTML instead of producting links to the image
 (setq org-export-html-inline-images t)
