@@ -274,16 +274,25 @@ These settings are used in the [[Remember Templates]] section of this file.
                 ;; Overview mode is same as default "a" agenda-mode, except doesn't show TODO
                 ;; items that are under another TODO
                 ("o" "Overview" agenda "" ((org-agenda-todo-list-sublevels nil)))
-                ;; Separate menu, with custom searches
-                ("fa" "Archive search" search ""
-                 ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*.org_archive")))))
-                ("fn" "Notesmine search" search ""
-                 ((org-agenda-files notesmine-org-files)))
-                ("fp" "Personal search" search ""
-                 ((org-agenda-files personal-org-files)))
-                ("fe" "Enrollio search" search ""
-                 ((org-agenda-files enrollio-org-files)))
-                )))
+        ;; Separate menu, with custom searches
+
+
+        ("f" . "Custom queries") ;; gives label to "Q" 
+        ("fa" "Archive search" search ""
+          ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*.org_archive")))))
+        ("fn" "Notesmine search" search ""
+         ((org-agenda-files (njn/notesmine-org-files))))
+        ("fb" "Both Personal and Archive" search ""
+          ((org-agenda-text-search-extra-files (file-expand-wildcards (concat personal-org-dir "/*.org_archive")))))
+                ;; searches both projects and archive directories
+        ("fA" "Archive tags search" org-tags-view "" 
+         ((org-agenda-files (file-expand-wildcards "~/archive/*.org"))))
+        ;; ...other commands here
+        ("fp" "Personal search" search ""
+                 ((org-agenda-files (njn/personal-org-files))))
+         )
+))
+
 #+end_src
 * Appt Notifications
 #+begin_src emacs-lisp
