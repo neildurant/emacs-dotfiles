@@ -239,6 +239,22 @@ These settings are used in the [[Remember Templates]] section of this file.
   (setq njn/current-buffer-name (buffer-file-name))
   (org-agenda)
 )
+
+(defun njn/agenda-files-all-personal ()
+  " Put all the files in my personal directory into the org-agenda-files thingy"
+   (interactive)
+   ;; save current settings
+   (setq njn/my-agenda-files org-agenda-files)
+   (setq org-agenda-files (directory-files personal-org-dir 't "^[^.].*org$"))
+)
+
+(defun njn/agenda-files-restore-original-files ()
+  " Put all the files in my personal directory into the org-agenda-files thingy"
+  (interactive)  
+  (setq org-agenda-files njn/my-agenda-files)
+)
+
+
 #+end_src
 ** Custom Commands
 #+begin_src emacs-lisp
