@@ -636,3 +636,8 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 #+end_src
 	       
+* Org-habit
+#+begin_src emacs-lisp
+  (require 'org-habit)
+  (setq org-habit-graph-column -1)
+#+end_src
