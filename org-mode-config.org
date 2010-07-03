@@ -163,7 +163,14 @@ These settings are used in the [[Remember Templates]] section of this file.
 #+end_src
 ** Remember Templates
 #+begin_src emacs-lisp
-  
+  (setq org-capture-templates (quote (("a" "Appointment" entry (file+headline "/media/homey/nate/Documents/personal/nate.org" "Appointments") "* %?
+  %U" :clock-in t :clock-resume t) ("j" "Journal" entry (file+datetree "/media/homey/nate/Documents/personal/journal.org") "* %?
+
+  %i
+  %a" :clock-in t :clock-resume t) ("t" "Todo" entry (file "/media/homey/nate/Documents/personal/notes.org") "* TODO %?
+
+%U  %i" :prepend t :clock-in t :clock-resume t) ("n" "Note" entry (file "/media/homey/nate/Documents/personal/notes.org") "* %?" :prepend t :clock-in t :clock-resume t)))
+)
   
   (setq org-remember-templates
      (list
