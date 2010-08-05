@@ -229,7 +229,25 @@ These settings are used in the [[Remember Templates]] section of this file.
 #+end_src
 ** Misc Functions
 #+begin_src emacs-lisp
+(defun njn/is-project-p ()
+  "Any task with a todo keyword subtask"
+  (let ((has-subtask)
+        (subtree-end (save-excursion (org-end-of-subtree t))))
+    (save-excursion
+      (forward-line 1)
+      (while (and (not has-subtask)
+                  (< (point) subtree-end)
+                  (re-search-forward "^\*+ " subtree-end t))
+        (when (member (org-get-todo-state) org-todo-keywords-1)
+          (setq has-subtask t))))
+    has-subtask))
 
+(defun njn/skip-non-projects ()
+  "Skip trees that are not projects"
+  (let* ((subtree-end (save-excursion (org-end-of-subtree t))))
+    (if (njn/is-project-p)
+        nil
+      subtree-end)))
 (defun njn/org-agenda ()
   "Set a variable called njn/current-buffer-file-name to record the
   name of the org-mode file that was active when org-agenda is called.  This
@@ -266,9 +284,16 @@ These settings are used in the [[Remember Templates]] section of this file.
                 (org-agenda-overriding-header "Set default clocking task with C-u C-u I")
                 (org-agenda-files (njn/personal-org-files))))
 
-                ("p" "Projects/issues/questions" (
-                     (tags-todo "project|issue|question/!-DONE")
-                      (tags "question/-DONE")))
+
+	      ("ph" "Projects" tags-todo "project|LEVEL=2-REFILE|LEVEL=1+REFILE/!-DONE-CANCELLED"
+	       ((org-agenda-skip-function 'njn/skip-non-projects)
+                (org-agenda-overriding-header "Projects (High Level)")))
+
+
+
+
+                ("?" "Questions" (
+                  (tags "question/-DONE")))
                 ("." "Cur Buffer - Regular" ((agenda "" ))
                   ((org-agenda-files (list njn/current-buffer-name))
                    (org-agenda-show-log t))
