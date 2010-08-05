@@ -94,6 +94,6 @@
 (setq load-path (cons "~/.emacs.d/src/org/lisp" load-path))
 
 ;;(require 'org-babel-init)     
-(require 'org-install)
+;(require 'org-install)
 (org-babel-load-file "~/.emacs.d/emacs-config.org")
 (org-babel-load-file "~/.emacs.d/org-mode-config.org")
