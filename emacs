@@ -24,6 +24,12 @@
 (add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
 (add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
 
+;; Add color-theme to load-path
+(setq load-path (cons "~/.emacs.d/lib/color-theme-6.6.0" load-path))
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-robin-hood)
+
 ;; Bookmark shortcuts
 (global-set-key [f7] 'bookmark-bmenu-list)
 (global-set-key [(shift f7)] 'bookmark-set)
