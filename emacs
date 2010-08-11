@@ -28,7 +28,7 @@
 (setq load-path (cons "~/.emacs.d/lib/color-theme-6.6.0" load-path))
 (require 'color-theme)
 (color-theme-initialize)
-(color-theme-robin-hood)
+;;(color-theme-robin-hood)
 
 ;; Bookmark shortcuts
 (global-set-key [f7] 'bookmark-bmenu-list)
@@ -89,6 +89,7 @@
 ;; Setting these in org-mode only to avoid potential conflicts?
 (define-key global-map (kbd "M-p") '(lambda() (interactive) (previous-error)))
 (define-key global-map (kbd "M-n") '(lambda() (interactive) (next-error)))
+(define-key global-map (kbd "M-o") '(lambda() (interactive) (next-error)))
 
 ;; Prevent us from having to type entire 'yes' or 'no' when answering
 ;; "Do you want to save?" questions :-/
