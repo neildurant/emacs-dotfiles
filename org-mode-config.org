@@ -471,8 +471,8 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 #+tblname:shortcut-definition-list
 | Appointments       | <f6> a    | A33F7A0C-F974-4C7F-A4FD-1AAA6CF9C60E |
-| Byteworks          | <f6> b    | BFBDC32E-915B-418A-9B94-9791CDA49DD3 |
-| Customer 1         | <f6> l    | 5C3263D1-949E-4E01-937A-201A8E83E1C0 |
+| bill               | <f6> b    | 519b1468-6782-48af-a3b2-c978d812c650 |
+| Customer 1         | <f6> r    | 5C3263D1-949E-4E01-937A-201A8E83E1C0 |
 | Customer 2         | <f6> m    | 49E0DC6B-D78C-4C7A-88BF-545DA0907FFE |
 | Enrollio           | <f6> e    | 997DDAB8-DDFF-4517-90F2-CEFB0A2727E7 |
 | Foo Org File       | <f6> f    | F3B14102-A66D-408C-8833-1F9CF7E5047C |
