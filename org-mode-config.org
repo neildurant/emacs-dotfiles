@@ -678,5 +678,7 @@ These settings are used in the [[Remember Templates]] section of this file.
 * Org-habit
 #+begin_src emacs-lisp
   (require 'org-habit)
-  (setq org-habit-graph-column -1)
+  (setq org-habit-graph-column nil)
+  (setq org-habit-preceeding-days 0)
+  (setq org-habit-following-days 0)
 #+end_src
