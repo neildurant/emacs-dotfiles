@@ -473,6 +473,9 @@ These settings are used in the [[Remember Templates]] section of this file.
          (call-interactively 'org-insert-heading)
        (call-interactively 'org-insert-todo-heading)))
   (define-key org-mode-map (kbd "S-<return>") 'njn/insert-opposite-heading)
+
+  ;; Always insert new headings under current heading
+  (setq org-insert-heading-always-after-current 't)
 #+end_src
 * Fast Navigation to Files
   :PROPERTIES:
