@@ -429,7 +429,8 @@ These settings are used in the [[Remember Templates]] section of this file.
   (define-key org-mode-map (kbd "C-M-<return>") 'njn/org-insert-subheading)
   (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
 
-
+  ;; Always insert new headings under current heading
+  (setq org-insert-heading-always-after-current 't)
 #+end_src
 * Fast Navigation to Files
   :PROPERTIES:
