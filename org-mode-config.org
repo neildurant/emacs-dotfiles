@@ -79,14 +79,24 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 #+begin_src emacs-lisp
     ;; From norang.org -- Change task state to STARTED from TODO when clocking in -------
-    (defun bh/clock-in-to-started (kw)
-      "Switch task from TODO to STARTED when clocking in"
-      (if (and (string-equal kw "TODO") ;; Unless we're in a remember buffer
-               (not (string-equal (buffer-name) "*Remember*")))
-          "STARTED"
-        nil))
+(defun bh/clock-in-to-next (kw)
+  "Switch task from TODO to NEXT when clocking in.
+Skips capture tasks and tasks with subtasks"
+  (if (and (string-equal kw "TODO")
+           (not (and (boundp 'org-capture-mode) org-capture-mode)))
+      (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+            (has-subtask nil))
+        (save-excursion
+          (forward-line 1)
+          (while (and (not has-subtask)
+                      (< (point) subtree-end)
+                      (re-search-forward "^\*+ " subtree-end t))
+            (when (member (org-get-todo-state) org-not-done-keywords)
+              (setq has-subtask t))))
+        (when (not has-subtask)
+          "STARTED"))))
 
-    (setq org-clock-in-switch-to-state (quote bh/clock-in-to-started))
+    (setq org-clock-in-switch-to-state (quote bh/clock-in-to-next))
     ;; Change task state w/C-c C-t KEY
     (setq org-use-fast-todo-selection t)
 
@@ -121,7 +131,7 @@ These settings are used in the [[Remember Templates]] section of this file.
 
 #+begin_src emacs-lisp
   (setq org-capture-templates 
-     `(("t" "Todo" entry (file, njn/notes-org-file) "* TODO %? %U  %i" :prepend t :clock-in t :clock-resume t) 
+     `(("t" "Todo" entry (file, njn/notes-org-file) "* TODO %? %U  %i" :clock-in t :clock-resume t) 
        ("n" "Note" entry (file, njn/notes-org-file) "* %?" :prepend t :clock-in t :clock-resume t))
   )
   
@@ -146,10 +156,7 @@ These settings are used in the [[Remember Templates]] section of this file.
   ;; Don't clock out when moving task to a done state
   (setq org-clock-out-when-done nil)
 
-  ;; Start clock in a remember buffer and switch back to previous clocking task on save
-  (add-hook 'remember-mode-hook 'org-clock-in 'append)
-  (add-hook 'org-remember-before-finalize-hook 'njn/clock-in-interrupted-task)
-  ;; Keep clocks running
+    ;; Keep clocks running
   (setq org-remember-clock-out-on-exit nil)
   ;; Automatically clock in when adding a note
   (add-hook 'remember-mode-hook 'org-clock-in 'append)
