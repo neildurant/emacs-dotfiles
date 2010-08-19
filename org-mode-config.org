@@ -380,13 +380,13 @@ These settings are used in the [[Remember Templates]] section of this file.
 (global-set-key (kbd "<f3> l") 'agenda-this-file-only)
 (global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
 (global-set-key (kbd "<f3> m") 'org-mark-ring-push)
-(global-set-key (kbd "<f3> n") 'org-remember)
 (global-set-key (kbd "<f3> o") 'org-clock-out)
 (global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f3> s") 'njn/toggle-agenda-log-show-closed)
 (global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
-
+(global-set-key (kbd "<f3> n") 'org-capture)
+(global-set-key (kbd "<f3> c") 'org-capture)
 (global-set-key (kbd "<f9> I") 'bh/org-info)
 
 (defun bh/org-info ()
