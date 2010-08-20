@@ -37,21 +37,30 @@ Set directories here.
 
 #+end_src
 
-** Remember Files
+** Capture Files
 I use three files for notes that I create using Org-mode's "Remember"
 feature.
 
   - Notes and TODOs go to notes.org
   - Appointments go to nate.org/Appointments
   - Journal entries go to journal.org
+  - Work related stuff goes to $WORK_FILE env. var, or else
+    to "workfile.org" in personal org dir.
 
-These settings are used in the [[Remember Templates]] section of this file.
+These settings are used in the [[Templates]] section of this file.
 
 #+begin_src emacs-lisp
 
   (setq njn/main-org-file (concat personal-org-dir "/nate.org"))
   (setq njn/journal-org-file (concat personal-org-dir "/journal.org"))
   (setq njn/notes-org-file (concat personal-org-dir "/notes.org"))
+  (setq njn/work-file (concat personal-org-dir "/.org"))
+  (if
+    (getenv "WORK_FILE")
+      (setq njn/work-file (getenv "WORK_FILE"))
+     (setq njn/work-file (concat personal-org-dir "/workfile.org"))
+  )
+
   
 #+end_src
 
@@ -132,7 +141,10 @@ Skips capture tasks and tasks with subtasks"
 #+begin_src emacs-lisp
   (setq org-capture-templates 
      `(("t" "Todo" entry (file, njn/notes-org-file) "* TODO %? %U  %i" :clock-in t :clock-resume t) 
-       ("n" "Note" entry (file, njn/notes-org-file) "* %?" :prepend t :clock-in t :clock-resume t))
+       ("n" "Note" entry (file, njn/notes-org-file) "* %?" :prepend t :clock-in t :clock-resume t)
+       ("j" "Journal" entry (file+datetree, njn/journal-org-file) "* %?\nEntered on %^u\n  %i\n  %a")
+       ("m" "Meeting" entry (file+headline, njn/work-file "Meetings") "* %?" :prepend t :clock-in t)
+      )
   )
   
   
@@ -474,6 +486,7 @@ Skips capture tasks and tasks with subtasks"
 #+tblname:shortcut-definition-list
 | Appointments       | <f6> a    | A33F7A0C-F974-4C7F-A4FD-1AAA6CF9C60E |
 | bill               | <f6> b    | 519b1468-6782-48af-a3b2-c978d812c650 |
+| Iteration 1        | <f6> i    | b23ce0ba-937b-447b-b87b-5448eb626465 |
 | Customer 1         | <f6> r    | 5C3263D1-949E-4E01-937A-201A8E83E1C0 |
 | Customer 2         | <f6> m    | 49E0DC6B-D78C-4C7A-88BF-545DA0907FFE |
 | Enrollio           | <f6> e    | 997DDAB8-DDFF-4517-90F2-CEFB0A2727E7 |
