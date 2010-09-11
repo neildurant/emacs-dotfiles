@@ -270,72 +270,68 @@ Skips capture tasks and tasks with subtasks"
 #+end_src
 ** Custom Commands
 #+begin_src emacs-lisp
-  ; Custom agenda commands
-  (setq org-agenda-custom-commands 
-        (quote (
-                ("c" "Select default clocking task" tags "LEVEL=1+Mgmt"
-               (
-                (org-agenda-overriding-header "Set default clocking task with C-u C-u I")
-                (org-agenda-files (njn/personal-org-files))))
-
-		("pt" "All Todos - simply nests all todos" tags-todo "/TODO"
-		((org-agenda-overriding-header "All TODOs, nested")))
-	      ("ph" "Projects" tags-todo "project|LEVEL=2-REFILE|LEVEL=1+REFILE/!-DONE-CANCELLED"
-	       ((org-agenda-skip-function 'njn/skip-non-projects)
-                (org-agenda-overriding-header "Projects (High Level)")))
-
-
-
-
-                ("?" "Questions" (
-                  (tags "question/-DONE")))
-                ("." "Cur Buffer - Regular" ((agenda "" ))
-                  ((org-agenda-files (list njn/current-buffer-name))
-                   (org-agenda-show-log t))
-                )
-                ("," "Current Buffer - TODO" 
-                  ((alltodo))
-                  ((org-agenda-files (list njn/current-buffer-name))
-                  ))
-                ("S" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
-                ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
+    ; Custom agenda commands
+    (setq org-agenda-custom-commands 
+          (quote (
+                  ("c" "Select default clocking task" tags "LEVEL=1+Mgmt"
+                 (
+                  (org-agenda-overriding-header "Set default clocking task with C-u C-u I")
+                  (org-agenda-files (njn/personal-org-files))))
   
-                ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
-                ("o" "SOMEDAY" tags "SOMEDAY" ((org-use-tag-inheritance nil)))
-                ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
-                ("*" "All Personal Files" ((agenda ""))
-                 ((org-agenda-files (directory-files personal-org-dir 't "^[^.].*org$"))
-                  (org-agenda-show-log t)))
-                ("e" "Enrollio Agenda" agenda ""
-                 ((org-agenda-files enrollio-org-files)))
-                ("n" "Notesmine Agenda" agenda ""
-                 ((org-agenda-files njn/notesmine-org-files)))
-                ("j" "Journal" agenda ""
-                 ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/journal.org")))))
-                ("g" "Geek Agenda" agenda ""
-                 ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*geek.org")))))
-                ;; Overview mode is same as default "a" agenda-mode, except doesn't show TODO
-                ;; items that are under another TODO
-                ("o" "Overview" agenda "" ((org-agenda-todo-list-sublevels nil)))
-        ;; Separate menu, with custom searches
-
-
-        ("f" . "Custom queries") ;; gives label to "Q" 
-        ("fa" "Archive search" search ""
-          ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*.org_archive")))))
-        ("fn" "Notesmine search" search ""
-         ((org-agenda-files (njn/notesmine-org-files))))
-        ("fb" "Both Personal and Archive" search ""
-          ((org-agenda-text-search-extra-files (file-expand-wildcards (concat personal-org-dir "/*.org_archive")))))
-                ;; searches both projects and archive directories
-        ("fA" "Archive tags search" org-tags-view "" 
-         ((org-agenda-files (file-expand-wildcards "~/archive/*.org"))))
-        ;; ...other commands here
-        ("fp" "Personal search" search ""
-                 ((org-agenda-files (njn/personal-org-files))))
-         )
-))
-
+                  ("pt" "All Todos - simply nests all todos" tags-todo "/TODO"
+                  ((org-agenda-overriding-header "All TODOs, nested")))
+                ("ph" "Projects" tags-todo "project|LEVEL=2-REFILE|LEVEL=1+REFILE/!-DONE-CANCELLED"
+                 ((org-agenda-skip-function 'njn/skip-non-projects)
+                  (org-agenda-overriding-header "Projects (High Level)")))
+  
+                  ("?" "Questions" (
+                    (tags "question/-DONE")))
+                  ("." "Cur Buffer - Regular" ((agenda "" ))
+                    ((org-agenda-files (list njn/current-buffer-name))
+                     (org-agenda-show-log t))
+                  )
+                  ("," "Current Buffer - TODO" 
+                    ((alltodo))
+                    ((org-agenda-files (list njn/current-buffer-name))
+                    ))
+                  ("S" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
+                  ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
+    
+                  ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
+                  ("o" "SOMEDAY" tags "SOMEDAY" ((org-use-tag-inheritance nil)))
+                  ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
+                  ("*" "All Personal Files" ((agenda ""))
+                   ((org-agenda-files (directory-files personal-org-dir 't "^[^.].*org$"))
+                    (org-agenda-show-log t)))
+                  ("e" "Enrollio Agenda" agenda ""
+                   ((org-agenda-files enrollio-org-files)))
+                  ("n" "Notesmine Agenda" agenda ""
+                   ((org-agenda-files njn/notesmine-org-files)))
+                  ("j" "Journal" agenda ""
+                   ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/journal.org")))))
+                  ("g" "Geek Agenda" agenda ""
+                   ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*geek.org")))))
+                  ;; Overview mode is same as default "a" agenda-mode, except doesn't show TODO
+                  ;; items that are under another TODO
+                  ("o" "Overview" agenda "" ((org-agenda-todo-list-sublevels nil)))
+          ;; Separate menu, with custom searches
+          ("f" . "Custom queries") ;; gives label to "Q" 
+          ("fc" "Current File" occur-tree ""
+            ((org-agenda-files (list njn/current-buffer-name))))
+          ("fa" "Archive search" search ""
+            ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*.org_archive")))))
+          ("fn" "Notesmine search" search ""
+           ((org-agenda-files (njn/notesmine-org-files))))
+          ("fb" "Both Personal and Archive" search ""
+            ((org-agenda-text-search-extra-files (file-expand-wildcards (concat personal-org-dir "/*.org_archive")))))
+                  ;; searches both projects and archive directories
+          ("fA" "Archive tags search" org-tags-view "" 
+           ((org-agenda-files (file-expand-wildcards "~/archive/*.org"))))
+          ;; ...other commands here
+          ("fp" "Personal search" search ""
+                   ((org-agenda-files (njn/personal-org-files))))
+           )
+  ))
 #+end_src
 * Appt Notifications
 #+begin_src emacs-lisp
@@ -513,7 +509,6 @@ Skips capture tasks and tasks with subtasks"
 (mapcar #'map-navigation-shortcuts shortcut-definition-list)
 #+end_src
 
-* 
 * Clocking
 
 #+begin_src emacs-lisp
