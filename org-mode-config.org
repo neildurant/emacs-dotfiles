@@ -131,7 +131,7 @@ Skips capture tasks and tasks with subtasks"
   (setq org-log-done (quote time))
   ;; Log notes and state changes into LOGBOOK property
   (setq org-log-into-drawer t)
-
+  (setq org-startup-indented t)
   ;; Function to insert subheading here
   ;; Insert subheading right here, don't respect content
 (defun njn/org-insert-subheading()
@@ -391,6 +391,7 @@ Skips capture tasks and tasks with subtasks"
                                       ("k" . org-kill-note-or-show-branches)
                                       ;; Zap the current subtree
                                       ("d" . org-cut-special)
+                                      ("q" . org-columns)
                                       ("r" . org-reveal)
                                       ("z" . org-tree-to-indirect-buffer)
 )))
@@ -436,50 +437,56 @@ Skips capture tasks and tasks with subtasks"
 
 ** Editing
 #+begin_src emacs-lisp
-
   ;; When inserting headings, jump past the clock, and properties, and content
   ;; of current heading.
   (setq org-insert-heading-respect-content t)
-
+  
   ;; Alt-j starts a new blank text line at the correct indent, even if 
   ;; the file's #+property indent is not set
-
+  
   (org-defkey org-mode-map (kbd "M-j")
     '(lambda () 
      (interactive)
      (end-of-line)
      (org-return-indent)))
-
+  
   ;; Alt-return normally breaks the headline if you press it in the
   ;; middle of a headline.  Disable that behavior
   (setq org-M-RET-may-split-line nil)
-
+  
   ;; Insert subheading shortcuts
   (define-key org-mode-map (kbd "C-M-<return>") 'njn/org-insert-subheading)
   (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
-
+  
   ;; Thanks to Jan Boecker for this slick function.
   (defun njn/smart-insert-heading ()
     "Insert a TODO if you're in a TODO heading, or just a blank heading 
      if you're in a blank heading."
     (interactive)
-    (if (or (org-get-todo-state) (org-at-item-checkbox-p))
-	   (call-interactively 'org-insert-todo-heading)
-	 (call-interactively 'org-insert-heading)))
-  (define-key org-mode-map (kbd "M-<return>") 'njn/smart-insert-heading)
-
+    (if (or (and (org-on-heading-p t) (org-get-todo-state))
+            (org-at-item-checkbox-p))
+           (call-interactively 'org-insert-todo-heading)
+         (call-interactively 'org-insert-heading)))
+  (
+  define-key org-mode-map (kbd "M-<return>") 'njn/smart-insert-heading)
+  
   (defun njn/insert-opposite-heading ()
     "Inserts a TODO heading if you're NOT in a TODO heading, and inserts a
      normal heading if you're in a TODO heading"
     (interactive)
-    (if (or (org-get-todo-state) (org-at-item-checkbox-p))
+    (if (or (and (org-on-heading-p t) (org-get-todo-state))
+            (org-at-item-checkbox-p))
          (call-interactively 'org-insert-heading)
        (call-interactively 'org-insert-todo-heading)))
+  
   (define-key org-mode-map (kbd "S-<return>") 'njn/insert-opposite-heading)
-
+  
   ;; Always insert new headings under current heading
   (setq org-insert-heading-always-after-current 't)
 #+end_src
+** 
+** 
+** TODO 
 * Fast Navigation to Files
   :PROPERTIES:
   :ID:       FC8A103B-5959-4A13-9735-F175C36CDC01
