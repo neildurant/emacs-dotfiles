@@ -487,6 +487,7 @@ Skips capture tasks and tasks with subtasks"
 ** 
 ** 
 ** TODO 
+* 
 * Fast Navigation to Files
   :PROPERTIES:
   :ID:       FC8A103B-5959-4A13-9735-F175C36CDC01
@@ -510,7 +511,7 @@ Skips capture tasks and tasks with subtasks"
 | Enrollio           | <f6> e    | 997DDAB8-DDFF-4517-90F2-CEFB0A2727E7 |
 | Home               | <f6> h    | 772DFBDD-38A3-4E92-8860-6904CC9D4F49 |
 | Nav Shortcuts      | <f6> <f6> | FC8A103B-5959-4A13-9735-F175C36CDC01 |
-| Notes              | <f6> n    |  notes                               |
+| Notes              | <f6> n    | notes                                |
 | Notesmine Org Mode | <f6> g    | F10D261F-0AFB-448F-BB34-8CAF652144CE |
 | Org Mode           | <f6> o    | 2B8F0265-6509-4E79-9355-312F4B340503 |
 | Org Mode Custom    | <f6> c    | BCFE2FAF-6510-4949-B182-66521BB14A5D |
