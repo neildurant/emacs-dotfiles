@@ -67,7 +67,7 @@ These settings are used in the [[Templates]] section of this file.
 
   
 #+end_src
-
+  
 ** Task States
   - Typical
     - Todo
@@ -388,12 +388,14 @@ Skips capture tasks and tasks with subtasks"
                                       ("2" . split-window-vertically)
                                       ("3" . split-window-horizontally)
                                       ("h" . hide-other)
-                                      ("k" . org-kill-note-or-show-branches)
-                                      ;; Zap the current subtree
-                                      ("d" . org-cut-special)
+                                      ("k" . org-cut-special)
+                                      ;; Zap the current subtree                             
                                       ("q" . org-columns)
-                                      ("r" . org-reveal)
-                                      ("z" . org-tree-to-indirect-buffer)
+                                      ;; zoom into current header in new separate window
+                                      ("z" . (lambda() (interactive) 
+                                              (org-tree-to-indirect-buffer) 
+                                              (other-window 1)
+                                              (delete-other-windows)))
 )))
 
 #+end_src
