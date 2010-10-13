@@ -388,7 +388,7 @@ Skips capture tasks and tasks with subtasks"
                                       ("2" . split-window-vertically)
                                       ("3" . split-window-horizontally)
                                       ("h" . hide-other)
-                                      ("k" . org-cut-special)
+                                      ("d" . org-cut-special)
                                       ;; Zap the current subtree                             
                                       ("q" . org-columns)
                                       ;; zoom into current header in new separate window
