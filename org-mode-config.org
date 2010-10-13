@@ -388,12 +388,14 @@ Skips capture tasks and tasks with subtasks"
                                       ("2" . split-window-vertically)
                                       ("3" . split-window-horizontally)
                                       ("h" . hide-other)
-                                      ("k" . org-kill-note-or-show-branches)
-                                      ;; Zap the current subtree
-                                      ("d" . org-cut-special)
+                                      ("k" . org-cut-special)
+                                      ;; Zap the current subtree                             
                                       ("q" . org-columns)
-                                      ("r" . org-reveal)
-                                      ("z" . org-tree-to-indirect-buffer)
+                                      ;; zoom into current header in new separate window
+                                      ("z" . (lambda() (interactive) 
+                                              (org-tree-to-indirect-buffer) 
+                                              (other-window 1)
+                                              (delete-other-windows)))
 )))
 
 #+end_src
@@ -403,20 +405,22 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f5>") 'njn/org-agenda)
 (global-unset-key (kbd "<f3>"))
 (global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
+(global-set-key (kbd "<f3> c") 'org-capture)
 (global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
 (global-set-key (kbd "<f3> i") 'org-clock-in)
 (global-set-key (kbd "<f3> j") 'org-clock-goto)
-;; Lock agenda (and other org-functions)
-(global-set-key (kbd "<f3> l") 'agenda-this-file-only)
+(global-set-key (kbd "<f3> l") 'agenda-this-file-only) ;; Lock agenda (and other org-functions)
 (global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
 (global-set-key (kbd "<f3> m") 'org-mark-ring-push)
+(global-set-key (kbd "<f3> n") 'org-capture)
 (global-set-key (kbd "<f3> o") 'org-clock-out)
 (global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f3> s") 'njn/toggle-agenda-log-show-closed)
 (global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
-(global-set-key (kbd "<f3> n") 'org-capture)
-(global-set-key (kbd "<f3> c") 'org-capture)
+(global-set-key (kbd "<f3> w") '(lambda() (interactive) (org-refile '(16))))
+
+
 (global-set-key (kbd "<f9> I") 'bh/org-info)
 
 (defun bh/org-info ()
