@@ -484,9 +484,6 @@ Skips capture tasks and tasks with subtasks"
   ;; Always insert new headings under current heading
   (setq org-insert-heading-always-after-current 't)
 #+end_src
-** 
-** 
-** TODO 
 * Fast Navigation to Files
   :PROPERTIES:
   :ID:       FC8A103B-5959-4A13-9735-F175C36CDC01
