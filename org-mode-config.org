@@ -68,56 +68,6 @@ These settings are used in the [[Templates]] section of this file.
   
 #+end_src
 
-** Task States
-  - Typical
-    - Todo
-    - Started
-    - Done
-    - Cancelled
-  - Non-Typical
-    - Waiting means I'm waiting on someone else to proceed w/this.
-    - Someday means I might consider this task
-    - Delegated means some other weenie is doing this job :-)
-
-  - @/! means leave a note and record time when entering.
-  - ! means to leave a timestamp when exiting unless the next state records the time.
-  - "D" means mark done/leave note, "d" is just quick "done" w/no note
-
-#+begin_src emacs-lisp
-(setq org-todo-keywords '(
-(sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!)")  
-(sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)")
-))
-#+end_src
-
-#+begin_src emacs-lisp
-    ;; From norang.org -- Change task state to STARTED from TODO when clocking in -------
-(defun bh/clock-in-to-next (kw)
-  "Switch task from TODO to NEXT when clocking in.
-Skips capture tasks and tasks with subtasks"
-  (if (and (string-equal kw "TODO")
-           (not (and (boundp 'org-capture-mode) org-capture-mode)))
-      (let ((subtree-end (save-excursion (org-end-of-subtree t)))
-            (has-subtask nil))
-        (save-excursion
-          (forward-line 1)
-          (while (and (not has-subtask)
-                      (< (point) subtree-end)
-                      (re-search-forward "^\*+ " subtree-end t))
-            (when (member (org-get-todo-state) org-not-done-keywords)
-              (setq has-subtask t))))
-        (when (not has-subtask)
-          "STARTED"))))
-
-    (setq org-clock-in-switch-to-state (quote bh/clock-in-to-next))
-    ;; Change task state w/C-c C-t KEY
-    (setq org-use-fast-todo-selection t)
-
-    ;; shift-left and shift-right change state (as always),
-    ;; but they don't trigger a prompt for notes, and timestamps, etc.
-    (setq org-treat-S-cursor-todo-selection-as-state-change nil)
-#+end_src
-
 ** File Types
 #+begin_src emacs-lisp
     ;; Trigger org-mode for files ending in .org .org_archive and .txt
@@ -183,6 +133,56 @@ Skips capture tasks and tasks with subtasks"
   ;; org-checklist can un-set all checkboxes after you mark a task as
   ;; DONE.  Handy for recurring tasks.
   (require 'org-checklist)
+#+end_src
+
+** Task States
+  - Typical
+    - Todo
+    - Started
+    - Done
+    - Cancelled
+  - Non-Typical
+    - Waiting means I'm waiting on someone else to proceed w/this.
+    - Someday means I might consider this task
+    - Delegated means some other weenie is doing this job :-)
+
+  - @/! means leave a note and record time when entering.
+  - ! means to leave a timestamp when exiting unless the next state records the time.
+  - "D" means mark done/leave note, "d" is just quick "done" w/no note
+
+#+begin_src emacs-lisp
+(setq org-todo-keywords '(
+(sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!)")  
+(sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)" "CANCELLED(f)")
+))
+#+end_src
+
+#+begin_src emacs-lisp
+    ;; From norang.org -- Change task state to STARTED from TODO when clocking in -------
+(defun bh/clock-in-to-next (kw)
+  "Switch task from TODO to NEXT when clocking in.
+Skips capture tasks and tasks with subtasks"
+  (if (and (string-equal kw "TODO")
+           (not (and (boundp 'org-capture-mode) org-capture-mode)))
+      (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+            (has-subtask nil))
+        (save-excursion
+          (forward-line 1)
+          (while (and (not has-subtask)
+                      (< (point) subtree-end)
+                      (re-search-forward "^\*+ " subtree-end t))
+            (when (member (org-get-todo-state) org-not-done-keywords)
+              (setq has-subtask t))))
+        (when (not has-subtask)
+          "STARTED"))))
+
+    (setq org-clock-in-switch-to-state (quote bh/clock-in-to-next))
+    ;; Change task state w/C-c C-t KEY
+    (setq org-use-fast-todo-selection t)
+
+    ;; shift-left and shift-right change state (as always),
+    ;; but they don't trigger a prompt for notes, and timestamps, etc.
+    (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 #+end_src
 
 ** Custom Faces
