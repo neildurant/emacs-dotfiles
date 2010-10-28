@@ -4,6 +4,10 @@
   :ID:       BCFE2FAF-6510-4949-B182-66521BB14A5D
   :END:
 * Main Settings
+#+begin_src emacs-lisp
+(require 'org-id)
+#+end_src
+
 ** Clocking
 #+begin_src emacs-lisp
   (setq org-clock-out-remove-zero-time-clocks 't)
