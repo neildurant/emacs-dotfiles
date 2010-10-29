@@ -67,56 +67,6 @@ These settings are used in the [[Templates]] section of this file.
 
   
 #+end_src
-  
-** Task States
-  - Typical
-    - Todo
-    - Started
-    - Done
-    - Cancelled
-  - Non-Typical
-    - Waiting means I'm waiting on someone else to proceed w/this.
-    - Someday means I might consider this task
-    - Delegated means some other weenie is doing this job :-)
-
-  - @/! means leave a note and record time when entering.
-  - ! means to leave a timestamp when exiting unless the next state records the time.
-  - "D" means mark done/leave note, "d" is just quick "done" w/no note
-
-#+begin_src emacs-lisp
-(setq org-todo-keywords '(
-(sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!)")  
-(sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)")
-))
-#+end_src
-
-#+begin_src emacs-lisp
-    ;; From norang.org -- Change task state to STARTED from TODO when clocking in -------
-(defun bh/clock-in-to-next (kw)
-  "Switch task from TODO to NEXT when clocking in.
-Skips capture tasks and tasks with subtasks"
-  (if (and (string-equal kw "TODO")
-           (not (and (boundp 'org-capture-mode) org-capture-mode)))
-      (let ((subtree-end (save-excursion (org-end-of-subtree t)))
-            (has-subtask nil))
-        (save-excursion
-          (forward-line 1)
-          (while (and (not has-subtask)
-                      (< (point) subtree-end)
-                      (re-search-forward "^\*+ " subtree-end t))
-            (when (member (org-get-todo-state) org-not-done-keywords)
-              (setq has-subtask t))))
-        (when (not has-subtask)
-          "STARTED"))))
-
-    (setq org-clock-in-switch-to-state (quote bh/clock-in-to-next))
-    ;; Change task state w/C-c C-t KEY
-    (setq org-use-fast-todo-selection t)
-
-    ;; shift-left and shift-right change state (as always),
-    ;; but they don't trigger a prompt for notes, and timestamps, etc.
-    (setq org-treat-S-cursor-todo-selection-as-state-change nil)
-#+end_src
 
 ** File Types
 #+begin_src emacs-lisp
@@ -183,6 +133,56 @@ Skips capture tasks and tasks with subtasks"
   ;; org-checklist can un-set all checkboxes after you mark a task as
   ;; DONE.  Handy for recurring tasks.
   (require 'org-checklist)
+#+end_src
+
+** Task States
+  - Typical
+    - Todo
+    - Started
+    - Done
+    - Cancelled
+  - Non-Typical
+    - Waiting means I'm waiting on someone else to proceed w/this.
+    - Someday means I might consider this task
+    - Delegated means some other weenie is doing this job :-)
+
+  - @/! means leave a note and record time when entering.
+  - ! means to leave a timestamp when exiting unless the next state records the time.
+  - "D" means mark done/leave note, "d" is just quick "done" w/no note
+
+#+begin_src emacs-lisp
+(setq org-todo-keywords '(
+(sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!)")  
+(sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)" "CANCELLED(f)")
+))
+#+end_src
+
+#+begin_src emacs-lisp
+    ;; From norang.org -- Change task state to STARTED from TODO when clocking in -------
+(defun bh/clock-in-to-next (kw)
+  "Switch task from TODO to NEXT when clocking in.
+Skips capture tasks and tasks with subtasks"
+  (if (and (string-equal kw "TODO")
+           (not (and (boundp 'org-capture-mode) org-capture-mode)))
+      (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+            (has-subtask nil))
+        (save-excursion
+          (forward-line 1)
+          (while (and (not has-subtask)
+                      (< (point) subtree-end)
+                      (re-search-forward "^\*+ " subtree-end t))
+            (when (member (org-get-todo-state) org-not-done-keywords)
+              (setq has-subtask t))))
+        (when (not has-subtask)
+          "STARTED"))))
+
+    (setq org-clock-in-switch-to-state (quote bh/clock-in-to-next))
+    ;; Change task state w/C-c C-t KEY
+    (setq org-use-fast-todo-selection t)
+
+    ;; shift-left and shift-right change state (as always),
+    ;; but they don't trigger a prompt for notes, and timestamps, etc.
+    (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 #+end_src
 
 ** Custom Faces
@@ -388,7 +388,7 @@ Skips capture tasks and tasks with subtasks"
                                       ("2" . split-window-vertically)
                                       ("3" . split-window-horizontally)
                                       ("h" . hide-other)
-                                      ("k" . org-cut-special)
+                                      ("d" . org-cut-special)
                                       ;; Zap the current subtree                             
                                       ("q" . org-columns)
                                       ;; zoom into current header in new separate window
@@ -507,8 +507,9 @@ Skips capture tasks and tasks with subtasks"
 | Iteration 1        | <f6> i    | b23ce0ba-937b-447b-b87b-5448eb626465 |
 | Customer 2         | <f6> m    | 49E0DC6B-D78C-4C7A-88BF-545DA0907FFE |
 | Field List         | <f6> f    | f7c3f8da-5ab4-4769-ad17-27382483cb7c |
-| Customer 1         | <f6> r    | 5C3263D1-949E-4E01-937A-201A8E83E1C0 |
 | Enrollio           | <f6> e    | 997DDAB8-DDFF-4517-90F2-CEFB0A2727E7 |
+| Server Data        | <f6> s    | my_servers                           |
+| Customer 1         | <f6> r    | 5C3263D1-949E-4E01-937A-201A8E83E1C0 |
 | Home               | <f6> h    | 772DFBDD-38A3-4E92-8860-6904CC9D4F49 |
 | Nav Shortcuts      | <f6> <f6> | FC8A103B-5959-4A13-9735-F175C36CDC01 |
 | Notes              | <f6> n    | notes                                |
