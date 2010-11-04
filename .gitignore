@@ -13,3 +13,4 @@ config
 org-clock-save.el
 emacs-config.el
 session.[1234567890]*
+tramp
