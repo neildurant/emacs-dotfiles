@@ -30,6 +30,9 @@
 (color-theme-initialize)
 ;;(color-theme-robin-hood)
 
+;; Add nate to load-path
+(setq load-path (cons "~/.emacs.d/lib/nate" load-path))
+
 ;; Bookmark shortcuts
 (global-set-key [f7] 'bookmark-bmenu-list)
 (global-set-key [(shift f7)] 'bookmark-set)
