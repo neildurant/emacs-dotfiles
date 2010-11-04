@@ -6,6 +6,7 @@
 * Main Settings
 #+begin_src emacs-lisp
 (require 'org-id)
+(require 'org-outlook)
 (setq org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
 
 (setq org-global-properties
@@ -389,70 +390,6 @@ Skips capture tasks and tasks with subtasks"
   )
 #+end_src
 * Keyboard Shortcuts
-
-** Speed Keys
-
-#+begin_src emacs-lisp
-(setq org-use-speed-commands t)
-(setq org-speed-commands-user (quote (("0" . delete-window)
-                                      ("1" . delete-other-windows)
-                                      ("2" . split-window-vertically)
-                                      ("3" . split-window-horizontally)
-                                      ("h" . hide-other)
-                                      ("d" . org-cut-special)
-                                      ;; Zap the current subtree                             
-                                      ("q" . org-columns)
-                                      ;; zoom into current header in new separate window
-                                      ("z" . (lambda() (interactive) 
-                                              (org-tree-to-indirect-buffer) 
-                                              (other-window 1)
-                                              (delete-other-windows)))
-)))
-
-#+end_src
-** Misc.
-:PROPERTIES:
-:ID: 455c11f9-a615-4341-b7b0-d1b84ab18a4f
-:END:
-#+begin_src emacs-lisp
-;; Keyboard bindings
-(global-set-key (kbd "<f5>") 'njn/org-agenda)
-(global-unset-key (kbd "<f3>"))
-(global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
-(global-set-key (kbd "<f3> c") 'org-capture)
-(global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
-(global-set-key (kbd "<f3> i") 'org-clock-in)
-(global-set-key (kbd "<f3> j") 'org-clock-goto)
-(global-set-key (kbd "<f3> l") 'agenda-this-file-only) ;; Lock agenda (and other org-functions)
-(global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
-(global-set-key (kbd "<f3> m") 'org-mark-ring-push)
-(global-set-key (kbd "<f3> n") 'org-capture)
-(global-set-key (kbd "<f3> o") 'org-clock-out)
-(global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
-(global-set-key (kbd "<f3> r") 'org-resolve-clocks)
-(global-set-key (kbd "<f3> s") 'njn/toggle-agenda-log-show-closed)
-(global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
-(global-set-key (kbd "<f3> w") '(lambda() (interactive) (org-refile '(16))))
-
-
-(global-set-key (kbd "<f9> I") 'bh/org-info)
-
-(defun bh/org-info ()
-  (interactive)
-  (info "~/git/org-mode/doc/org.info"))
-
-(global-set-key (kbd "<f9> i") 'bh/clock-in)
-(global-set-key (kbd "<f9> o") 'bh/clock-out)
-(global-set-key (kbd "<f9> r") 'boxquote-region)
-(global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
-
-(defun bh/go-to-scratch ()
-  (interactive)
-  (switch-to-buffer "*scratch*")
-  (delete-other-windows))
-
-#+end_src
-
 ** Editing
 #+begin_src emacs-lisp
   ;; When inserting headings, jump past the clock, and properties, and content
@@ -501,6 +438,68 @@ Skips capture tasks and tasks with subtasks"
   
   ;; Always insert new headings under current heading
   (setq org-insert-heading-always-after-current 't)
+#+end_src
+** Misc.
+:PROPERTIES:
+:ID: 455c11f9-a615-4341-b7b0-d1b84ab18a4f
+:END:
+#+begin_src emacs-lisp
+;; Keyboard bindings
+(global-set-key (kbd "<f5>") 'njn/org-agenda)
+(global-unset-key (kbd "<f3>"))
+(global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
+(global-set-key (kbd "<f3> c") 'org-capture)
+(global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
+(global-set-key (kbd "<f3> i") 'org-clock-in)
+(global-set-key (kbd "<f3> j") 'org-clock-goto)
+(global-set-key (kbd "<f3> l") 'agenda-this-file-only) ;; Lock agenda (and other org-functions)
+(global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
+(global-set-key (kbd "<f3> m") 'org-mark-ring-push)
+(global-set-key (kbd "<f3> n") 'org-capture)
+(global-set-key (kbd "<f3> o") 'org-clock-out)
+(global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
+(global-set-key (kbd "<f3> r") 'org-resolve-clocks)
+(global-set-key (kbd "<f3> s") 'njn/toggle-agenda-log-show-closed)
+(global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
+(global-set-key (kbd "<f3> w") '(lambda() (interactive) (org-refile '(16))))
+
+
+(global-set-key (kbd "<f9> I") 'bh/org-info)
+
+(defun bh/org-info ()
+  (interactive)
+  (info "~/git/org-mode/doc/org.info"))
+
+(global-set-key (kbd "<f9> i") 'bh/clock-in)
+(global-set-key (kbd "<f9> o") 'bh/clock-out)
+(global-set-key (kbd "<f9> r") 'boxquote-region)
+(global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
+
+(defun bh/go-to-scratch ()
+  (interactive)
+  (switch-to-buffer "*scratch*")
+  (delete-other-windows))
+
+#+end_src
+** Speed Keys
+
+#+begin_src emacs-lisp
+(setq org-use-speed-commands t)
+(setq org-speed-commands-user (quote (("0" . delete-window)
+                                      ("1" . delete-other-windows)
+                                      ("2" . split-window-vertically)
+                                      ("3" . split-window-horizontally)
+                                      ("h" . hide-other)
+                                      ("d" . org-cut-special)
+                                      ;; Zap the current subtree                             
+                                      ("q" . org-columns)
+                                      ;; zoom into current header in new separate window
+                                      ("z" . (lambda() (interactive) 
+                                              (org-tree-to-indirect-buffer) 
+                                              (other-window 1)
+                                              (delete-other-windows)))
+)))
+
 #+end_src
 * Fast Navigation to Files
   :PROPERTIES:
