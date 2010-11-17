@@ -306,7 +306,7 @@ Skips capture tasks and tasks with subtasks"
                   ((org-agenda-files (list njn/current-buffer-name))
                    (org-agenda-show-log t)
                 ))
-		("&" "Timeline" ((agenda "" ))
+		("7" "Timeline" ((agenda "" ))
                   ((org-agenda-ndays 1)
                    (org-agenda-show-log t)
 		   (org-agenda-log-mode-items '(clock))
