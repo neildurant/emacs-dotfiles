@@ -462,6 +462,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f3> s") 'njn/toggle-agenda-log-show-closed)
+(global-set-key (kbd "<f8>") 'org-capture)
 (global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
 (global-set-key (kbd "<f3> w") '(lambda() (interactive) (org-refile '(16))))
 
