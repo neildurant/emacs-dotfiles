@@ -158,7 +158,8 @@ These settings are used in the [[Templates]] section of this file.
     - Delegated means some other weenie is doing this job :-)
 
   - @/! means leave a note and record time when entering.
-  - ! means to leave a timestamp when exiting unless the next state records the time.
+  - ! means to leave a timestamp when exiting unless the next state
+    records the time.
   - "D" means mark done/leave note, "d" is just quick "done" w/no note
 
 #+begin_src emacs-lisp
