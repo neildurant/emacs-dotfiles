@@ -320,7 +320,7 @@ Skips capture tasks and tasks with subtasks"
                   ((org-agenda-files (list njn/current-buffer-name))
                   ))
                 ("S" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
-                ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
+                ("w" "Tasks waiting on something" todo "WAITING" ((org-use-tag-inheritance nil)))
   
                 ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
                 ("o" "SOMEDAY" tags "SOMEDAY" ((org-use-tag-inheritance nil)))
