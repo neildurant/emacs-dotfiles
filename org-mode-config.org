@@ -286,9 +286,8 @@ Skips capture tasks and tasks with subtasks"
 
 
 #+end_src
-** Custom Commands
+** Custom Agenda Commands
 #+begin_src emacs-lisp
-  ; Custom agenda commands
   (setq org-agenda-custom-commands 
         (quote (
                 ("c" "Select default clocking task" tags "LEVEL=1+Mgmt"
