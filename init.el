@@ -37,6 +37,9 @@
 (global-set-key [f7] 'bookmark-bmenu-list)
 (global-set-key [(shift f7)] 'bookmark-set)
 
+;; Kill buffer
+(global-set-key [(control f4)] '(lambda () (interactive) (kill-buffer)))
+
 (global-set-key [f4] 'ido-switch-buffer)
 (if (< emacs-major-version 23)
    (defun characterp (obj)
