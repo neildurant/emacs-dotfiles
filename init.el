@@ -108,5 +108,6 @@
 
 ;;(require 'org-babel-init)     
 (require 'org-install)
-;;(org-babel-tangle-file "~/.emacs.d/emacs-config.org")
 (org-babel-load-file "~/.emacs.d/org-mode-config.org")
+(if (file-exists-p "~/.emacs.d/org-mode-config-local.org")
+    (org-babel-load-file "~/.emacs.d/org-mode-config-local.org"))

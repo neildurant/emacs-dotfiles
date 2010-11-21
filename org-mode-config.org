@@ -6,7 +6,6 @@
 * Main Settings
 #+begin_src emacs-lisp
 (require 'org-id)
-(require 'org-outlook)
 (setq org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
 
 (setq org-global-properties
