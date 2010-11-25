@@ -449,6 +449,7 @@ Skips capture tasks and tasks with subtasks"
 :END:
 #+begin_src emacs-lisp
 ;; Keyboard bindings
+(global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "<f5>") 'njn/org-agenda)
 (global-unset-key (kbd "<f3>"))
 (global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
