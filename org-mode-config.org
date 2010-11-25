@@ -4,14 +4,13 @@
   :ID:       BCFE2FAF-6510-4949-B182-66521BB14A5D
   :END:
 * Main Settings
+
 #+begin_src emacs-lisp
 (require 'org-id)
-(setq org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM")
+(setq org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM(Clock)")
 
 (setq org-global-properties
-              '(("Effort_ALL". "1:00 2:00 3:00 4:00 8:00")))
-     
-
+              '(("Effort_ALL". "0:30 1:00 2:00 3:00 4:00 8:00")))
 #+end_src
 
 ** Clocking
@@ -105,10 +104,12 @@ These settings are used in the [[Templates]] section of this file.
 
 #+begin_src emacs-lisp
   (setq org-capture-templates 
-     `(("t" "Todo" entry (file, njn/notes-org-file) "* TODO %? \n\n%U  %i" :clock-in t :clock-resume t) 
-       ("n" "Note" entry (file, njn/notes-org-file) "* %?\n\n" :prepend t :clock-in t :clock-resume t)
-       ("j" "Journal" entry (file+datetree, njn/journal-org-file) "* %?\nEntered on %^u\n  %i\n  %a")
+     `(("t" "Todo" entry (file, njn/notes-org-file) "* TODO %? \n\n%U  %i\n%a" :clock-in t :clock-resume t) 
+       ("n" "Note" entry (file, njn/notes-org-file) "* %?\n\n%a" :prepend t :clock-in t :clock-resume t)
+       ("j" "Journal" entry (file+datetree, njn/journal-org-file) "* %?\nEntered on %^u\n  %i\n%a")
        ("m" "Meeting" entry (file+headline, njn/work-file "Meetings") "* %?\n\n" :prepend t :clock-in t)
+       ("w" "Whine" entry (clock) "* %?\n\n" :prepend t :clock-in t :clock-resume t)
+       ("x" "Whine" entry (clock) "* %?\n\n" :clock-in t :clock-resume t)
       )
   )
   
@@ -449,6 +450,7 @@ Skips capture tasks and tasks with subtasks"
 :END:
 #+begin_src emacs-lisp
 ;; Keyboard bindings
+(global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "<f5>") 'njn/org-agenda)
 (global-unset-key (kbd "<f3>"))
 (global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
