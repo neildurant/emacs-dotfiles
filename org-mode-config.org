@@ -133,8 +133,7 @@ These settings are used in the [[Templates]] section of this file.
   (setq org-clock-into-drawer "CLOCK")
   ;; Don't clock out when moving task to a done state
   (setq org-clock-out-when-done nil)
-
-    ;; Keep clocks running
+  ;; Keep clocks running
   (setq org-remember-clock-out-on-exit nil)
   ;; Automatically clock in when adding a note
   (add-hook 'remember-mode-hook 'org-clock-in 'append)
