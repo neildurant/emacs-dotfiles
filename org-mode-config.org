@@ -520,6 +520,7 @@ Skips capture tasks and tasks with subtasks"
 #+tblname:shortcut-definition-list
 | Appointments       | <f6> a    | A33F7A0C-F974-4C7F-A4FD-1AAA6CF9C60E |
 | bill               | <f6> b    | 519b1468-6782-48af-a3b2-c978d812c650 |
+| Personal Notes     | <f6> p    | 4ce7a31a-aa03-4044-8e70-95e0bfff0e05 |
 | Iteration 1        | <f6> i    | b23ce0ba-937b-447b-b87b-5448eb626465 |
 | Customer 2         | <f6> m    | 49E0DC6B-D78C-4C7A-88BF-545DA0907FFE |
 | Field List         | <f6> f    | f7c3f8da-5ab4-4769-ad17-27382483cb7c |
