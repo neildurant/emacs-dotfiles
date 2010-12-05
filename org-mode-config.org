@@ -104,24 +104,22 @@ These settings are used in the [[Templates]] section of this file.
 
 #+begin_src emacs-lisp
   (setq org-capture-templates 
-     `(("t" "Todo" entry (file, njn/notes-org-file) "* TODO %? \n\n%U  %i\n%a" :clock-in t :clock-resume t) 
-       ("n" "Note" entry (file, njn/notes-org-file) "* %?\n\n%a" :prepend t :clock-in t :clock-resume t)
-       ("j" "Journal" entry (file+datetree, njn/journal-org-file) "* %?\nEntered on %^u\n  %i\n%a")
-       ("m" "Meeting" entry (file+headline, njn/work-file "Meetings") "* %?\n\n" :prepend t :clock-in t)
-       ("w" "Whine" entry (clock) "* %?\n\n" :prepend t :clock-in t :clock-resume t)
-       ("x" "Whine" entry (clock) "* %?\n\n" :clock-in t :clock-resume t)
-      )
-  )
-  
-  
+        `(
+          ("d" "Details" entry (clock) "* %?\n\n" :prepend t :clock-in t :clock-resume t)       
+          ("j" "Journal" entry (file+datetree, njn/journal-org-file) "* %?\nEntered on %^u\n  %i\n%a")   
+          ("m" "Meeting" entry (file+headline, njn/work-file "Meetings") "* %?\n\n" :prepend t :clock-in t)
+          ("n" "Note" entry (file, njn/notes-org-file) "* %?\n\n%a" :prepend t :clock-in t :clock-resume t)
+          ("t" "Todo" entry (file, njn/notes-org-file) "* TODO %? \n\n%U  %i\n%a" :clock-in t :clock-resume t))
+        )
+      
   (setq org-remember-templates
-     (list
-        (list "Appointment" ?a "* %?\n  %U" njn/main-org-file "Appointments" nil)
-        (list "Journal" ?j "* %?\n\n  %i\n  %a" njn/journal-org-file 'date-tree)
-        (list "Todo" ?t "* TODO %?\n\n%U  %i" njn/notes-org-file 'top)
-        (list "Note" ?n "* %?" njn/notes-org-file 'top nil)
-  ))
-
+        (list
+         (list "Appointment" ?a "* %?\n  %U" njn/main-org-file "Appointments" nil)
+         (list "Journal" ?j "* %?\n\n  %i\n  %a" njn/journal-org-file 'date-tree)
+         (list "Todo" ?t "* TODO %?\n\n%U  %i" njn/notes-org-file 'top)
+         (list "Note" ?n "* %?" njn/notes-org-file 'top nil)
+         )
+        )
 #+end_src
 
 ** Initialization
@@ -133,8 +131,7 @@ These settings are used in the [[Templates]] section of this file.
   (setq org-clock-into-drawer "CLOCK")
   ;; Don't clock out when moving task to a done state
   (setq org-clock-out-when-done nil)
-
-    ;; Keep clocks running
+  ;; Keep clocks running
   (setq org-remember-clock-out-on-exit nil)
   ;; Automatically clock in when adding a note
   (add-hook 'remember-mode-hook 'org-clock-in 'append)
@@ -165,7 +162,7 @@ These settings are used in the [[Templates]] section of this file.
 #+begin_src emacs-lisp
 (setq org-todo-keywords '(
 (sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!)")  
-(sequence "WAITING(w@/@)" "TBV(b)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)" "CANCELLED(f)")
+(sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)" "CANCELLED(f)" "TBV(b)")
 ))
 #+end_src
 
@@ -524,6 +521,7 @@ Skips capture tasks and tasks with subtasks"
 #+tblname:shortcut-definition-list
 | Appointments       | <f6> a    | A33F7A0C-F974-4C7F-A4FD-1AAA6CF9C60E |
 | bill               | <f6> b    | 519b1468-6782-48af-a3b2-c978d812c650 |
+| Personal Notes     | <f6> p    | 4ce7a31a-aa03-4044-8e70-95e0bfff0e05 |
 | Iteration 1        | <f6> i    | b23ce0ba-937b-447b-b87b-5448eb626465 |
 | Customer 2         | <f6> m    | 49E0DC6B-D78C-4C7A-88BF-545DA0907FFE |
 | Field List         | <f6> f    | f7c3f8da-5ab4-4769-ad17-27382483cb7c |
