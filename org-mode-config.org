@@ -241,6 +241,19 @@ Skips capture tasks and tasks with subtasks"
 #+end_src
 ** Misc Functions
 #+begin_src emacs-lisp
+(setq njn/org-agenda-show-closed nil)
+(defun njn/agenda-toggle-show-closed()
+  "Toggle whether closed clock thingies are shown in the agenda"
+  (interactive)
+  (if (eq njn/org-agenda-show-closed 't)
+      (progn (setq org-agenda-log-mode-items (quote (clock)))
+	     (setq njn/org-agenda-show-closed nil)
+	     (message "NOT Showing closed clock entries in agenda"))
+    (progn (setq org-agenda-log-mode-items (quote (closed clock)))
+	   (setq njn/org-agenda-show-closed 't)
+	   (message "Showing closed clock entries in agenda"))
+    ))
+
 (defun njn/is-project-p ()
   "Any task with a todo keyword subtask"
   (let ((has-subtask)
@@ -462,7 +475,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> o") 'org-clock-out)
 (global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
-(global-set-key (kbd "<f3> s") 'njn/toggle-agenda-log-show-closed)
+(global-set-key (kbd "<f3> s") 'njn/agenda-toggle-show-closed)
 (global-set-key (kbd "<f8>") 'org-capture)
 (global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
 (global-set-key (kbd "<f3> w") '(lambda() (interactive) (org-refile '(16))))
