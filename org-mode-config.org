@@ -111,6 +111,7 @@ These settings are used in the [[Templates]] section of this file.
           ("j" "Journal" entry (file+datetree, njn/journal-org-file) "* %?\nEntered on %^u\n  %i\n%a")   
           ("m" "Meeting" entry (file+headline, njn/work-file "Meetings") "* %?\n\n" :prepend t :clock-in t)
           ("n" "Note" entry (file, njn/notes-org-file) "* %?\n\n%a" :prepend t :clock-in t :clock-resume t)
+          ("s" "Simple" entry (file, njn/notes-org-file) "* %?")
           ("t" "Todo" entry (file, njn/notes-org-file) "* TODO %? \n\n%U  %i\n%a" :clock-in t :clock-resume t))
         )
       
