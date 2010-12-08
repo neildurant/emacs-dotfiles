@@ -8,18 +8,15 @@
 (require 'org-id)
 (require 'org-outlook)
 (setq org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM(Clock)")
-
 (setq org-global-properties
               '(("Effort_ALL". "0:30 1:00 2:00 3:00 4:00 8:00")))
-     
-
 #+end_src
 
 ** Clocking
 #+begin_src emacs-lisp
   (setq org-clock-out-remove-zero-time-clocks 't)
 #+end_src
-** Directories
+* Directories / Main Setup
 Set directories here.
 #+begin_src emacs-lisp
     ;; Use environment variables to set org directories
@@ -53,30 +50,14 @@ Set directories here.
 #+end_src
 
 ** Capture Files
-I use three files for notes that I create using Org-mode's "Remember"
-feature.
-
-  - Notes and TODOs go to notes.org
-  - Appointments go to nate.org/Appointments
+  - Virtually everything goes to refile.org, to be refiled later.
   - Journal entries go to journal.org
-  - Work related stuff goes to $WORK_FILE env. var, or else
-    to "workfile.org" in personal org dir.
 
 These settings are used in the [[Templates]] section of this file.
 
 #+begin_src emacs-lisp
-
-  (setq njn/main-org-file (concat personal-org-dir "/nate.org"))
   (setq njn/journal-org-file (concat personal-org-dir "/journal.org"))
-  (setq njn/notes-org-file (concat personal-org-dir "/notes.org"))
-  (setq njn/work-file (concat personal-org-dir "/.org"))
-  (if
-    (getenv "WORK_FILE")
-      (setq njn/work-file (getenv "WORK_FILE"))
-     (setq njn/work-file (concat personal-org-dir "/workfile.org"))
-  )
-
-  
+  (setq njn/refile-org-file (concat personal-org-dir "/refile.org"))  
 #+end_src
 
 ** File Types
@@ -108,10 +89,9 @@ These settings are used in the [[Templates]] section of this file.
         `(
           ("d" "Details" entry (clock) "* %?\n\n" :prepend t :clock-in t :clock-resume t)       
           ("j" "Journal" entry (file+datetree, njn/journal-org-file) "* %?\nEntered on %^u\n  %i\n%a")   
-          ("m" "Meeting" entry (file+headline, njn/work-file "Meetings") "* %?\n\n" :prepend t :clock-in t)
-          ("n" "Note" entry (file, njn/notes-org-file) "* %?\n\n%a" :prepend t :clock-in t :clock-resume t)
-          ("s" "Simple" entry (file, njn/notes-org-file) "* %?")
-          ("t" "Todo" entry (file, njn/notes-org-file) "* TODO %? \n\n%U  %i\n%a" :clock-in t :clock-resume t))
+          ("n" "Note" entry (file, njn/refile-org-file) "* %?\n\n%a" :prepend t :clock-in t :clock-resume t)
+          ("s" "Simple" entry (file, njn/refile-org-file) "* %?")
+          ("t" "Todo" entry (file, njn/refile-org-file) "* TODO %? \n\n%U  %i\n%a" :clock-in t :clock-resume t))
         )  
 #+end_src
 
