@@ -300,7 +300,7 @@ Skips capture tasks and tasks with subtasks"
   
                 ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
                 ("o" "SOMEDAY" tags "SOMEDAY" ((org-use-tag-inheritance nil)))
-                ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
+                ("r" "Refile New Notes and Tasks" tags "refile" ((org-agenda-todo-ignore-with-date nil)))
                 ("*" "All Personal Files" ((agenda ""))
                  ((org-agenda-files (directory-files personal-org-dir 't "^[^.].*org$"))
                   (org-agenda-show-log t)))
@@ -597,32 +597,29 @@ Skips capture tasks and tasks with subtasks"
 #+end_src
 * Refiling
 #+begin_src emacs-lisp
-; Refile targets default to only filez found in personal-org-files directory
-(defun njn/set-default-refile-targets() 
-  (interactive) 
-  (setq org-refile-targets 
-	(quote ((njn/personal-org-files :maxlevel . 5))))
-)
-
-(njn/set-default-refile-targets)
-
-(defun njn/add-notesmine-to-refile-targets() 
-  (interactive)
-  (setq org-refile-targets 
-	(quote 
-	 ((njn/personal-org-files :maxlevel . 5)
-          (njn/notesmine-org-files :maxlevel . 5))))
+  ; Refile targets default to only filez found in personal-org-files directory
+  (defun njn/set-refile-personal() 
+    (interactive) 
+    (setq org-refile-targets 
+          (quote ((njn/personal-org-files :maxlevel . 5))))
   )
-
-(setq org-refile-allow-creating-parent-nodes 'confirm)
-
-; Targets start with the file name - allows creating level 1 tasks
-(setq org-refile-use-outline-path (quote file))
-
-; Targets complete in steps so we start with filename, TAB shows the next level of targets etc 
-(setq org-outline-path-complete-in-steps t)
-
-
+  
+  (njn/set-refile-personal)
+  
+  (defun njn/set-refile-notesmine() 
+    (interactive)
+    (setq org-refile-targets 
+          (quote 
+            (njn/notesmine-org-files :maxlevel . 5)))
+  )
+  
+  (setq org-refile-allow-creating-parent-nodes 'confirm)
+  
+  ; Targets start with the file name - allows creating level 1 tasks
+  (setq org-refile-use-outline-path (quote file))
+  
+  ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc 
+  (setq org-outline-path-complete-in-steps t)
 #+end_src
 * Publishing
 #+begin_src emacs-lisp
