@@ -16,7 +16,7 @@
 #+begin_src emacs-lisp
   (setq org-clock-out-remove-zero-time-clocks 't)
 #+end_src
-* Directories / Main Setup
+* Directories
 Set directories here.
 #+begin_src emacs-lisp
     ;; Use environment variables to set org directories
@@ -49,17 +49,6 @@ Set directories here.
 
 #+end_src
 
-** Capture Files
-  - Virtually everything goes to refile.org, to be refiled later.
-  - Journal entries go to journal.org
-
-These settings are used in the [[Templates]] section of this file.
-
-#+begin_src emacs-lisp
-  (setq njn/journal-org-file (concat personal-org-dir "/journal.org"))
-  (setq njn/refile-org-file (concat personal-org-dir "/refile.org"))  
-#+end_src
-
 ** File Types
 #+begin_src emacs-lisp
     ;; Trigger org-mode for files ending in .org .org_archive and .txt
@@ -83,7 +72,19 @@ These settings are used in the [[Templates]] section of this file.
 
 #+end_src
 * Capture
-** Templates
+
+** Capture Files
+  - Virtually everything goes to refile.org, to be refiled later.
+  - Journal entries go to journal.org
+
+These settings are used in the [[Templates]] section of this file.
+
+#+begin_src emacs-lisp
+  (setq njn/journal-org-file (concat personal-org-dir "/journal.org"))
+  (setq njn/refile-org-file (concat personal-org-dir "/refile.org"))  
+#+end_src
+
+** Capture Templates
 #+begin_src emacs-lisp
   (setq org-capture-templates 
         `(
@@ -95,8 +96,7 @@ These settings are used in the [[Templates]] section of this file.
         )  
 #+end_src
 
-** Initialization
-** Clock Settings
+* Clock Settings
 #+begin_src emacs-lisp
   ;; Separate drawers for clocking and logs
   (setq org-drawers (quote ("PROPERTIES" "LOGBOOK" "CLOCK")))
