@@ -72,23 +72,16 @@ Set directories here.
 
 #+end_src
 * Capture
-
-** Capture Files
   - Virtually everything goes to refile.org, to be refiled later.
   - Journal entries go to journal.org
-
-These settings are used in the [[Templates]] section of this file.
 
 #+begin_src emacs-lisp
   (setq njn/journal-org-file (concat personal-org-dir "/journal.org"))
   (setq njn/refile-org-file (concat personal-org-dir "/refile.org"))  
-#+end_src
 
-** Capture Templates
-#+begin_src emacs-lisp
   (setq org-capture-templates 
         `(
-          ("d" "Details" entry (clock) "* %?\n\n" :prepend t :clock-in t :clock-resume t)       
+          ("d" "Details" entry (clock) "* %? :details:\n\n" :prepend t :clock-in t :clock-resume t)       
           ("j" "Journal" entry (file+datetree, njn/journal-org-file) "* %?\nEntered on %^u\n  %i\n%a")   
           ("n" "Note" entry (file, njn/refile-org-file) "* %?\n\n%a" :prepend t :clock-in t :clock-resume t)
           ("s" "Simple" entry (file, njn/refile-org-file) "* %?")
