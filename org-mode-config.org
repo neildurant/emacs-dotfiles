@@ -103,7 +103,6 @@ These settings are used in the [[Templates]] section of this file.
 #+end_src
 * Capture
 ** Templates
-
 #+begin_src emacs-lisp
   (setq org-capture-templates 
         `(
@@ -113,16 +112,7 @@ These settings are used in the [[Templates]] section of this file.
           ("n" "Note" entry (file, njn/notes-org-file) "* %?\n\n%a" :prepend t :clock-in t :clock-resume t)
           ("s" "Simple" entry (file, njn/notes-org-file) "* %?")
           ("t" "Todo" entry (file, njn/notes-org-file) "* TODO %? \n\n%U  %i\n%a" :clock-in t :clock-resume t))
-        )
-      
-  (setq org-remember-templates
-        (list
-         (list "Appointment" ?a "* %?\n  %U" njn/main-org-file "Appointments" nil)
-         (list "Journal" ?j "* %?\n\n  %i\n  %a" njn/journal-org-file 'date-tree)
-         (list "Todo" ?t "* TODO %?\n\n%U  %i" njn/notes-org-file 'top)
-         (list "Note" ?n "* %?" njn/notes-org-file 'top nil)
-         )
-        )
+        )  
 #+end_src
 
 ** Initialization
@@ -165,7 +155,7 @@ These settings are used in the [[Templates]] section of this file.
 #+begin_src emacs-lisp
 (setq org-todo-keywords '(
 (sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!)")  
-(sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o@/@)" "CANCELLED(c@/@)" "CANCELLED(f)" "TBV(b)")
+(sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "SOMEDAY(o)" "CANCELLED(c)" "TBV(b)")
 ))
 #+end_src
 
