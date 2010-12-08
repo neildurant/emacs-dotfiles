@@ -3,7 +3,7 @@
   :PROPERTIES:
   :ID:       BCFE2FAF-6510-4949-B182-66521BB14A5D
   :END:
-* Main Settings
+
 #+begin_src emacs-lisp
 (require 'org-id)
 (require 'org-outlook)
