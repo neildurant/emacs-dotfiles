@@ -81,12 +81,14 @@ Set directories here.
 
   (setq org-capture-templates 
         `(
-          ("d" "Details" entry (clock) "* %? :details:\n\n" :prepend t :clock-in t :clock-resume t)       
+          ("d" "Details" entry (clock) "* %? :details:\n%i\n" :prepend t :clock-in t :clock-resume t)       
           ("j" "Journal" entry (file+datetree, njn/journal-org-file) "* %?\nEntered on %^u\n  %i\n%a")   
-          ("n" "Note" entry (file, njn/refile-org-file) "* %?\n\n%a" :prepend t :clock-in t :clock-resume t)
-          ("s" "Simple" entry (file, njn/refile-org-file) "* %?")
-          ("t" "Todo" entry (file, njn/refile-org-file) "* TODO %? \n\n%U  %i\n%a" :clock-in t :clock-resume t))
-        )  
+          ("N" "Note Detailed" entry (file, njn/refile-org-file) "* %?\n%i\n%a" :prepend t :clock-in t :clock-resume t)
+          ("n" "Note Simple" entry (file, njn/refile-org-file) "* %? \n%i\n%U\n")
+          ("T" "Todo" entry (file, njn/refile-org-file) "* TODO %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
+          ("t" "Todo Simple" entry (file, njn/refile-org-file) "* TODO %? \n%i\n%U\n")
+        )
+  )  
 #+end_src
 
 * Clock Settings
