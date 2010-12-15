@@ -457,6 +457,8 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f9> r") 'boxquote-region)
 (global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
 
+(global-set-key (kbd "<f11>") '(lambda() (interactive) (switch-to-buffer org-agenda-buffer-name)))
+
 (defun bh/go-to-scratch ()
   (interactive)
   (switch-to-buffer "*scratch*")
