@@ -339,17 +339,6 @@ Skips capture tasks and tasks with subtasks"
 ))
 
 #+end_src
-* Appt Notifications
-#+begin_src emacs-lisp
-  (setq appt-message-warning-time 15
-        appt-display-mode-line t
-        appt-display-format 'window)
-        (appt-activate 1)
-        (display-time)
-
-  (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
-
-#+end_src
 * Menus
 #+begin_src emacs-lisp
 
