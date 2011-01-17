@@ -274,8 +274,8 @@ Skips capture tasks and tasks with subtasks"
                (
                 (org-agenda-overriding-header "Set default clocking task with C-u C-u I")
                 (org-agenda-files (njn/personal-org-files))))
-
-		("pt" "All Todos - simply nests all todos" tags-todo "/TODO"
+          ("p" . "Custom Agenda Commands")
+          ("pt" "All Todos - simply nests all todos" tags-todo "/TODO"
 		((org-agenda-overriding-header "All TODOs, nested")))
 	      ("ph" "Projects" tags-todo "project|LEVEL=2-REFILE|LEVEL=1+REFILE/!-DONE-CANCELLED"
 	       ((org-agenda-skip-function 'njn/skip-non-projects)
