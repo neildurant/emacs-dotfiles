@@ -362,7 +362,7 @@ Skips capture tasks and tasks with subtasks"
        ["Goto" org-clock-goto]
        )
      ("Agenda" ;; submenu
-       ["Limit to file" agenda-this-file-only]
+       ["Limit to file" njn/agenda-this-file-only]
        ["Remove Limit to file" org-agenda-remove-restriction-lock]
        ["Regular View" org-agenda-list]
        ["Show Agenda" org-agenda]
