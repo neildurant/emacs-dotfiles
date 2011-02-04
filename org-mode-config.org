@@ -246,6 +246,13 @@ Skips capture tasks and tasks with subtasks"
     (if (njn/is-project-p)
         nil
       subtree-end)))
+
+(defun njn/agenda-this-file-only()
+  (interactive)
+  (org-agenda-set-restriction-lock 'file)
+  (org-agenda)
+)
+
 (defun njn/org-agenda ()
   "Set a variable called njn/current-buffer-file-name to record the
   name of the org-mode file that was active when org-agenda is called.  This
@@ -430,7 +437,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
 (global-set-key (kbd "<f3> i") 'org-clock-in)
 (global-set-key (kbd "<f3> j") 'org-clock-goto)
-(global-set-key (kbd "<f3> l") 'agenda-this-file-only) ;; Lock agenda (and other org-functions)
+(global-set-key (kbd "<f3> l") 'njn/agenda-this-file-only) ;; Lock agenda (and other org-functions)
 (global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
 (global-set-key (kbd "<f3> m") 'org-mark-ring-push)
 (global-set-key (kbd "<f3> n") 'org-capture)
