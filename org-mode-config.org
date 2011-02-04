@@ -470,10 +470,10 @@ Skips capture tasks and tasks with subtasks"
                                       ("1" . delete-other-windows)
                                       ("2" . split-window-vertically)
                                       ("3" . split-window-horizontally)
+                                      ("d" . org-cut-special) ;; Zap the current subtree
                                       ("h" . hide-other)
-                                      ("d" . org-cut-special)
-                                      ;; Zap the current subtree                             
                                       ("q" . org-columns)
+                                      ("s" . org-schedule)
                                       ;; zoom into current header in new separate window
                                       ("z" . (lambda() (interactive) 
                                               (org-tree-to-indirect-buffer) 
