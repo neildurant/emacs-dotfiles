@@ -188,9 +188,9 @@ Skips capture tasks and tasks with subtasks"
 (add-hook 'org-agenda-mode-hook
              '(lambda ()
                 (define-key org-agenda-mode-map "s" 'org-agenda-schedule)
+                ;; Use 'w' to refile stuph (you can still use v-w to go to week mode)
+                (define-key org-agenda-mode-map "w" 'org-agenda-refile)
 ))
-;; Use 'w' to refile stuph (you can still use v-w to go to week mode)
-(org-defkey org-agenda-mode-map "w" 'org-agenda-refile)
 
 ;; Log journal entries to this file.
 (setq org-agenda-diary-file njn/journal-org-file)
