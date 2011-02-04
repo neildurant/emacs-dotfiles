@@ -203,7 +203,7 @@ Skips capture tasks and tasks with subtasks"
 (setq org-tags-match-list-sublevels 'indented)
 
 ;; Agenda clock report parameters (no links, 6 levels deep)
-(setq org-agenda-clockreport-parameter-plist (quote (:link t :maxlevel 6)))
+(setq org-agenda-clockreport-parameter-plist (quote (:link t :maxlevel 6 :fileskip0 t)))
 
 #+end_src
 ** Misc Functions
