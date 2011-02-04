@@ -183,8 +183,14 @@ Skips capture tasks and tasks with subtasks"
 * Agenda
 ** Tweaks
 #+begin_src emacs-lisp
+;; Redefine "s" key in agenda to schedule.
+;; It's originally assigned to "save all org buffers", which is F3-a for me.
+(add-hook 'org-agenda-mode-hook
+             '(lambda ()
+                (define-key org-agenda-mode-map "s" 'org-agenda-schedule)
+))
 ;; Use 'w' to refile stuph (you can still use v-w to go to week mode)
-;; (org-defkey org-agenda-mode-map "w" 'org-agenda-refile)
+(org-defkey org-agenda-mode-map "w" 'org-agenda-refile)
 
 ;; Log journal entries to this file.
 (setq org-agenda-diary-file njn/journal-org-file)
