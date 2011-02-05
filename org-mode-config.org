@@ -81,7 +81,7 @@ Set directories here.
   (setq org-capture-templates 
         `(
           ("d" "Details" entry (clock) "* %? :details:\n%i\n" :prepend t :clock-in t :clock-resume t)       
-          ("j" "Journal" entry (file+datetree, njn/journal-org-file) "* %?\nEntered on %^u\n  %i\n%a")   
+          ("j" "Journal" entry (file+datetree+prompt, njn/journal-org-file) "* %?\nEntered on %u\n  %i\n%a")   
           ("N" "Note Detailed" entry (file, njn/refile-org-file) "* %?\n%i\n%a" :prepend t :clock-in t :clock-resume t)
           ("n" "Note Simple" entry (file, njn/refile-org-file) "* %? \n%i\n%U\n")
           ("T" "Todo" entry (file, njn/refile-org-file) "* TODO %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
@@ -183,8 +183,14 @@ Skips capture tasks and tasks with subtasks"
 * Agenda
 ** Tweaks
 #+begin_src emacs-lisp
-;; Use 'w' to refile stuph (you can still use v-w to go to week mode)
-;; (org-defkey org-agenda-mode-map "w" 'org-agenda-refile)
+;; Redefine "s" key in agenda to schedule.
+;; It's originally assigned to "save all org buffers", which is F3-a for me.
+(add-hook 'org-agenda-mode-hook
+             '(lambda ()
+                (define-key org-agenda-mode-map "s" 'org-agenda-schedule)
+                ;; Use 'w' to refile stuph (you can still use v-w to go to week mode)
+                (define-key org-agenda-mode-map "w" 'org-agenda-refile)
+))
 
 ;; Log journal entries to this file.
 (setq org-agenda-diary-file njn/journal-org-file)
@@ -203,7 +209,7 @@ Skips capture tasks and tasks with subtasks"
 (setq org-tags-match-list-sublevels 'indented)
 
 ;; Agenda clock report parameters (no links, 6 levels deep)
-(setq org-agenda-clockreport-parameter-plist (quote (:link t :maxlevel 6)))
+(setq org-agenda-clockreport-parameter-plist (quote (:link t :maxlevel 6 :fileskip0 t)))
 
 #+end_src
 ** Misc Functions
@@ -240,6 +246,13 @@ Skips capture tasks and tasks with subtasks"
     (if (njn/is-project-p)
         nil
       subtree-end)))
+
+(defun njn/agenda-this-file-only()
+  (interactive)
+  (org-agenda-set-restriction-lock 'file)
+  (org-agenda)
+)
+
 (defun njn/org-agenda ()
   "Set a variable called njn/current-buffer-file-name to record the
   name of the org-mode file that was active when org-agenda is called.  This
@@ -274,28 +287,25 @@ Skips capture tasks and tasks with subtasks"
                (
                 (org-agenda-overriding-header "Set default clocking task with C-u C-u I")
                 (org-agenda-files (njn/personal-org-files))))
-
-		("pt" "All Todos - simply nests all todos" tags-todo "/TODO"
+          ("p" . "Custom Agenda Commands")
+          ("pt" "All Todos - simply nests all todos" tags-todo "/TODO"
 		((org-agenda-overriding-header "All TODOs, nested")))
-	      ("ph" "Projects" tags-todo "project|LEVEL=2-REFILE|LEVEL=1+REFILE/!-DONE-CANCELLED"
-	       ((org-agenda-skip-function 'njn/skip-non-projects)
-                (org-agenda-overriding-header "Projects (High Level)")))
-                ("?" "Questions" (
+	      ("pp" "Projects" tags-todo "project-DONE-CANCELLED"
+	       ((org-agenda-overriding-header "Projects (High Level)")))
+          ("?" "Questions" (
                   (tags "question/-DONE")))
-                ("." "Cur Buffer - Regular" ((agenda "" ))
+          ("." "Cur Buffer - Regular" ((agenda "" ))
                   ((org-agenda-files (list njn/current-buffer-name))
                    (org-agenda-show-log t)
                 ))
-		("7" "Timeline" ((agenda "" ))
+	      ("7" "Timeline" ((agenda "" ))
                   ((org-agenda-ndays 1)
                    (org-agenda-show-log t)
 		   (org-agenda-log-mode-items '(clock))
                    (org-agenda-clockreport-mode t)
                    (org-agenda-entry-types '()) ;; [1]
-		  )
-                  
-                )
-                ("," "Current Buffer - TODO" 
+		  ))
+          ("," "Current Buffer - TODO" 
                   ((alltodo))
                   ((org-agenda-files (list njn/current-buffer-name))
                   ))
@@ -339,17 +349,6 @@ Skips capture tasks and tasks with subtasks"
 ))
 
 #+end_src
-* Appt Notifications
-#+begin_src emacs-lisp
-  (setq appt-message-warning-time 15
-        appt-display-mode-line t
-        appt-display-format 'window)
-        (appt-activate 1)
-        (display-time)
-
-  (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
-
-#+end_src
 * Menus
 #+begin_src emacs-lisp
 
@@ -363,7 +362,7 @@ Skips capture tasks and tasks with subtasks"
        ["Goto" org-clock-goto]
        )
      ("Agenda" ;; submenu
-       ["Limit to file" agenda-this-file-only]
+       ["Limit to file" njn/agenda-this-file-only]
        ["Remove Limit to file" org-agenda-remove-restriction-lock]
        ["Regular View" org-agenda-list]
        ["Show Agenda" org-agenda]
@@ -435,7 +434,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
 (global-set-key (kbd "<f3> i") 'org-clock-in)
 (global-set-key (kbd "<f3> j") 'org-clock-goto)
-(global-set-key (kbd "<f3> l") 'agenda-this-file-only) ;; Lock agenda (and other org-functions)
+(global-set-key (kbd "<f3> l") 'njn/agenda-this-file-only) ;; Lock agenda (and other org-functions)
 (global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
 (global-set-key (kbd "<f3> m") 'org-mark-ring-push)
 (global-set-key (kbd "<f3> n") 'org-capture)
@@ -475,12 +474,14 @@ Skips capture tasks and tasks with subtasks"
                                       ("1" . delete-other-windows)
                                       ("2" . split-window-vertically)
                                       ("3" . split-window-horizontally)
+                                      ("d" . org-cut-special) ;; Zap the current subtree
                                       ("h" . hide-other)
-                                      ("d" . org-cut-special)
-                                      ;; Zap the current subtree                             
                                       ("q" . org-columns)
-                                      ("z" . org-add-note)
                                       ("v" . (lambda() (interactive) 
+                                      ("s" . org-schedule)
+                                      ("z" . org-add-note)
+                                      ;; zoom into current header in new separate window
+                                      ("Z" . (lambda() (interactive) 
                                               (org-tree-to-indirect-buffer) 
                                               (other-window 1)
                                               (delete-other-windows)))
