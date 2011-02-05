@@ -477,7 +477,6 @@ Skips capture tasks and tasks with subtasks"
                                       ("d" . org-cut-special) ;; Zap the current subtree
                                       ("h" . hide-other)
                                       ("q" . org-columns)
-                                      ("v" . (lambda() (interactive) 
                                       ("s" . org-schedule)
                                       ("z" . org-add-note)
                                       ;; zoom into current header in new separate window
