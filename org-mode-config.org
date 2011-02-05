@@ -649,7 +649,7 @@ Skips capture tasks and tasks with subtasks"
 ; norang-org are the org-files that generate the content
 ; norang-extra are images and css files that need to be included
 ; norang is the top-level project that gets published
-      (quote (("notesmine-com"
+`(("notesmine-com"
                :base-directory "~/Documents/notesmine-org"
                :publishing-directory "~/tmp/dangle"
                :recursive t
@@ -661,19 +661,18 @@ Skips capture tasks and tasks with subtasks"
                :style-include-default nil
                :section-numbers nil
                :table-of-contents nil
-               :style-include-default nil
-               :style "<link rel=\"stylesheet\" href=\"norang.css\" type=\"text/css\">"
                :author-info nil
                :creator-info nil)
               ("notesmine-extra"
                :base-directory "~/Documents/notesmine-org"
+               :publishing-directory "~/tmp/dangle"
                :base-extension "css\\|pdf\\|png\\|jpg\\|gif"
                :publishing-function org-publish-attachment
                :recursive t
                :author nil)
               ("notesmine"
-               :components ("norang-org" "norang-extra"))
-)))
+               :components ("notesmine-extra" "notesmine-com"))
+))
 
 ; I'm lazy and don't want to remember the name of the project to publish when I modify
 ; a file that is part of a project.  So this function saves the file, and publishes
