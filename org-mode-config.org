@@ -633,9 +633,6 @@ Skips capture tasks and tasks with subtasks"
 (setq org-export-html-inline-images t)
 ; Do not use sub or superscripts - I currently don't need this functionality in my documents
 (setq org-export-with-sub-superscripts nil)
-; Use org.css from the norang website for export document stylesheets
-(setq org-export-html-style-extra "<link rel=\"stylesheet\" href=\"http://doc.norang.ca/org.css\" type=\"text/css\" />")
-(setq org-export-html-style-include-default nil)
 ; Do not generate internal css formatting for HTML exports
 (setq org-export-htmlize-output-type (quote css))
 
@@ -643,12 +640,6 @@ Skips capture tasks and tasks with subtasks"
 ; orgmode.nateneff.com
 ; notesmine.com
 (setq org-publish-project-alist
-; I took this next line out -- NJN
-;:publishing-directory "/ssh:www-data@www:~/www.norang.ca/htdocs"
-; http://orgmode.nateneff.com/
-; norang-org are the org-files that generate the content
-; norang-extra are images and css files that need to be included
-; norang is the top-level project that gets published
 `(("notesmine-com"
                :base-directory "~/Documents/notesmine-org"
                :publishing-directory "~/tmp/dangle"
@@ -658,7 +649,6 @@ Skips capture tasks and tasks with subtasks"
                :tags nil
                :base-extension "org"
                :publishing-function org-publish-org-to-html
-               :style-include-default nil
                :section-numbers nil
                :table-of-contents nil
                :author-info nil
