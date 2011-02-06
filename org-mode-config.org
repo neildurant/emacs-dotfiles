@@ -647,6 +647,8 @@ Skips capture tasks and tasks with subtasks"
                :section_numbers nil
                :table-of-contents nil
                :tags nil
+               :style "<link rel=\"stylesheet\" href=\"css/notesmine.css\" type=\"text/css\" />"
+               :style-include-default nil
                :base-extension "org"
                :publishing-function org-publish-org-to-html
                :section-numbers nil
