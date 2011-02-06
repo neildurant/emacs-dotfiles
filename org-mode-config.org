@@ -641,8 +641,8 @@ Skips capture tasks and tasks with subtasks"
 ; notesmine.com
 (setq org-publish-project-alist
 `(("notesmine-com"
-               :base-directory "~/Documents/notesmine-org"
-               :publishing-directory "~/tmp/dangle"
+               :base-directory ,njn/notesmine-dir
+               :publishing-directory "~/tmp/notesmine.com"
                :recursive t
                :section_numbers nil
                :table-of-contents nil
@@ -654,8 +654,8 @@ Skips capture tasks and tasks with subtasks"
                :author-info nil
                :creator-info nil)
               ("notesmine-extra"
-               :base-directory "~/Documents/notesmine-org"
-               :publishing-directory "~/tmp/dangle"
+               :base-directory ,njn/notesmine-dir
+               :publishing-directory "~/tmp/notesmine.com"
                :base-extension "css\\|pdf\\|png\\|jpg\\|gif"
                :publishing-function org-publish-attachment
                :recursive t
