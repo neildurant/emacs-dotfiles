@@ -683,6 +683,14 @@ Skips capture tasks and tasks with subtasks"
 
 #+end_src
   
+* Org-babel
+#+begin_src emacs-lisp
+(org-babel-do-load-languages
+    'org-babel-load-languages
+    '((ruby . t)
+      (sh   . t))
+)
+#+end_src
 * Org-habit
 #+begin_src emacs-lisp
   (require 'org-habit)  
