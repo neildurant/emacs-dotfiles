@@ -641,6 +641,9 @@ Skips capture tasks and tasks with subtasks"
 ; notesmine.com
 (setq org-publish-project-alist
 `(("notesmine-com"
+               :auto-sitemap t
+               :sitemap-filename "index.org"
+               :sitemap-title "Notesmine.com"
                :base-directory ,njn/notesmine-dir
                :publishing-directory "~/tmp/notesmine.com"
                :recursive t
