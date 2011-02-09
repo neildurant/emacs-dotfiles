@@ -640,12 +640,17 @@ Skips capture tasks and tasks with subtasks"
 ; notesmine.com
 (setq org-publish-project-alist
 `(("notesmine-com"
-               :base-directory "~/Documents/notesmine-org"
-               :publishing-directory "~/tmp/dangle"
+               :auto-sitemap t
+               :sitemap-filename "index.org"
+               :sitemap-title "Notesmine.com"
+               :base-directory ,njn/notesmine-dir
+               :publishing-directory "~/tmp/notesmine.com"
                :recursive t
                :section_numbers nil
                :table-of-contents nil
                :tags nil
+               :style "<link rel=\"stylesheet\" href=\"css/notesmine.css\" type=\"text/css\" />"
+               :style-include-default nil
                :base-extension "org"
                :publishing-function org-publish-org-to-html
                :section-numbers nil
@@ -653,8 +658,8 @@ Skips capture tasks and tasks with subtasks"
                :author-info nil
                :creator-info nil)
               ("notesmine-extra"
-               :base-directory "~/Documents/notesmine-org"
-               :publishing-directory "~/tmp/dangle"
+               :base-directory ,njn/notesmine-dir
+               :publishing-directory "~/tmp/notesmine.com"
                :base-extension "css\\|pdf\\|png\\|jpg\\|gif"
                :publishing-function org-publish-attachment
                :recursive t
@@ -677,6 +682,14 @@ Skips capture tasks and tasks with subtasks"
 
 #+end_src
   
+* Org-babel
+#+begin_src emacs-lisp
+(org-babel-do-load-languages
+    'org-babel-load-languages
+    '((ruby . t)
+      (sh   . t))
+)
+#+end_src
 * Org-habit
 #+begin_src emacs-lisp
   (require 'org-habit)  
