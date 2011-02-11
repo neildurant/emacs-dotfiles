@@ -190,6 +190,8 @@ Skips capture tasks and tasks with subtasks"
                 (define-key org-agenda-mode-map "s" 'org-agenda-schedule)
                 ;; Use 'w' to refile stuph (you can still use v-w to go to week mode)
                 (define-key org-agenda-mode-map "w" 'org-agenda-refile)
+                (define-key org-agenda-mode-map (kbd "<F3> i") 'org-agenda-clock-in)
+                (define-key org-agenda-mode-map "q" 'org-agenda-columns)
 ))
 
 ;; Log journal entries to this file.
@@ -393,6 +395,7 @@ Skips capture tasks and tasks with subtasks"
   ;; Insert subheading shortcuts
   (define-key org-mode-map (kbd "C-M-<return>") 'njn/org-insert-subheading)
   (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
+  (define-key org-mode-map (kbd "S-<kp-enter>") 'org-insert-todo-subheading)
   
   ;; Thanks to Jan Boecker for this slick function.
   (defun njn/smart-insert-heading ()
