@@ -436,6 +436,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> c") 'org-capture)
 (global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
 (global-set-key (kbd "<f3> i") 'org-clock-in)
+(global-set-key (kbd "<f3> I") '(lambda() (interactive) (org-clock-in '(4))))
 (global-set-key (kbd "<f3> j") 'org-clock-goto)
 (global-set-key (kbd "<f3> l") 'njn/agenda-this-file-only) ;; Lock agenda (and other org-functions)
 (global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
@@ -443,6 +444,9 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> n") 'org-capture)
 (global-set-key (kbd "<f3> o") 'org-clock-out)
 (global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
+(global-set-key (kbd "<f3> P") '(lambda() (interactive) (org-clock-in '(4))))
+
+
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f3> s") 'njn/agenda-toggle-show-closed)
 (global-set-key (kbd "<f8>") 'org-capture)
