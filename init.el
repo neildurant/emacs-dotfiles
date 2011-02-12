@@ -106,6 +106,9 @@
 (setq load-path (cons "~/.emacs.d/src/org/contrib/lisp" load-path))
 (setq load-path (cons "~/.emacs.d/src/org/lisp" load-path))
 
+;; Disable annoying font-lock message on OSX
+(setq font-lock-verbose nil)
+
 ;;(require 'org-babel-init)     
 (require 'org-install)
 (org-babel-load-file "~/.emacs.d/org-mode-config.org")
