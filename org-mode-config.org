@@ -190,6 +190,8 @@ Skips capture tasks and tasks with subtasks"
                 (define-key org-agenda-mode-map "s" 'org-agenda-schedule)
                 ;; Use 'w' to refile stuph (you can still use v-w to go to week mode)
                 (define-key org-agenda-mode-map "w" 'org-agenda-refile)
+                (define-key org-agenda-mode-map (kbd "<C-f4>") 'org-agenda-quit)
+                (define-key org-agenda-mode-map "q" 'org-agenda-columns)
 ))
 
 ;; Log journal entries to this file.
