@@ -8,7 +8,7 @@
 (require 'org-id)
 (setq org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM(Clock)")
 (setq org-global-properties
-              '(("Effort_ALL". "0:30 1:00 2:00 3:00 4:00 8:00")))
+              '(("Effort_ALL". "1:00 2:00 3:00 4:00 5:00 6:00 7:00 8:00 0:30 0:15")))
 #+end_src
 
 ** Clocking
@@ -395,6 +395,7 @@ Skips capture tasks and tasks with subtasks"
   ;; Insert subheading shortcuts
   (define-key org-mode-map (kbd "C-M-<return>") 'njn/org-insert-subheading)
   (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
+  (define-key org-mode-map (kbd "S-<kp-enter>") 'org-insert-todo-subheading)
   
   ;; Thanks to Jan Boecker for this slick function.
   (defun njn/smart-insert-heading ()
@@ -435,6 +436,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> c") 'org-capture)
 (global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
 (global-set-key (kbd "<f3> i") 'org-clock-in)
+(global-set-key (kbd "<f3> I") '(lambda() (interactive) (org-clock-in '(4))))
 (global-set-key (kbd "<f3> j") 'org-clock-goto)
 (global-set-key (kbd "<f3> l") 'njn/agenda-this-file-only) ;; Lock agenda (and other org-functions)
 (global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
@@ -442,6 +444,9 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> n") 'org-capture)
 (global-set-key (kbd "<f3> o") 'org-clock-out)
 (global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
+(global-set-key (kbd "<f3> P") '(lambda() (interactive) (org-clock-in '(4))))
+
+
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f3> s") 'njn/agenda-toggle-show-closed)
 (global-set-key (kbd "<f8>") 'org-capture)
@@ -617,8 +622,7 @@ Skips capture tasks and tasks with subtasks"
   (defun njn/set-refile-notesmine() 
     (interactive)
     (setq org-refile-targets 
-          (quote 
-            (njn/notesmine-org-files :maxlevel . 5)))
+          (quote ((njn/notesmine-org-files :maxlevel . 5))))
   )
   
   (setq org-refile-allow-creating-parent-nodes 'confirm)
