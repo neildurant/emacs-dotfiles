@@ -70,6 +70,7 @@
 (global-set-key [f2] 'show-buffers-and-switch)
 
 ;; IMPORTANT: Use Windoze key for meta key
+;; (when (eq 'darwin' system-type)
 (setq x-meta-keysym 'super)
 (setq x-super-keysym 'meta)
 

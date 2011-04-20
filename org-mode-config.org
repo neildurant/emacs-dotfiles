@@ -6,7 +6,8 @@
 
 #+begin_src emacs-lisp
 (require 'org-id)
-(setq org-columns-default-format "%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM(Clock)")
+(setq org-columns-default-format 
+    "%6CATEGORY%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM(Clock) %SCHEDULED(Scheduled)")
 (setq org-global-properties
               '(("Effort_ALL". "1:00 2:00 3:00 4:00 5:00 6:00 7:00 8:00 0:30 0:15")))
 #+end_src
@@ -14,6 +15,7 @@
 ** Clocking
 #+begin_src emacs-lisp
   (setq org-clock-out-remove-zero-time-clocks 't)
+  (setq org-clock-modeline-total 'today)
 #+end_src
 * Directories
 Set directories here.
@@ -292,8 +294,12 @@ Skips capture tasks and tasks with subtasks"
           ("p" . "Custom Agenda Commands")
           ("pt" "All Todos - simply nests all todos" tags-todo "/TODO"
 		((org-agenda-overriding-header "All TODOs, nested")))
-	      ("pp" "Projects" tags-todo "project-DONE-CANCELLED"
-	       ((org-agenda-overriding-header "Projects (High Level)")))
+	      ("pc" "Current Projects" tags-todo "+project+current-DONE-CANCELLED"
+	       ((org-agenda-overriding-header "Current Projects (High Level)")
+            (org-agenda-sorting-strategy nil)))
+	      ("ps" "Todo/Someday Projects" tags-todo "project-current-DONE-CANCELLED"
+	       ((org-agenda-overriding-header "Current Projects (High Level)")
+            (org-agenda-sorting-strategy nil)))
           ("?" "Questions" (
                   (tags "question/-DONE")))
           ("." "Cur Buffer - Regular" ((agenda "" ))
@@ -433,7 +439,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f5>") 'njn/org-agenda)
 (global-unset-key (kbd "<f3>"))
 (global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
-(global-set-key (kbd "<f3> c") 'org-capture)
+(global-set-key (kbd "<f3> c") 'org-capture-goto-last-stored)
 (global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
 (global-set-key (kbd "<f3> i") 'org-clock-in)
 (global-set-key (kbd "<f3> I") '(lambda() (interactive) (org-clock-in '(4))))
@@ -632,6 +638,14 @@ Skips capture tasks and tasks with subtasks"
   
   ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc 
   (setq org-outline-path-complete-in-steps t)
+
+  (defun njn/set-refile-simple()
+  (interactive)
+  (setq org-refile-targets (quote((nil :maxlevel . 3))))
+  (setq org-refile-allow-creating-parent-nodes 'confirm)
+  (setq org-refile-use-outline-path 't)
+)
+
 #+end_src
 * Publishing
 #+begin_src emacs-lisp
