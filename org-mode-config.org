@@ -448,6 +448,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
 (global-set-key (kbd "<f3> m") 'org-mark-ring-push)
 (global-set-key (kbd "<f3> n") 'org-capture)
+(global-set-key (kbd "<f3> t") 'org-todo)
 (global-set-key (kbd "<f3> o") 'org-clock-out)
 (global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
 (global-set-key (kbd "<f3> P") '(lambda() (interactive) (org-clock-in '(4))))
