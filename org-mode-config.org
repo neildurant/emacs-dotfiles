@@ -418,32 +418,25 @@ Skips capture tasks and tasks with subtasks"
   )
 #+end_src
 * Keyboard Shortcuts
-** Editing
+** Outline / TODO Bindings
 #+begin_src emacs-lisp
-  ;; When inserting headings, jump past the clock, and properties, and content
-  ;; of current heading.
-  (setq org-insert-heading-respect-content t)
-  
-  ;; Alt-j starts a new blank text line at the correct indent, even if 
-  ;; the file's #+property indent is not set
-  
-  (org-defkey org-mode-map (kbd "M-j")
-    '(lambda () 
-     (interactive)
-     (end-of-line)
-     (org-return-indent)))
-  
-  ;; Alt-return normally breaks the headline if you press it in the
-  ;; middle of a headline.  Disable that behavior
-  (setq org-M-RET-may-split-line nil)
-  
-  ;; Insert subheading shortcuts
+
   (define-key org-mode-map (kbd "C-M-<return>") 'njn/org-insert-subheading)
+
+  ;; enter key behavior.
+  ;; basically, any modifier on enter key will produce a sub TODO
   (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
+  (define-key org-mode-map (kbd "C-S-<kp-enter>") 'org-insert-todo-subheading)
+  (define-key org-mode-map (kbd "C-<kp-enter>") 'org-insert-todo-subheading)
   (define-key org-mode-map (kbd "S-<kp-enter>") 'org-insert-todo-subheading)
+
+  ;; M-return and M-kp-enter will create a TODO if cursor is not in a TODO,
+  ;; and vice versa
+  (define-key org-mode-map (kbd "M-<return>") 'njn/smart-insert-heading)
+  (define-key org-mode-map (kbd "M-<kp-enter>") 'njn/smart-insert-subheading)
   
 #+end_src
-** Misc.
+** Misc. Key Bindings
 :PROPERTIES:
 :ID: 455c11f9-a615-4341-b7b0-d1b84ab18a4f
 :END:
