@@ -86,6 +86,8 @@ Set directories here.
           ("n" "Note Simple" entry (file, njn/refile-org-file) "* %? \n%i\n%U\n")
           ("T" "Todo" entry (file, njn/refile-org-file) "* TODO %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
           ("t" "Todo Simple" entry (file, njn/refile-org-file) "* TODO %? \n%i\n%U\n")
+          ("s" "Start Task" entry (file, njn/refile-org-file) "* TODO %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume nil)
+          ("q" "Question" entry (file, njn/refile-org-file) "* TODO %? :question: \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
         )
   )  
 #+end_src
