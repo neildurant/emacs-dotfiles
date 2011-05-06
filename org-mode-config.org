@@ -167,7 +167,7 @@ Skips capture tasks and tasks with subtasks"
 #+begin_src emacs-lisp
    (setq org-todo-keyword-faces (quote (
  ("TODO" :foreground "red" :weight normal)
- ("STARTED" :foreground "blue" :weight normal)
+ ("NEXT" :foreground "blue" :weight normal)
  ("DONE" :foreground "forest green" :weight normal)
  ("WAITING" :foreground "orange" :weight normal)
  ("SOMEDAY" :foreground "magenta" :weight normal)
@@ -317,7 +317,7 @@ Skips capture tasks and tasks with subtasks"
                   ((alltodo))
                   ((org-agenda-files (list njn/current-buffer-name))
                   ))
-                ("S" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
+                ("S" "NEXT Tasks" todo "NEXT" ((org-agenda-todo-ignore-with-date nil)))
                 ("w" "Tasks waiting on something" todo "WAITING" ((org-use-tag-inheritance nil)))
   
                 ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
