@@ -115,3 +115,15 @@
 (org-babel-load-file "~/.emacs.d/org-mode-config.org")
 (if (file-exists-p "~/.emacs.d/org-mode-config-local.org")
     (org-babel-load-file "~/.emacs.d/org-mode-config-local.org"))
+
+;; Search stack overflow for 'runmate'
+(defun rungvim ()
+  (interactive)
+  (save-buffer)
+  (runeditor "gvim"))
+
+(defun runeditor (editor)
+  (let (filename (file-truename buffer-file-name))
+    (setq cmd (format "%s %s" editor (file-truename buffer-file-name)))
+    (save-window-excursion
+      (async-shell-command cmd))))
