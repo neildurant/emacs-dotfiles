@@ -497,12 +497,13 @@ Skips capture tasks and tasks with subtasks"
                                               (org-tree-to-indirect-buffer) 
                                               (other-window 1)
                                               (delete-other-windows)))
+                                      (":" . org-set-tags-command)
 )))
 
 #+end_src
 * Fast Navigation to Files
   :PROPERTIES:
-  :ID:       FC8A103B-5959-4A13-9735-F175C36CDC01
+  :ID:       nav_shortcuts
   :END:
   - Create an ID using org-id-get-create (See the :ID: in
     the :PROPERTIES: for this heading) 
