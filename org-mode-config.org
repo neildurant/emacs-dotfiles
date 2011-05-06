@@ -421,19 +421,19 @@ Skips capture tasks and tasks with subtasks"
 ** Outline / TODO Bindings
 #+begin_src emacs-lisp
 
-  (define-key org-mode-map (kbd "C-M-<return>") 'njn/org-insert-subheading)
+;;  (define-key org-mode-map (kbd "C-M-<return>") 'njn/org-insert-subheading)
 
   ;; enter key behavior.
   ;; basically, any modifier on enter key will produce a sub TODO
-  (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
-  (define-key org-mode-map (kbd "C-S-<kp-enter>") 'org-insert-todo-subheading)
-  (define-key org-mode-map (kbd "C-<kp-enter>") 'org-insert-todo-subheading)
-  (define-key org-mode-map (kbd "S-<kp-enter>") 'org-insert-todo-subheading)
+;;  (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
+;;  (define-key org-mode-map (kbd "C-S-<kp-enter>") 'org-insert-todo-subheading)
+;;  (define-key org-mode-map (kbd "C-<kp-enter>") 'org-insert-todo-subheading)
+;;  (define-key org-mode-map (kbd "S-<kp-enter>") 'org-insert-todo-subheading)
 
   ;; M-return and M-kp-enter will create a TODO if cursor is not in a TODO,
   ;; and vice versa
-  (define-key org-mode-map (kbd "M-<return>") 'njn/smart-insert-heading)
-  (define-key org-mode-map (kbd "M-<kp-enter>") 'njn/smart-insert-subheading)
+;;  (define-key org-mode-map (kbd "M-<return>") 'njn/smart-insert-heading)
+;;  (define-key org-mode-map (kbd "M-<kp-enter>") 'njn/smart-insert-subheading)
   
 #+end_src
 ** Misc. Key Bindings
