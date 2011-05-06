@@ -431,7 +431,7 @@ Skips capture tasks and tasks with subtasks"
 #+end_src
 ** Misc.
 :PROPERTIES:
-:ID: 455c11f9-a615-4341-b7b0-d1b84ab18a4f
+:ID: keyboard_shortcuts
 :END:
 #+begin_src emacs-lisp
 ;; Keyboard bindings
