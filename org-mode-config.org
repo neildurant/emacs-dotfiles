@@ -174,7 +174,7 @@ Skips capture tasks and tasks with subtasks"
  ("CANCELLED" :foreground "forest green" :weight normal)
  ("OPEN" :foreground "blue" :weight normal)
  ("PROJECT" :foreground "red" :weight normal)
- ("TBV" :foreground "purple" :weight normal))))
+ ("MAYBE" :foreground "purple" :weight normal))))
 #+end_src
 
 #+begin_src emacs-lisp
