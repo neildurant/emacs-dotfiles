@@ -483,6 +483,15 @@ Skips capture tasks and tasks with subtasks"
   (switch-to-buffer "*scratch*")
   (delete-other-windows))
 
+  ;; Alt-j starts a new blank text line at the correct indent, even if 
+  ;; the file's #+property indent is not set
+  
+  (org-defkey org-mode-map (kbd "M-j")
+    '(lambda () 
+     (interactive)
+     (end-of-line)
+     (org-return-indent)))
+  
 #+end_src
 ** Speed Keys
 
