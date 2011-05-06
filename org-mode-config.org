@@ -7,7 +7,7 @@
 #+begin_src emacs-lisp
 (require 'org-id)
 (setq org-columns-default-format 
-    "%6CATEGORY%40ITEM(Task) %17Effort(Estimated Effort){:} %CLOCKSUM(Clock) %SCHEDULED(Scheduled)")
+    "%6CATEGORY%40ITEM(Task) %17Effort(Estimate){:} %CLOCKSUM(Clock) %SCHEDULED(Scheduled)")
 (setq org-global-properties
               '(("Effort_ALL". "1:00 2:00 3:00 4:00 5:00 6:00 7:00 8:00 0:30 0:15")))
 #+end_src
@@ -71,6 +71,50 @@ Set directories here.
   (let ((org-insert-heading-respect-content nil))
     (org-insert-subheading t)))
 
+
+  ;; When inserting headings, jump past the clock, and properties, and content
+  ;; of current heading.
+  (setq org-insert-heading-respect-content t)
+
+  ;; Alt-return normally breaks the headline if you press it in the
+  ;; middle of a headline.  Disable that behavior
+  (setq org-M-RET-may-split-line nil)
+  
+  ;; Thanks to Jan Boecker for this slick function.
+  (defun njn/smart-insert-heading ()
+    "Insert a TODO if you're in a TODO heading, or just a blank heading 
+     if you're in a blank heading."
+    (interactive)
+    (if (or (and (org-on-heading-p t) (org-get-todo-state))
+            (org-at-item-checkbox-p))
+           (call-interactively 'org-insert-todo-heading)
+         (call-interactively 'org-insert-heading)))
+
+  (defun njn/smart-insert-subheading ()
+    "Insert a TODO if you're in a TODO heading, or just a blank heading 
+     if you're in a blank heading."
+    (interactive)
+    (if (or (and (org-on-heading-p t) (org-get-todo-state))
+            (org-at-item-checkbox-p))
+           (call-interactively 'org-insert-todo-subheading)
+         (call-interactively 'org-insert-subheading)))  
+
+  (defun njn/insert-opposite-heading ()
+    "Inserts a TODO heading if you're NOT in a TODO heading, and inserts a
+     normal heading if you're in a TODO heading"
+    (interactive)
+    (if (or (and (org-on-heading-p t) (org-get-todo-state))
+            (org-at-item-checkbox-p))
+         (call-interactively 'org-insert-heading)
+       (call-interactively 'org-insert-todo-heading)))
+  
+  (define-key org-mode-map (kbd "S-<return>") 'njn/insert-opposite-heading)
+  
+  ;; Always insert new headings under current heading
+  (setq org-insert-heading-always-after-current 't)
+
+
+
 #+end_src
 * Capture
   - Virtually everything goes to refile.org, to be refiled later.
@@ -88,6 +132,8 @@ Set directories here.
           ("n" "Note Simple" entry (file, njn/refile-org-file) "* %? \n%i\n%U\n")
           ("T" "Todo" entry (file, njn/refile-org-file) "* TODO %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
           ("t" "Todo Simple" entry (file, njn/refile-org-file) "* TODO %? \n%i\n%U\n")
+          ("s" "Start Task" entry (file, njn/refile-org-file) "* TODO %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume nil)
+          ("q" "Question" entry (file, njn/refile-org-file) "* TODO %? :question: \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
         )
   )  
 #+end_src
@@ -102,8 +148,7 @@ Set directories here.
   (setq org-clock-out-when-done nil)
   ;; Keep clocks running
   (setq org-remember-clock-out-on-exit nil)
-  ;; Automatically clock in when adding a note
-  (add-hook 'remember-mode-hook 'org-clock-in 'append)
+  (setq org-clock-modeline-total 'today)
 #+end_src
 * Tasks / TODOs
 #+begin_src emacs-lisp
@@ -303,7 +348,7 @@ Skips capture tasks and tasks with subtasks"
             (org-agenda-sorting-strategy nil)))
           ("?" "Questions" (
                   (tags "question/-DONE-CANCELLED")))
-          ("." "Cur Buffer - Regular" ((agenda "" ))
+          ("." "Cur Buffer - Timeline" ((agenda "" ))
                   ((org-agenda-files (list njn/current-buffer-name))
                    (org-agenda-show-log t)
                 ))
@@ -330,7 +375,7 @@ Skips capture tasks and tasks with subtasks"
                 ("e" "Enrollio Agenda" agenda ""
                  ((org-agenda-files enrollio-org-files)))
                 ("n" "Notesmine Agenda" agenda ""
-                 ((org-agenda-files (njn/notesmine-org-files)t)))
+                 ((org-agenda-files (njn/notesmine-org-files))))
                 ("j" "Journal" agenda ""
                  ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/journal.org")))))
                 ("g" "Geek Agenda" agenda ""
@@ -380,12 +425,70 @@ Skips capture tasks and tasks with subtasks"
   )
 #+end_src
 * Keyboard Shortcuts
-** Editing
+** Outline / TODO Bindings
 #+begin_src emacs-lisp
-  ;; When inserting headings, jump past the clock, and properties, and content
-  ;; of current heading.
-  (setq org-insert-heading-respect-content t)
+
+;;  (define-key org-mode-map (kbd "C-M-<return>") 'njn/org-insert-subheading)
+
+  ;; enter key behavior.
+  ;; basically, any modifier on enter key will produce a sub TODO
+;;  (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
+;;  (define-key org-mode-map (kbd "C-S-<kp-enter>") 'org-insert-todo-subheading)
+;;  (define-key org-mode-map (kbd "C-<kp-enter>") 'org-insert-todo-subheading)
+;;  (define-key org-mode-map (kbd "S-<kp-enter>") 'org-insert-todo-subheading)
+
+  ;; M-return and M-kp-enter will create a TODO if cursor is not in a TODO,
+  ;; and vice versa
+;;  (define-key org-mode-map (kbd "M-<return>") 'njn/smart-insert-heading)
+;;  (define-key org-mode-map (kbd "M-<kp-enter>") 'njn/smart-insert-subheading)
   
+#+end_src
+** Misc. Key Bindings
+:PROPERTIES:
+:ID: keyboard_shortcuts
+:END:
+#+begin_src emacs-lisp
+;; Keyboard bindings
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-unset-key (kbd "<f3>"))
+(global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
+(global-set-key (kbd "<f3> I") '(lambda() (interactive) (org-clock-in '(4))))
+(global-set-key (kbd "<f3> P") '(lambda() (interactive) (org-clock-in '(4))))
+(global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
+(global-set-key (kbd "<f3> c") 'org-capture-goto-last-stored)
+(global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
+(global-set-key (kbd "<f3> i") 'org-clock-in)
+(global-set-key (kbd "<f3> j") 'org-clock-goto)
+(global-set-key (kbd "<f3> l") 'njn/agenda-this-file-only) ;; Lock agenda (and other org-functions)
+(global-set-key (kbd "<f3> m") 'org-mark-ring-push)
+(global-set-key (kbd "<f3> n") 'org-capture)
+(global-set-key (kbd "<f3> o") 'org-clock-out)
+(global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
+(global-set-key (kbd "<f3> r") 'org-resolve-clocks)
+(global-set-key (kbd "<f3> s") 'njn/agenda-toggle-show-closed)
+(global-set-key (kbd "<f3> t") 'org-todo)
+(global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
+(global-set-key (kbd "<f3> w") '(lambda() (interactive) (org-refile '(16))))
+
+(global-set-key (kbd "<f5>") 'njn/org-agenda)
+(global-set-key (kbd "<f8>") 'org-capture)
+(global-set-key (kbd "<f9> I") 'bh/org-info)
+(global-set-key (kbd "<f9> i") 'bh/clock-in)
+(global-set-key (kbd "<f9> o") 'bh/clock-out)
+(global-set-key (kbd "<f9> r") 'boxquote-region)
+(global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
+
+(defun bh/org-info ()
+  (interactive)
+  (info "~/git/org-mode/doc/org.info"))
+
+(global-set-key (kbd "<f11>") '(lambda() (interactive) (switch-to-buffer org-agenda-buffer-name)))
+
+(defun bh/go-to-scratch ()
+  (interactive)
+  (switch-to-buffer "*scratch*")
+  (delete-other-windows))
+
   ;; Alt-j starts a new blank text line at the correct indent, even if 
   ;; the file's #+property indent is not set
   
@@ -395,91 +498,6 @@ Skips capture tasks and tasks with subtasks"
      (end-of-line)
      (org-return-indent)))
   
-  ;; Alt-return normally breaks the headline if you press it in the
-  ;; middle of a headline.  Disable that behavior
-  (setq org-M-RET-may-split-line nil)
-  
-  ;; Insert subheading shortcuts
-  (define-key org-mode-map (kbd "C-M-<return>") 'njn/org-insert-subheading)
-  (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
-  (define-key org-mode-map (kbd "S-<kp-enter>") 'org-insert-todo-subheading)
-  
-  ;; Thanks to Jan Boecker for this slick function.
-  (defun njn/smart-insert-heading ()
-    "Insert a TODO if you're in a TODO heading, or just a blank heading 
-     if you're in a blank heading."
-    (interactive)
-    (if (or (and (org-on-heading-p t) (org-get-todo-state))
-            (org-at-item-checkbox-p))
-           (call-interactively 'org-insert-todo-heading)
-         (call-interactively 'org-insert-heading)))
-  (
-  define-key org-mode-map (kbd "M-<return>") 'njn/smart-insert-heading)
-  
-  (defun njn/insert-opposite-heading ()
-    "Inserts a TODO heading if you're NOT in a TODO heading, and inserts a
-     normal heading if you're in a TODO heading"
-    (interactive)
-    (if (or (and (org-on-heading-p t) (org-get-todo-state))
-            (org-at-item-checkbox-p))
-         (call-interactively 'org-insert-heading)
-       (call-interactively 'org-insert-todo-heading)))
-  
-  (define-key org-mode-map (kbd "S-<return>") 'njn/insert-opposite-heading)
-  
-  ;; Always insert new headings under current heading
-  (setq org-insert-heading-always-after-current 't)
-#+end_src
-** Misc.
-:PROPERTIES:
-:ID: keyboard_shortcuts
-:END:
-#+begin_src emacs-lisp
-;; Keyboard bindings
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "<f5>") 'njn/org-agenda)
-(global-unset-key (kbd "<f3>"))
-(global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
-(global-set-key (kbd "<f3> c") 'org-capture-goto-last-stored)
-(global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
-(global-set-key (kbd "<f3> i") 'org-clock-in)
-(global-set-key (kbd "<f3> I") '(lambda() (interactive) (org-clock-in '(4))))
-(global-set-key (kbd "<f3> j") 'org-clock-goto)
-(global-set-key (kbd "<f3> l") 'njn/agenda-this-file-only) ;; Lock agenda (and other org-functions)
-(global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
-(global-set-key (kbd "<f3> m") 'org-mark-ring-push)
-(global-set-key (kbd "<f3> n") 'org-capture)
-(global-set-key (kbd "<f3> t") 'org-todo)
-(global-set-key (kbd "<f3> o") 'org-clock-out)
-(global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
-(global-set-key (kbd "<f3> P") '(lambda() (interactive) (org-clock-in '(4))))
-
-
-(global-set-key (kbd "<f3> r") 'org-resolve-clocks)
-(global-set-key (kbd "<f3> s") 'njn/agenda-toggle-show-closed)
-(global-set-key (kbd "<f8>") 'org-capture)
-(global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
-(global-set-key (kbd "<f3> w") '(lambda() (interactive) (org-refile '(16))))
-
-
-(global-set-key (kbd "<f9> I") 'bh/org-info)
-
-(defun bh/org-info ()
-  (interactive)
-  (info "~/git/org-mode/doc/org.info"))
-
-(global-set-key (kbd "<f9> i") 'bh/clock-in)
-(global-set-key (kbd "<f9> o") 'bh/clock-out)
-(global-set-key (kbd "<f9> r") 'boxquote-region)
-(global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
-
-(global-set-key (kbd "<f11>") '(lambda() (interactive) (switch-to-buffer org-agenda-buffer-name)))
-
-(defun bh/go-to-scratch ()
-  (interactive)
-  (switch-to-buffer "*scratch*")
-  (delete-other-windows))
-
 #+end_src
 ** Speed Keys
 :PROPERTIES:
@@ -521,20 +539,22 @@ Skips capture tasks and tasks with subtasks"
 
 #+tblname:shortcut-definition-list
 | Blog               | <f6> b    | blog                                 |
-| Personal Notes     | <f6> p    | 4ce7a31a-aa03-4044-8e70-95e0bfff0e05 |
-| Iteration 1        | <f6> i    | b23ce0ba-937b-447b-b87b-5448eb626465 |
-| Field List         | <f6> f    | f7c3f8da-5ab4-4769-ad17-27382483cb7c |
-| Enrollio           | <f6> e    | 997DDAB8-DDFF-4517-90F2-CEFB0A2727E7 |
-| Server Data        | <f6> s    | speed_keys                           |
 | Customer 1         | <f6> m    | customer1                            |
+| Daily Hrs cust 2   | <f6> d    | daily_customer2                      |
+| Enrollio           | <f6> e    | 997DDAB8-DDFF-4517-90F2-CEFB0A2727E7 |
+| Field List         | <f6> f    | f7c3f8da-5ab4-4769-ad17-27382483cb7c |
 | Home               | <f6> h    | 772DFBDD-38A3-4E92-8860-6904CC9D4F49 |
+| Iteration 1        | <f6> i    | b23ce0ba-937b-447b-b87b-5448eb626465 |
+| Keyboard Shortcuts | <f6> k    | keyboard_shortcuts |
 | Nav Shortcuts      | <f6> <f6> | nav_shortcuts                        |
-| Refile             | <f6> r    | refile                               |
-| Notesmine Org Mode | <f6> N    | F10D261F-0AFB-448F-BB34-8CAF652144CE |
+| Notesmine Refile   | <f6> R    | notesmine_refile                     |
+| Notesmine-org      | <f6> O    | notesmine_orgmode                    |
 | Org Mode           | <f6> o    | 2B8F0265-6509-4E79-9355-312F4B340503 |
 | Org Mode Custom    | <f6> c    | BCFE2FAF-6510-4949-B182-66521BB14A5D |
+| Personal Notes     | <f6> p    | 4ce7a31a-aa03-4044-8e70-95e0bfff0e05 |
+| Refile             | <f6> r    | refile                               |
+| Server Data        | <f6> s    | speed_keys                           |
 | Vim                | <f6> v    | 733BD03F-0938-432F-B59A-BE235A2DE7E2 |
-| Keyboard Shortcuts | <f6> k    | keyboard_shortcuts |
 
 #+srcname: map-nav(shortcut-definition-list=shortcut-definition-list)
 #+begin_src emacs-lisp
