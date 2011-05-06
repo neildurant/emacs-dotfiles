@@ -110,6 +110,7 @@ Set directories here.
   ;; org-checklist can un-set all checkboxes after you mark a task as
   ;; DONE.  Handy for recurring tasks.
   (require 'org-checklist)
+  (setq org-enforce-todo-checkbox-dependencies 't)
 #+end_src
 
 ** Task States
