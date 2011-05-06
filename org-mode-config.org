@@ -322,7 +322,7 @@ Skips capture tasks and tasks with subtasks"
                 ("e" "Enrollio Agenda" agenda ""
                  ((org-agenda-files enrollio-org-files)))
                 ("n" "Notesmine Agenda" agenda ""
-                 ((org-agenda-files (njn/notesmine-org-files)t)))
+                 ((org-agenda-files (njn/notesmine-org-files))))
                 ("j" "Journal" agenda ""
                  ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/journal.org")))))
                 ("g" "Geek Agenda" agenda ""
