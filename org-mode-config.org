@@ -480,6 +480,9 @@ Skips capture tasks and tasks with subtasks"
 
 #+end_src
 ** Speed Keys
+:PROPERTIES:
+:ID: speed_keys
+:END:
 
 #+begin_src emacs-lisp
 (setq org-use-speed-commands t)
