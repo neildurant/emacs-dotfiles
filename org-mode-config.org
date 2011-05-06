@@ -69,6 +69,50 @@ Set directories here.
   (let ((org-insert-heading-respect-content nil))
     (org-insert-subheading t)))
 
+
+  ;; When inserting headings, jump past the clock, and properties, and content
+  ;; of current heading.
+  (setq org-insert-heading-respect-content t)
+
+  ;; Alt-return normally breaks the headline if you press it in the
+  ;; middle of a headline.  Disable that behavior
+  (setq org-M-RET-may-split-line nil)
+  
+  ;; Thanks to Jan Boecker for this slick function.
+  (defun njn/smart-insert-heading ()
+    "Insert a TODO if you're in a TODO heading, or just a blank heading 
+     if you're in a blank heading."
+    (interactive)
+    (if (or (and (org-on-heading-p t) (org-get-todo-state))
+            (org-at-item-checkbox-p))
+           (call-interactively 'org-insert-todo-heading)
+         (call-interactively 'org-insert-heading)))
+
+  (defun njn/smart-insert-subheading ()
+    "Insert a TODO if you're in a TODO heading, or just a blank heading 
+     if you're in a blank heading."
+    (interactive)
+    (if (or (and (org-on-heading-p t) (org-get-todo-state))
+            (org-at-item-checkbox-p))
+           (call-interactively 'org-insert-todo-subheading)
+         (call-interactively 'org-insert-subheading)))  
+
+  (defun njn/insert-opposite-heading ()
+    "Inserts a TODO heading if you're NOT in a TODO heading, and inserts a
+     normal heading if you're in a TODO heading"
+    (interactive)
+    (if (or (and (org-on-heading-p t) (org-get-todo-state))
+            (org-at-item-checkbox-p))
+         (call-interactively 'org-insert-heading)
+       (call-interactively 'org-insert-todo-heading)))
+  
+  (define-key org-mode-map (kbd "S-<return>") 'njn/insert-opposite-heading)
+  
+  ;; Always insert new headings under current heading
+  (setq org-insert-heading-always-after-current 't)
+
+
+
 #+end_src
 * Capture
   - Virtually everything goes to refile.org, to be refiled later.
@@ -398,31 +442,6 @@ Skips capture tasks and tasks with subtasks"
   (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
   (define-key org-mode-map (kbd "S-<kp-enter>") 'org-insert-todo-subheading)
   
-  ;; Thanks to Jan Boecker for this slick function.
-  (defun njn/smart-insert-heading ()
-    "Insert a TODO if you're in a TODO heading, or just a blank heading 
-     if you're in a blank heading."
-    (interactive)
-    (if (or (and (org-on-heading-p t) (org-get-todo-state))
-            (org-at-item-checkbox-p))
-           (call-interactively 'org-insert-todo-heading)
-         (call-interactively 'org-insert-heading)))
-  (
-  define-key org-mode-map (kbd "M-<return>") 'njn/smart-insert-heading)
-  
-  (defun njn/insert-opposite-heading ()
-    "Inserts a TODO heading if you're NOT in a TODO heading, and inserts a
-     normal heading if you're in a TODO heading"
-    (interactive)
-    (if (or (and (org-on-heading-p t) (org-get-todo-state))
-            (org-at-item-checkbox-p))
-         (call-interactively 'org-insert-heading)
-       (call-interactively 'org-insert-todo-heading)))
-  
-  (define-key org-mode-map (kbd "S-<return>") 'njn/insert-opposite-heading)
-  
-  ;; Always insert new headings under current heading
-  (setq org-insert-heading-always-after-current 't)
 #+end_src
 ** Misc.
 :PROPERTIES:
