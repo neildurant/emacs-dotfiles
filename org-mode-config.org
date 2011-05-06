@@ -518,22 +518,21 @@ Skips capture tasks and tasks with subtasks"
 
 
 #+tblname:shortcut-definition-list
-| blog               | <f6> b    | blog                                 |
+| Blog               | <f6> b    | blog                                 |
 | Personal Notes     | <f6> p    | 4ce7a31a-aa03-4044-8e70-95e0bfff0e05 |
 | Iteration 1        | <f6> i    | b23ce0ba-937b-447b-b87b-5448eb626465 |
-| Customer 2         | <f6> m    | 49E0DC6B-D78C-4C7A-88BF-545DA0907FFE |
 | Field List         | <f6> f    | f7c3f8da-5ab4-4769-ad17-27382483cb7c |
 | Enrollio           | <f6> e    | 997DDAB8-DDFF-4517-90F2-CEFB0A2727E7 |
-| Server Data        | <f6> s    | my_servers                           |
-| Customer 1         | <f6> R    | 5C3263D1-949E-4E01-937A-201A8E83E1C0 |
+| Server Data        | <f6> s    | speed_keys                           |
+| Customer 1         | <f6> m    | customer1                            |
 | Home               | <f6> h    | 772DFBDD-38A3-4E92-8860-6904CC9D4F49 |
-| Nav Shortcuts      | <f6> <f6> | FC8A103B-5959-4A13-9735-F175C36CDC01 |
+| Nav Shortcuts      | <f6> <f6> | nav_shortcuts                        |
 | Refile             | <f6> r    | refile                               |
 | Notesmine Org Mode | <f6> N    | F10D261F-0AFB-448F-BB34-8CAF652144CE |
 | Org Mode           | <f6> o    | 2B8F0265-6509-4E79-9355-312F4B340503 |
 | Org Mode Custom    | <f6> c    | BCFE2FAF-6510-4949-B182-66521BB14A5D |
 | Vim                | <f6> v    | 733BD03F-0938-432F-B59A-BE235A2DE7E2 |
-| Keyboard Shortcuts | <f6> k    | 455c11f9-a615-4341-b7b0-d1b84ab18a4f |
+| Keyboard Shortcuts | <f6> k    | keyboard_shortcuts |
 
 #+srcname: map-nav(shortcut-definition-list=shortcut-definition-list)
 #+begin_src emacs-lisp
