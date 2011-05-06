@@ -100,8 +100,7 @@ Set directories here.
   (setq org-clock-out-when-done nil)
   ;; Keep clocks running
   (setq org-remember-clock-out-on-exit nil)
-  ;; Automatically clock in when adding a note
-  (add-hook 'remember-mode-hook 'org-clock-in 'append)
+  (setq org-clock-modeline-total 'today)
 #+end_src
 * Tasks / TODOs
 #+begin_src emacs-lisp
