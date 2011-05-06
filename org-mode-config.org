@@ -153,8 +153,8 @@ Skips capture tasks and tasks with subtasks"
               (setq has-subtask t))))
         (when (not has-subtask)
           "STARTED"))))
-
-    (setq org-clock-in-switch-to-state (quote bh/clock-in-to-next))
+    ;; Not doing this anymore - Must follow Bernt's org-setup!!!
+    ;; (setq org-clock-in-switch-to-state (quote bh/clock-in-to-next))
     ;; Change task state w/C-c C-t KEY
     (setq org-use-fast-todo-selection t)
 
