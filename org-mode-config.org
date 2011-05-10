@@ -469,7 +469,6 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> t") 'org-todo)
 (global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
 (global-set-key (kbd "<f3> w") '(lambda() (interactive) (org-refile '(16))))
-
 (global-set-key (kbd "<f5>") 'njn/org-agenda)
 (global-set-key (kbd "<f8>") 'org-capture)
 (global-set-key (kbd "<f9> I") 'bh/org-info)
