@@ -130,10 +130,10 @@ Set directories here.
           ("j" "Journal" entry (file+datetree+prompt, njn/journal-org-file) "* %?\nEntered on %u\n  %i\n%a")   
           ("N" "Note Detailed" entry (file, njn/refile-org-file) "* %?\n%i\n%a" :prepend t :clock-in t :clock-resume t)
           ("n" "Note Simple" entry (file, njn/refile-org-file) "* %? \n%i\n%U\n")
-          ("T" "Todo" entry (file, njn/refile-org-file) "* TODO %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
-          ("t" "Todo Simple" entry (file, njn/refile-org-file) "* TODO %? \n%i\n%U\n")
-          ("s" "Start Task" entry (file, njn/refile-org-file) "* TODO %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume nil)
-          ("q" "Question" entry (file, njn/refile-org-file) "* TODO %? :question: \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
+          ("T" "Todo" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
+          ("t" "Todo Simple" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U\n")
+          ("s" "Start Task" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume nil)
+          ("q" "Question" entry (file, njn/refile-org-file) "* todo %? :question: \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
         )
   )  
 #+end_src
@@ -141,9 +141,9 @@ Set directories here.
 * Clock Settings
 #+begin_src emacs-lisp
   ;; Separate drawers for clocking and logs
-  (setq org-drawers (quote ("PROPERTIES" "LOGBOOK" "CLOCK")))
-  ;; Save clock data in the CLOCK drawer and state changes and notes in the LOGBOOK drawer
-  (setq org-clock-into-drawer "CLOCK")
+  (setq org-drawers (quote ("properties" "logbook" "clock")))
+  ;; Save clock data in the clock drawer and state changes and notes in the LOGBOOK drawer
+  (setq org-clock-into-drawer "clock")
   ;; Don't clock out when moving task to a done state
   (setq org-clock-out-when-done nil)
   ;; Keep clocks running
@@ -176,8 +176,10 @@ Set directories here.
 
 #+begin_src emacs-lisp
 (setq org-todo-keywords '(
-(sequence "TODO(t)" "NEXT(s)" "|" "DONE(d!)")  
-(sequence "WAITING(w@/@)" "|" "DELEGATED(e@/@)" "MAYBE(m)" "SOMEDAY(o)" "CANCELLED(c)" "TBV(b)")
+(sequence "todo(t)" "next(n)" "|" "done(d!)")
+(sequence "TODO(a)" "NEXT(f)" "|" "DONE(g!)")
+(sequence "waiting(w@/@)" "|" "delegated(e@/@)" "maybe(m)" "someday(o)" "cancelled(c)" "tbv(b)")
+(sequence "WAITING(h@/@)" "|" "DELEGATED(i@/@)" "MAYBE(j)" "SOMEDAY(k)" "CANCELLED(c)" "TBV(l)")
 ))
 #+end_src
 
@@ -186,7 +188,7 @@ Set directories here.
 (defun bh/clock-in-to-next (kw)
   "Switch task from todo to NEXT when clocking in.
 Skips capture tasks and tasks with subtasks"
-  (if (and (string-equal kw "TODO")
+  (if (and (string-equal kw "todo")
            (not (and (boundp 'org-capture-mode) org-capture-mode)))
       (let ((subtree-end (save-excursion (org-end-of-subtree t)))
             (has-subtask nil))
@@ -198,7 +200,7 @@ Skips capture tasks and tasks with subtasks"
             (when (member (org-get-todo-state) org-not-done-keywords)
               (setq has-subtask t))))
         (when (not has-subtask)
-          "STARTED"))))
+          "started"))))
     ;; Not doing this anymore - Must follow Bernt's org-setup!!!
     ;; (setq org-clock-in-switch-to-state (quote bh/clock-in-to-next))
     ;; Change task state w/C-c C-t KEY
@@ -338,16 +340,16 @@ Skips capture tasks and tasks with subtasks"
                 (org-agenda-overriding-header "Set default clocking task with C-u C-u I")
                 (org-agenda-files (njn/personal-org-files))))
           ("p" . "Custom Agenda Commands")
-          ("pt" "All Todos - simply nests all todos" tags-todo "/TODO"
-		((org-agenda-overriding-header "All TODOs, nested")))
-	      ("pc" "Current Projects" tags-todo "+project+current-DONE-CANCELLED"
+          ("pt" "All Todos - simply nests all todos" tags-todo "/todo"
+		((org-agenda-overriding-header "All todos, nested")))
+	      ("pc" "Current Projects" tags-todo "+project+current-done-cancelled"
 	       ((org-agenda-overriding-header "Current Projects (High Level)")
             (org-agenda-sorting-strategy nil)))
-	      ("ps" "Todo/Someday Projects" tags-todo "project-current-DONE-CANCELLED"
+	      ("ps" "Todo/Someday Projects" tags-todo "project-current-done-cancelled"
 	       ((org-agenda-overriding-header "Current Projects (High Level)")
             (org-agenda-sorting-strategy nil)))
           ("?" "Questions" (
-                  (tags "question/-DONE-CANCELLED")))
+                  (tags "question/-done-cancelled")))
           ("." "Cur Buffer - Timeline" ((agenda "" ))
                   ((org-agenda-files (list njn/current-buffer-name))
                    (org-agenda-show-log t)
@@ -359,15 +361,15 @@ Skips capture tasks and tasks with subtasks"
                    (org-agenda-clockreport-mode t)
                    (org-agenda-entry-types '()) ;; [1]
 		  ))
-          ("," "Current Buffer - TODO" 
+          ("," "Current Buffer - todo" 
                   ((alltodo))
                   ((org-agenda-files (list njn/current-buffer-name))
                   ))
-                ("S" "NEXT Tasks" todo "NEXT" ((org-agenda-todo-ignore-with-date nil)))
-                ("w" "Tasks waiting on something" todo "WAITING" ((org-use-tag-inheritance nil)))
+                ("S" "next Tasks" todo "next" ((org-agenda-todo-ignore-with-date nil)))
+                ("w" "Tasks waiting on something" todo "waiting" ((org-use-tag-inheritance nil)))
   
-                ("d" "DELEGATED" tags "DELEGATED" ((org-use-tag-inheritance nil)))
-                ("o" "SOMEDAY" tags "SOMEDAY" ((org-use-tag-inheritance nil)))
+                ("d" "delegated" tags "delegated" ((org-use-tag-inheritance nil)))
+                ("o" "someday" tags "someday" ((org-use-tag-inheritance nil)))
                 ("r" "Refile New Notes and Tasks" tags "refile" ((org-agenda-todo-ignore-with-date nil)))
                 ("*" "All Personal Files" ((agenda ""))
                  ((org-agenda-files (directory-files personal-org-dir 't "^[^.].*org$"))
@@ -380,8 +382,8 @@ Skips capture tasks and tasks with subtasks"
                  ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/journal.org")))))
                 ("g" "Geek Agenda" agenda ""
                  ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*geek.org")))))
-                ;; Overview mode is same as default "a" agenda-mode, except doesn't show TODO
-                ;; items that are under another TODO
+                ;; Overview mode is same as default "a" agenda-mode, except doesn't show todo
+                ;; items that are under another todo
                 ("o" "Overview" agenda "" ((org-agenda-todo-list-sublevels nil)))
         ;; Separate menu, with custom searches
 
