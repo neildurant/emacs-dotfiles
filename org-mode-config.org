@@ -82,7 +82,7 @@ Set directories here.
   
   ;; Thanks to Jan Boecker for this slick function.
   (defun njn/smart-insert-heading ()
-    "Insert a TODO if you're in a TODO heading, or just a blank heading 
+    "Insert a todo if you're in a todo heading, or just a blank heading 
      if you're in a blank heading."
     (interactive)
     (if (or (and (org-on-heading-p t) (org-get-todo-state))
@@ -91,7 +91,7 @@ Set directories here.
          (call-interactively 'org-insert-heading)))
 
   (defun njn/smart-insert-subheading ()
-    "Insert a TODO if you're in a TODO heading, or just a blank heading 
+    "Insert a todo if you're in a todo heading, or just a blank heading 
      if you're in a blank heading."
     (interactive)
     (if (or (and (org-on-heading-p t) (org-get-todo-state))
@@ -100,15 +100,15 @@ Set directories here.
          (call-interactively 'org-insert-subheading)))  
 
   (defun njn/insert-opposite-heading ()
-    "Inserts a TODO heading if you're NOT in a TODO heading, and inserts a
-     normal heading if you're in a TODO heading"
+    "Inserts a todo heading if you're NOT in a todo heading, and inserts a
+     normal heading if you're in a todo heading"
     (interactive)
     (if (or (and (org-on-heading-p t) (org-get-todo-state))
             (org-at-item-checkbox-p))
          (call-interactively 'org-insert-heading)
        (call-interactively 'org-insert-todo-heading)))
   
-  (define-key org-mode-map (kbd "S-<return>") 'njn/insert-opposite-heading)
+
   
   ;; Always insert new headings under current heading
   (setq org-insert-heading-always-after-current 't)
@@ -150,7 +150,7 @@ Set directories here.
   (setq org-remember-clock-out-on-exit nil)
   (setq org-clock-modeline-total 'today)
 #+end_src
-* Tasks / TODOs
+* Tasks / todos
 #+begin_src emacs-lisp
   ;; org-checklist can un-set all checkboxes after you mark a task as
   ;; DONE.  Handy for recurring tasks.
@@ -184,7 +184,7 @@ Set directories here.
 #+begin_src emacs-lisp
     ;; From norang.org -- Change task state to STARTED from TODO when clocking in -------
 (defun bh/clock-in-to-next (kw)
-  "Switch task from TODO to NEXT when clocking in.
+  "Switch task from todo to NEXT when clocking in.
 Skips capture tasks and tasks with subtasks"
   (if (and (string-equal kw "TODO")
            (not (and (boundp 'org-capture-mode) org-capture-mode)))
@@ -212,19 +212,19 @@ Skips capture tasks and tasks with subtasks"
 ** Custom Faces
 #+begin_src emacs-lisp
    (setq org-todo-keyword-faces (quote (
- ("TODO" :foreground "red" :weight normal)
- ("NEXT" :foreground "blue" :weight normal)
- ("DONE" :foreground "forest green" :weight normal)
- ("WAITING" :foreground "orange" :weight normal)
- ("SOMEDAY" :foreground "magenta" :weight normal)
- ("CANCELLED" :foreground "forest green" :weight normal)
- ("OPEN" :foreground "blue" :weight normal)
- ("PROJECT" :foreground "red" :weight normal)
- ("MAYBE" :foreground "purple" :weight normal))))
+ ("todo" :foreground "red" :weight normal)
+ ("next" :foreground "blue" :weight normal)
+ ("done" :foreground "forest green" :weight normal)
+ ("waiting" :foreground "orange" :weight normal)
+ ("someday" :foreground "magenta" :weight normal)
+ ("cancelled" :foreground "forest green" :weight normal)
+ ("open" :foreground "blue" :weight normal)
+ ("project" :foreground "red" :weight normal)
+ ("maybe" :foreground "purple" :weight normal))))
 #+end_src
 
 #+begin_src emacs-lisp
-  ;; Don't allow setting a task to DONE if it has TODO 
+  ;; Don't allow setting a task to DONE if it has todo 
   ;; subtasks
   (setq org-enforce-todo-dependencies t)
 #+end_src
@@ -425,23 +425,23 @@ Skips capture tasks and tasks with subtasks"
   )
 #+end_src
 * Keyboard Shortcuts
-** Outline / TODO Bindings
+** Outline / todo Bindings
 #+begin_src emacs-lisp
 
 ;;  (define-key org-mode-map (kbd "C-M-<return>") 'njn/org-insert-subheading)
 
   ;; enter key behavior.
-  ;; basically, any modifier on enter key will produce a sub TODO
+  ;; basically, any modifier on enter key will produce a sub todo
 ;;  (define-key org-mode-map (kbd "<kp-enter>") 'org-insert-subheading)
 ;;  (define-key org-mode-map (kbd "C-S-<kp-enter>") 'org-insert-todo-subheading)
 ;;  (define-key org-mode-map (kbd "C-<kp-enter>") 'org-insert-todo-subheading)
 ;;  (define-key org-mode-map (kbd "S-<kp-enter>") 'org-insert-todo-subheading)
 
-  ;; M-return and M-kp-enter will create a TODO if cursor is not in a TODO,
+  ;; M-return and M-kp-enter will create a todo if cursor is not in a todo,
   ;; and vice versa
 ;;  (define-key org-mode-map (kbd "M-<return>") 'njn/smart-insert-heading)
 ;;  (define-key org-mode-map (kbd "M-<kp-enter>") 'njn/smart-insert-subheading)
-  
+;;  (define-key org-mode-map (kbd "S-<return>") 'njn/insert-opposite-heading)  
 #+end_src
 ** Misc. Key Bindings
 :PROPERTIES:
