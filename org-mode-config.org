@@ -743,6 +743,31 @@ Skips capture tasks and tasks with subtasks"
   (setq org-habit-preceding-days 0)
   (setq org-habit-following-days 0)
 #+end_src
+* Custom Blocks / Functions
+#+begin_src emacs-lisp
+;; This is from Matt Lundin on the Org-mode list
+;; It's used to query for headlines with tags that match the :match parameter
+;; You can use it by putting something like this in your org file:
+;; #+begin: insert-links :match questions
+;; #+end:
+(defun org-dblock-write:insert-links (params)
+ "Dblock function to insert links to headlines that match
+tags/properties search string specified by :match."
+ (let ((match (plist-get params :match))
+       links)
+   (unless match
+     (error "Must specify :match parameter"))
+   (org-map-entries
+    (lambda ()
+      (let ((heading (nth 4 (org-heading-components))))
+        (add-to-list 'links
+                     (format "- [[file:%s::*%s][%s]]\n"
+                             (abbreviate-file-name
+                              (buffer-file-name))
+                             heading heading))))
+    match 'agenda)
+   (apply #'insert links)))
+#+end_src
 * No repeat
 From http://thread.gmane.org/gmane.emacs.orgmode/36809/focus=36975
 #+begin_src emacs-lisp
