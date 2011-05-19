@@ -141,9 +141,9 @@ Set directories here.
 * Clock Settings
 #+begin_src emacs-lisp
   ;; Separate drawers for clocking and logs
-  (setq org-drawers (quote ("properties" "logbook" "clock")))
+  (setq org-drawers (quote ("PROPERTIES" "LOGBOOK" "CLOCK")))
   ;; Save clock data in the clock drawer and state changes and notes in the LOGBOOK drawer
-  (setq org-clock-into-drawer "clock")
+  (setq org-clock-into-drawer "CLOCK")
   ;; Don't clock out when moving task to a done state
   (setq org-clock-out-when-done nil)
   ;; Keep clocks running
