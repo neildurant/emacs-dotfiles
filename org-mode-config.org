@@ -128,6 +128,7 @@ Set directories here.
         `(
           ("d" "Details" entry (clock) "* %? :details:\n%i\n" :prepend t :clock-in t :clock-resume t)       
           ("j" "Journal" entry (file+datetree+prompt, njn/journal-org-file) "* %?\nEntered on %u\n  %i\n%a")   
+          ("l" "Log" entry (id+datetree+prompt, "log") "* %?\nEntered on %u\n  %i\n%a")   
           ("N" "Note Detailed" entry (file, njn/refile-org-file) "* %?\n%i\n%a" :prepend t :clock-in t :clock-resume t)
           ("n" "Note Simple" entry (file, njn/refile-org-file) "* %? \n%i\n%U\n")
           ("T" "Todo" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
@@ -176,7 +177,7 @@ Set directories here.
 
 #+begin_src emacs-lisp
 (setq org-todo-keywords '(
-(sequence "todo(t)" "norep(r)" "next(n)" "|" "done(d!)")
+(sequence "todo(t)" "started(s)" "norep(r)" "next(n)" "|" "done(d!)")
 (sequence "TODO(a)" "NEXT(f)" "|" "DONE(g!)")
 (sequence "waiting(w@/@)" "|" "delegated(e@/@)" "maybe(m)" "someday(o)" "cancelled(c)" "tbv(b)")
 (sequence "WAITING(h@/@)" "|" "DELEGATED(i@/@)" "MAYBE(j)" "SOMEDAY(k)" "CANCELLED(c)" "TBV(l)")
@@ -215,6 +216,7 @@ Skips capture tasks and tasks with subtasks"
 #+begin_src emacs-lisp
    (setq org-todo-keyword-faces (quote (
  ("todo" :foreground "red" :weight normal)
+ ("started" :foreground "black" :weight bold)
  ("next" :foreground "blue" :weight normal)
  ("done" :foreground "forest green" :weight normal)
  ("waiting" :foreground "orange" :weight normal)
@@ -537,7 +539,6 @@ Skips capture tasks and tasks with subtasks"
   - Save oodles of time with your shortcuts, but waste the time
     writing lisp code to implement the shortcut list :-)
 
-
 #+tblname:shortcut-definition-list
 | Blog               | <f6> b    | blog                                 |
 | Customer 1         | <f6> m    | customer1                            |
@@ -546,7 +547,8 @@ Skips capture tasks and tasks with subtasks"
 | Field List         | <f6> f    | f7c3f8da-5ab4-4769-ad17-27382483cb7c |
 | Home               | <f6> h    | 772DFBDD-38A3-4E92-8860-6904CC9D4F49 |
 | Iteration 1        | <f6> i    | b23ce0ba-937b-447b-b87b-5448eb626465 |
-| Keyboard Shortcuts | <f6> k    | keyboard_shortcuts |
+| Log                | <f6> l    | log                                  |
+| Keyboard Shortcuts | <f6> k    | keyboard_shortcuts                   |
 | Nav Shortcuts      | <f6> <f6> | nav_shortcuts                        |
 | Notesmine Refile   | <f6> R    | notesmine_refile                     |
 | Notesmine-org      | <f6> O    | notesmine_orgmode                    |
