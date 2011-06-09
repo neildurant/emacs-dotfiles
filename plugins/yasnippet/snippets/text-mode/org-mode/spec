@@ -1,0 +1,7 @@
+#name : #+begin_src emacs-lisp
+# --
+** ${1:description}
+*** Given
+*** When
+*** Then
+    - and ...
