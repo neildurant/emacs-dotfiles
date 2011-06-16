@@ -133,6 +133,7 @@ Set directories here.
           ("T" "Todo" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
           ("t" "Todo Simple" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U\n")
           ("s" "Start Task" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume nil)
+          ("l" "Customer Log" entry (id, "customer_log") "* %? \n%i\n%U\n%a\n" :prepend t)
           ("q" "Question" entry (file, njn/refile-org-file) "* todo %? :question: \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
         )
   )  
