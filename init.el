@@ -121,11 +121,11 @@
   (interactive)
   (save-buffer)
   (if (eq 'darwin' system-type)
-    (runeditor "mvim")
-  (runeditor "gvim"))
+    (njn/runeditor "mvim")
+  (njn/runeditor "gvim"))
 )
 
-(defun runeditor (editor)
+(defun njn/runeditor (editor)
   (let (filename (file-truename buffer-file-name))
     (setq cmd (format "%s %s" editor (file-truename buffer-file-name)))
     (save-window-excursion
