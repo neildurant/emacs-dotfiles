@@ -644,15 +644,15 @@ Skips capture tasks and tasks with subtasks"
 * Refiling
 #+begin_src emacs-lisp
   ; Refile targets default to only filez found in personal-org-files directory
-  (defun njn/set-refile-personal() 
+  (defun njn/refile-targets-personal() 
     (interactive) 
     (setq org-refile-targets 
           (quote ((njn/personal-org-files :maxlevel . 5))))
   )
   
-  (njn/set-refile-personal)
+  (njn/refile-targets-personal)
   
-  (defun njn/set-refile-notesmine() 
+  (defun njn/refile-targets-notesmine() 
     (interactive)
     (setq org-refile-targets 
           (quote ((njn/notesmine-org-files :maxlevel . 5))))

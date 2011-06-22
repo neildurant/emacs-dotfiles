@@ -117,10 +117,13 @@
     (org-babel-load-file "~/.emacs.d/org-mode-config-local.org"))
 
 ;; Search stack overflow for 'runmate'
-(defun rungvim ()
+(defun njn/runvim ()
   (interactive)
   (save-buffer)
+  (if (eq 'darwin' system-type)
+    (runeditor "mvim")
   (runeditor "gvim"))
+)
 
 (defun runeditor (editor)
   (let (filename (file-truename buffer-file-name))
