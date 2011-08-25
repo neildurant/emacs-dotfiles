@@ -83,7 +83,7 @@ Set directories here.
 
   ;; When inserting headings, jump past the clock, and properties, and content
   ;; of current heading.
-  (setq org-insert-heading-respect-content t)
+  (setq org-insert-heading-respect-content nil)
 
   ;; Alt-return normally breaks the headline if you press it in the
   ;; middle of a headline.  Disable that behavior
