@@ -677,7 +677,7 @@ Skips capture tasks and tasks with subtasks"
   ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc 
   (setq org-outline-path-complete-in-steps t)
 
-  (defun njn/set-refile-simple()
+  (defun njn/refile-targets-only-this-file()
   (interactive)
   (setq org-refile-targets (quote((nil :maxlevel . 3))))
   (setq org-refile-allow-creating-parent-nodes 'confirm)
