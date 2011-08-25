@@ -72,12 +72,13 @@ Set directories here.
   ;; Log notes and state changes into LOGBOOK property
   (setq org-log-into-drawer t)
   (setq org-startup-indented t)
+
   ;; Function to insert subheading here
   ;; Insert subheading right here, don't respect content
-(defun njn/org-insert-subheading()
-  (interactive)
-  (let ((org-insert-heading-respect-content nil))
-    (org-insert-subheading t)))
+  (defun njn/org-insert-subheading()
+    (interactive)
+    (let (org-insert-heading-respect-content nil))
+    (org-insert-subheading t))
 
 
   ;; When inserting headings, jump past the clock, and properties, and content
