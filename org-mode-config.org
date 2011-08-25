@@ -1,4 +1,12 @@
 #+property: results silent indent
+* Notes about my org-mode config
+this section is just a summary of stuff I want to remember about how I
+use org-mode
+** Refiling
+- M-x njn/refile-targets-notesmine when refiling to notesmine
+- M-x njn/refile-targets-personal when refiling to my personal stuff
+- M-x njn/refile-targets-only-this-file when refiling within one file,
+  to speed things up
 * Org Mode Configuration
   :PROPERTIES:
   :ID:       BCFE2FAF-6510-4949-B182-66521BB14A5D
