@@ -346,6 +346,8 @@ Skips capture tasks and tasks with subtasks"
 #+begin_src emacs-lisp
   (setq org-agenda-custom-commands 
         (quote (
+("n" "Notesmine search" search ""
+         ((org-agenda-files (njn/notesmine-org-files))))
                 ("c" "Select default clocking task" tags "LEVEL=1+Mgmt"
                (
                 (org-agenda-overriding-header "Set default clocking task with C-u C-u I")
@@ -387,8 +389,6 @@ Skips capture tasks and tasks with subtasks"
                   (org-agenda-show-log t)))
                 ("e" "Enrollio Agenda" agenda ""
                  ((org-agenda-files enrollio-org-files)))
-                ("n" "Notesmine Agenda" agenda ""
-                 ((org-agenda-files (njn/notesmine-org-files))))
                 ("j" "Journal" agenda ""
                  ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/journal.org")))))
                 ("g" "Geek Agenda" agenda ""
@@ -402,8 +402,7 @@ Skips capture tasks and tasks with subtasks"
         ("f" . "Custom queries") ;; gives label to "Q" 
         ("fa" "Archive search" search ""
           ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/*.org_archive")))))
-        ("fn" "Notesmine search" search ""
-         ((org-agenda-files (njn/notesmine-org-files))))
+        
         ("fb" "Both Personal and Archive" search ""
           ((org-agenda-text-search-extra-files (file-expand-wildcards (concat personal-org-dir "/*.org_archive")))))
                 ;; searches both projects and archive directories
