@@ -14,12 +14,11 @@ use org-mode
 
 #+begin_src emacs-lisp
 (require 'org-id)
-(setq org-columns-default-format 
-    "%6CATEGORY%40ITEM(Task) %17Effort(Estimate){:} %CLOCKSUM(Clock) %SCHEDULED(Scheduled)")
+(setq org-columns-default-format
+"%12CATEGORY%40ITEM(Task) %7Effort(Est.){:} %CLOCKSUM(Clock) %SCHEDULED(Sched) %16TAGS")
 (setq org-global-properties
-              '(("Effort_ALL". "1:00 2:00 3:00 4:00 5:00 6:00 7:00 8:00 0:30 0:15")))
+'(("Effort_ALL". "1:00 2:00 3:00 4:00 5:00 6:00 7:00 8:00 0:30 0:15")))
 #+end_src
-
 ** Clocking
 #+begin_src emacs-lisp
   (setq org-clock-out-remove-zero-time-clocks 't)
