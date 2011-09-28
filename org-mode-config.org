@@ -312,7 +312,7 @@ Skips capture tasks and tasks with subtasks"
 
 (defun njn/agenda-this-file-only()
   (interactive)
-  (org-agenda-set-restriction-lock 'file)
+  (setq org-agenda-files (list (buffer-file-name)))
   (org-agenda)
 )
 
