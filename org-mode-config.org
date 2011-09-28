@@ -21,8 +21,8 @@ use org-mode
 #+end_src
 ** Clocking
 #+begin_src emacs-lisp
-  (setq org-clock-out-remove-zero-time-clocks 't)
-  (setq org-clock-modeline-total 'today)
+(setq org-clock-out-remove-zero-time-clocks 't)
+(setq org-clock-modeline-total 'today)
 #+end_src
 * Directories
 Set directories here.
