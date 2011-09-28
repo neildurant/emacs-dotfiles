@@ -120,8 +120,8 @@
 (defun njn/runvim ()
   (interactive)
   (save-buffer)
-  (if (eq 'darwin' system-type)
-    (njn/runeditor "mvim")
+  (if (eq 'darwin system-type)
+    (njn/runeditor "/Users/nate/bin/mvim")
   (njn/runeditor "gvim"))
 )
 
