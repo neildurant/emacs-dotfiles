@@ -451,7 +451,7 @@ Skips capture tasks and tasks with subtasks"
 (global-unset-key (kbd "<f3>"))
 (global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
 (global-set-key (kbd "<f3> I") '(lambda() (interactive) (org-clock-in '(4))))
-(global-set-key (kbd "<f3> P") '(lambda() (interactive) (org-clock-in '(4))))
+(global-set-key (kbd "<f3> p") 'njn/clock-in-at-time)
 (global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
 (global-set-key (kbd "<f3> c") 'org-capture-goto-last-stored)
 (global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
@@ -461,7 +461,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> m") 'org-mark-ring-push)
 (global-set-key (kbd "<f3> n") 'org-capture)
 (global-set-key (kbd "<f3> o") 'org-clock-out)
-(global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
+(global-set-key (kbd "<f3> g") '(lambda() (interactive) (org-clock-goto 't)))
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f3> s") 'njn/agenda-toggle-show-closed)
 (global-set-key (kbd "<f3> t") 'org-todo)
@@ -609,8 +609,11 @@ Skips capture tasks and tasks with subtasks"
 
 (add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
 
-
-
+;; From http://www.mail-archive.com/emacs-orgmode@gnu.org/msg47735.html
+(defun njn/clock-in-at-time()
+       (interactive)
+(setq start-time (org-read-date 't 't))
+(org-clock-in nil start-time))
 
 
 
