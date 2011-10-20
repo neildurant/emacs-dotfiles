@@ -1,5 +1,8 @@
 #+property: results silent indent
 * Notes about my org-mode config
+:PROPERTIES:
+:ID: org-mode-config
+:END:
 this section is just a summary of stuff I want to remember about how I
 use org-mode
 ** Refiling
@@ -7,11 +10,6 @@ use org-mode
 - M-x njn/refile-targets-personal when refiling to my personal stuff
 - M-x njn/refile-targets-only-this-file when refiling within one file,
   to speed things up
-* Org Mode Configuration
-  :PROPERTIES:
-  :ID:       BCFE2FAF-6510-4949-B182-66521BB14A5D
-  :END:
-
 #+begin_src emacs-lisp
 (require 'org-id)
 (setq org-columns-default-format
@@ -549,7 +547,7 @@ Skips capture tasks and tasks with subtasks"
 | Notesmine Refile   | <f6> R    | notesmine_refile                     |
 | Notesmine-org      | <f6> O    | notesmine_orgmode                    |
 | Org Mode           | <f6> o    | 2B8F0265-6509-4E79-9355-312F4B340503 |
-| Org Mode Custom    | <f6> c    | BCFE2FAF-6510-4949-B182-66521BB14A5D |
+| Org Mode Custom    | <f6> c    | org-mode-config                      |
 | Personal Notes     | <f6> p    | 4ce7a31a-aa03-4044-8e70-95e0bfff0e05 |
 | Refile             | <f6> r    | refile                               |
 | Server Data        | <f6> s    | speed_keys                           |
