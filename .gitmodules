@@ -1,3 +1,6 @@
 [submodule "src/org"]
 	path = src/org
 	url = git@github.com:NathanNeff/org-mode.git
+[submodule "plugins/vimpulse"]
+	path = plugins/vimpulse
+	url = git://gitorious.org/vimpulse/vimpulse.git

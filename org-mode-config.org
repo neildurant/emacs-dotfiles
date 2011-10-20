@@ -638,6 +638,12 @@ Skips capture tasks and tasks with subtasks"
                      '(apply ,original-command))
                (local-set-key [tab] 'yas/expand))))
 #+end_src
+* Vimpulse
+#+begin_src emacs-lisp
+;(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins/vimpulse"))
+;    (require 'vimpulse)
+#+end_src
+
 * Refiling
 #+begin_src emacs-lisp
   ; Refile targets default to only filez found in personal-org-files directory
