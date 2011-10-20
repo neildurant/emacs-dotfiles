@@ -508,6 +508,7 @@ Skips capture tasks and tasks with subtasks"
                                       ("1" . delete-other-windows)
                                       ("2" . split-window-vertically)
                                       ("3" . split-window-horizontally)
+                                      ("c" . org-toggle-checkbox)
                                       ("d" . org-cut-special) ;; Zap the current subtree
                                       ("h" . hide-other)
                                       ("q" . org-columns)
