@@ -222,13 +222,13 @@ Skips capture tasks and tasks with subtasks"
 ** Custom Faces
 #+begin_src emacs-lisp
    (setq org-todo-keyword-faces (quote (
- ("todo" :foreground "red" :weight normal)
+ ("todo" :foreground "brown" :weight bold)
  ("started" :foreground "black" :weight bold)
  ("next" :foreground "blue" :weight normal)
- ("regular" :foreground "blue" :weight normal)
+ ("regular" :foreground "steelblue" :weight normal)
  ("done" :foreground "forest green" :weight normal)
  ("waiting" :foreground "orange" :weight normal)
- ("someday" :foreground "magenta" :weight normal)
+ ("someday" :foreground "seashell4" :weight normal)
  ("cancelled" :foreground "forest green" :weight normal)
  ("open" :foreground "blue" :weight normal)
  ("project" :foreground "red" :weight normal)
