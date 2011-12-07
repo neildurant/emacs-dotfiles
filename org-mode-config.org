@@ -183,7 +183,8 @@ Set directories here.
 
 #+begin_src emacs-lisp
 (setq org-todo-keywords '(
-(sequence "todo(t)" "started(s)" "regular(r)" "next(n)" "|" "done(d!)")
+(sequence "todo(t)" "started(s)" "next(n)" "|" "done(d!)")
+(sequence "reg(r)" "|" "done(d!)")
 (sequence "TODO(a)" "NEXT(f)" "|" "DONE(g!)")
 (sequence "waiting(w@/@)" "|" "delegated(e@/@)" "maybe(m)" "someday(o)" "cancelled(c)" "tbv(b)")
 (sequence "WAITING(h@/@)" "|" "DELEGATED(i@/@)" "MAYBE(j)" "SOMEDAY(k)" "CANCELLED(c)" "TBV(l)")
@@ -224,7 +225,7 @@ Skips capture tasks and tasks with subtasks"
  ("todo" :foreground "brown" :weight bold)
  ("started" :foreground "black" :weight bold)
  ("next" :foreground "blue" :weight normal)
- ("regular" :foreground "steelblue" :weight normal)
+ ("reg" :foreground "steelblue" :weight normal)
  ("done" :foreground "forest green" :weight normal)
  ("waiting" :foreground "orange" :weight normal)
  ("someday" :foreground "seashell4" :weight normal)
