@@ -407,7 +407,9 @@ Skips capture tasks and tasks with subtasks"
 
 (easy-menu-define njn-menu org-mode-map "Nate's Org"
   '("Nate"
-
+     ("Misc"
+       ["Wrap Text" auto-fill-mode]
+     )
      ("Clock" ;; submenu
        ["In" org-clock-in]
        ["Out" org-clock-out]
