@@ -520,10 +520,11 @@ Skips capture tasks and tasks with subtasks"
                                       ("d" . org-cut-special) ;; Zap the current subtree
                                       ("h" . hide-other)
                                       ("q" . org-columns)
+                                      ("C" . org-clock-display)
                                       ("s" . org-schedule)
-                                      ("z" . org-add-note)
+                                      ;; ("z" . org-add-note)
                                       ;; zoom into current header in new separate window
-                                      ("Z" . (lambda() (interactive) 
+                                      ("z" . (lambda() (interactive) 
                                               (org-tree-to-indirect-buffer) 
                                               (other-window 1)
                                               (delete-other-windows)))
