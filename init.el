@@ -130,3 +130,11 @@
     (setq cmd (format "%s %s" editor (file-truename buffer-file-name)))
     (save-window-excursion
       (async-shell-command cmd))))
+
+; http://stackoverflow.com/questions/3417438/closing-all-other-buffers-in-emacs
+(defun njn/kill-other-buffers ()
+    "Kill all other buffers."
+    (interactive)
+    (mapc 'kill-buffer 
+          (delq (current-buffer) 
+                (remove-if-not 'buffer-file-name (buffer-list)))))
