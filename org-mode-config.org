@@ -63,7 +63,7 @@ Set directories here.
 * Outlines
 #+begin_src emacs-lisp
   ;; Don't put blank lines after headings.
-  ;;(setq org-blank-before-new-entry (quote ((heading) (plain-list-item))))
+  (setq org-blank-before-new-entry (quote ((heading) (plain-list-item))))
 
   (setq org-log-done (quote time))
   ;; Log notes and state changes into LOGBOOK property
@@ -129,23 +129,22 @@ Set directories here.
 #+begin_src emacs-lisp
   (setq njn/journal-org-file (concat personal-org-dir "/journal.org"))
   (setq njn/refile-org-file (concat personal-org-dir "/refile.org"))  
-
+  
   (setq org-capture-templates 
         `(
           ("d" "Details" entry (clock) "* %? :details:\n%i\n" :prepend t :clock-in t :clock-resume t)       
           ("j" "Journal" entry (file+datetree+prompt, njn/journal-org-file) "* %?\nEntered on %u\n  %i\n%a")   
-          ("l" "Log" entry (id+datetree+prompt, "log") "* %?\nEntered on %u\n  %i\n%a")   
+          ("c" "Customer Log" entry (id, "customer_log") "* %u %?\n\n%U" :prepend t)
+          ("p" "Personal Log" entry (id, "personal_log") "* %u %?\n\n%U" :prepend t)   
           ("N" "Note Detailed" entry (file, njn/refile-org-file) "* %?\n%i\n%a" :prepend t :clock-in t :clock-resume t)
           ("n" "Note Simple" entry (file, njn/refile-org-file) "* %? \n%i\n%U\n")
           ("T" "Todo" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
           ("t" "Todo Simple" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U\n")
-          ("s" "Start Task" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume nil)
-          ("l" "Customer Log" entry (id, "customer_log") "* %? \n%i\n%U\n%a\n" :prepend t)
+          ("s" "Start Task" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U  %i\n%a" :clock-in t :clock-keep t)
           ("q" "Question" entry (file, njn/refile-org-file) "* todo %? :question: \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
         )
   )  
 #+end_src
-
 * Clock Settings
 #+begin_src emacs-lisp
   ;; Separate drawers for clocking and logs
@@ -184,7 +183,8 @@ Set directories here.
 
 #+begin_src emacs-lisp
 (setq org-todo-keywords '(
-(sequence "todo(t)" "started(s)" "regular(r)" "next(n)" "|" "done(d!)")
+(sequence "todo(t)" "started(s)" "next(n)" "|" "done(d!)")
+(sequence "reg(r)" "|" "done(d!)")
 (sequence "TODO(a)" "NEXT(f)" "|" "DONE(g!)")
 (sequence "waiting(w@/@)" "|" "delegated(e@/@)" "maybe(m)" "someday(o)" "cancelled(c)" "tbv(b)")
 (sequence "WAITING(h@/@)" "|" "DELEGATED(i@/@)" "MAYBE(j)" "SOMEDAY(k)" "CANCELLED(c)" "TBV(l)")
@@ -222,13 +222,13 @@ Skips capture tasks and tasks with subtasks"
 ** Custom Faces
 #+begin_src emacs-lisp
    (setq org-todo-keyword-faces (quote (
- ("todo" :foreground "red" :weight normal)
+ ("todo" :foreground "brown" :weight bold)
  ("started" :foreground "black" :weight bold)
  ("next" :foreground "blue" :weight normal)
- ("regular" :foreground "blue" :weight normal)
+ ("reg" :foreground "steelblue" :weight normal)
  ("done" :foreground "forest green" :weight normal)
  ("waiting" :foreground "orange" :weight normal)
- ("someday" :foreground "magenta" :weight normal)
+ ("someday" :foreground "seashell4" :weight normal)
  ("cancelled" :foreground "forest green" :weight normal)
  ("open" :foreground "blue" :weight normal)
  ("project" :foreground "red" :weight normal)
@@ -359,8 +359,8 @@ Skips capture tasks and tasks with subtasks"
       ("ps" "Todo/Someday Projects" tags-todo "project-current-done-cancelled"
        ((org-agenda-overriding-header "Current Projects (High Level)")
         (org-agenda-sorting-strategy nil)))
-    ("?" "Questions" (
-      (tags "question/-done-cancelled-DONE-CANCELLED")))
+    ("Q" "Questions" (
+      (tags "question/-someday-SOMEDAY-done-cancelled-DONE-CANCELLED")))
     ("." "Cur Buffer - Timeline" ((agenda "" ))
       ((org-agenda-files (list njn/current-buffer-name))
       (org-agenda-show-log t)))
@@ -407,7 +407,9 @@ Skips capture tasks and tasks with subtasks"
 
 (easy-menu-define njn-menu org-mode-map "Nate's Org"
   '("Nate"
-
+     ("Misc"
+       ["Wrap Text" auto-fill-mode]
+     )
      ("Clock" ;; submenu
        ["In" org-clock-in]
        ["Out" org-clock-out]
@@ -451,18 +453,21 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-unset-key (kbd "<f3>"))
 (global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
+(global-set-key (kbd "<f3> <") 'njn/clock-in-at-time)
 (global-set-key (kbd "<f3> I") '(lambda() (interactive) (org-clock-in '(4))))
-(global-set-key (kbd "<f3> p") 'njn/clock-in-at-time)
+(global-set-key (kbd "<f3> P") '(lambda() (interactive) (org-clock-in '(4))))
 (global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
+(global-set-key (kbd "<f3> b") '(lambda() (interactive) (org-toggle-checkbox '(4))))
 (global-set-key (kbd "<f3> c") 'org-capture-goto-last-stored)
 (global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
+(global-set-key (kbd "<f3> g") '(lambda() (interactive) (org-clock-goto 't)))
 (global-set-key (kbd "<f3> i") 'org-clock-in)
 (global-set-key (kbd "<f3> j") 'org-clock-goto)
 (global-set-key (kbd "<f3> l") 'njn/agenda-this-file-only) ;; Lock agenda (and other org-functions)
 (global-set-key (kbd "<f3> m") 'org-mark-ring-push)
 (global-set-key (kbd "<f3> n") 'org-capture)
 (global-set-key (kbd "<f3> o") 'org-clock-out)
-(global-set-key (kbd "<f3> g") '(lambda() (interactive) (org-clock-goto 't)))
+(global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f3> s") 'njn/agenda-toggle-show-closed)
 (global-set-key (kbd "<f3> t") 'org-todo)
@@ -470,9 +475,10 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> w") '(lambda() (interactive) (org-refile '(16))))
 (global-set-key (kbd "<f5>") 'njn/org-agenda)
 (global-set-key (kbd "<f8>") 'org-capture)
+
 (global-set-key (kbd "<f9> I") 'bh/org-info)
-(global-set-key (kbd "<f9> i") 'bh/clock-in)
-(global-set-key (kbd "<f9> o") 'bh/clock-out)
+; (global-set-key (kbd "<f9> i") 'bh/clock-in)
+; (global-set-key (kbd "<f9> o") 'bh/clock-out)
 (global-set-key (kbd "<f9> r") 'boxquote-region)
 (global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
 
@@ -480,7 +486,9 @@ Skips capture tasks and tasks with subtasks"
   (interactive)
   (info "~/git/org-mode/doc/org.info"))
 
-(global-set-key (kbd "<f11>") '(lambda() (interactive) (switch-to-buffer org-agenda-buffer-name)))
+(global-set-key (kbd "<f11>") '(lambda() (interactive)
+(switch-to-buffer org-agenda-buffer-name)
+(delete-other-windows)))
 
 (defun bh/go-to-scratch ()
   (interactive)
@@ -512,10 +520,11 @@ Skips capture tasks and tasks with subtasks"
                                       ("d" . org-cut-special) ;; Zap the current subtree
                                       ("h" . hide-other)
                                       ("q" . org-columns)
+                                      ("C" . org-clock-display)
                                       ("s" . org-schedule)
-                                      ("z" . org-add-note)
+                                      ;; ("z" . org-add-note)
                                       ;; zoom into current header in new separate window
-                                      ("Z" . (lambda() (interactive) 
+                                      ("z" . (lambda() (interactive) 
                                               (org-tree-to-indirect-buffer) 
                                               (other-window 1)
                                               (delete-other-windows)))
