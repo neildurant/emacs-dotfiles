@@ -359,8 +359,8 @@ Skips capture tasks and tasks with subtasks"
       ("ps" "Todo/Someday Projects" tags-todo "project-current-done-cancelled"
        ((org-agenda-overriding-header "Current Projects (High Level)")
         (org-agenda-sorting-strategy nil)))
-    ("?" "Questions" (
-      (tags "question/-done-cancelled-DONE-CANCELLED")))
+    ("Q" "Questions" (
+      (tags "question/-someday-SOMEDAY-done-cancelled-DONE-CANCELLED")))
     ("." "Cur Buffer - Timeline" ((agenda "" ))
       ((org-agenda-files (list njn/current-buffer-name))
       (org-agenda-show-log t)))
