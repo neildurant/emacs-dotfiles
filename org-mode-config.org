@@ -535,7 +535,7 @@ Skips capture tasks and tasks with subtasks"
   - Save oodles of time with your shortcuts, but waste the time
     writing lisp code to implement the shortcut list :-)
 
-#+tblname:shortcut-definition-list
+#+TBLNAME: shortcut-definition-list
 | Blog               | <f6> b    | blog                                 |
 | Customer 1         | <f6> m    | customer1                            |
 | Daily Hrs cust 2   | <f6> d    | daily_customer2                      |
@@ -554,17 +554,20 @@ Skips capture tasks and tasks with subtasks"
 | Refile             | <f6> r    | refile                               |
 | Server Data        | <f6> s    | speed_keys                           |
 | Vim                | <f6> v    | 733BD03F-0938-432F-B59A-BE235A2DE7E2 |
+#+TBLFM: 
 
 #+srcname: map-nav(shortcut-definition-list=shortcut-definition-list)
 #+begin_src emacs-lisp
-(require 'cl)
 (defun map-navigation-shortcuts(shortcut-def)
 (global-set-key (read-kbd-macro (nth 1 shortcut-def))
                  (lexical-let ((shortcut-def shortcut-def))
                    (lambda ()
                      (interactive)
                      (org-id-goto (nth 2 shortcut-def))))))
-(mapcar #'map-navigation-shortcuts shortcut-definition-list)
+(mapcar #'map-navigation-shortcuts 
+'(("Blog" "<f6> b" "blog") ("Customer 1" "<f6> m" "customer1") ("Daily Hrs cust 2" "<f6> d" "daily_customer2") ("Enrollio" "<f6> e" "997DDAB8-DDFF-4517-90F2-CEFB0A2727E7") ("Field List" "<f6> f" "f7c3f8da-5ab4-4769-ad17-27382483cb7c") ("Home" "<f6> h" "772DFBDD-38A3-4E92-8860-6904CC9D4F49") ("Iteration 1" "<f6> i" "b23ce0ba-937b-447b-b87b-5448eb626465") ("Log" "<f6> l" "log") ("Keyboard Shortcuts" "<f6> k" "keyboard_shortcuts") ("Nav Shortcuts" "<f6> <f6>" "nav_shortcuts") ("Notesmine Refile" "<f6> R" "notesmine_refile") ("Notesmine-org" "<f6> O" "notesmine_orgmode") ("Org Mode" "<f6> o" "2B8F0265-6509-4E79-9355-312F4B340503") ("Org Mode Custom" "<f6> c" "org-mode-config") ("Personal Notes" "<f6> p" "4ce7a31a-aa03-4044-8e70-95e0bfff0e05") ("Refile" "<f6> r" "refile") ("Server Data" "<f6> s" "speed_keys") ("Vim" "<f6> v" "733BD03F-0938-432F-B59A-BE235A2DE7E2"))
+  
+  )
 #+end_src
 
 * Clocking
