@@ -52,7 +52,7 @@ Set directories here.
     (if 
        (getenv "NOTESMINE_DIR")
         (setq njn/notesmine-dir (getenv "NOTESMINE_DIR"))
-       (setq njn/notesmine-dir (concat (getenv "HOME") "/Documents/notesmine-org")
+       (setq njn/notesmine-dir (concat (getenv "HOME") "/Documents/notesmine")
     ))
 
 
@@ -687,14 +687,14 @@ From http://thread.gmane.org/gmane.emacs.orgmode/36809/focus=36975
           (quote ((njn/personal-org-files :maxlevel . 5))))
   )
   
-  (njn/refile-targets-personal)
+  
   
   (defun njn/refile-targets-notesmine() 
     (interactive)
     (setq org-refile-targets 
           (quote ((njn/notesmine-org-files :maxlevel . 5))))
   )
-  
+  (njn/refile-targets-personal)
   (setq org-refile-allow-creating-parent-nodes 'confirm)
   
   ; Targets start with the file name - allows creating level 1 tasks
