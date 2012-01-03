@@ -1,3 +1,9 @@
+(setq load-path (cons "~/.emacs.d/lib/markdown" load-path))
+(autoload 'markdown-mode "markdown-mode.el"
+          "Major mode for editing Markdown files" t)
+(setq auto-mode-alist
+      (cons '("\\.text" . markdown-mode) auto-mode-alist))
+           
 ;; Show matching parenthesis
 (show-paren-mode 1)
 
