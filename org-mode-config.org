@@ -498,11 +498,11 @@ From http://thread.gmane.org/gmane.emacs.orgmode/36809/focus=36975
 (global-set-key (kbd "<f5>") 'njn/org-agenda)
 (global-set-key (kbd "<f8>") 'org-capture)
 
-(global-set-key (kbd "<f9> I") 'bh/org-info)
+; (global-set-key (kbd "<f9> I") 'bh/org-info)
 ; (global-set-key (kbd "<f9> i") 'bh/clock-in)
 ; (global-set-key (kbd "<f9> o") 'bh/clock-out)
-(global-set-key (kbd "<f9> r") 'boxquote-region)
-(global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
+; (global-set-key (kbd "<f9> r") 'boxquote-region)
+; (global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
 
 (defun bh/org-info ()
   (interactive)
