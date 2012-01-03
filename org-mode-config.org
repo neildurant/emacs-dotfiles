@@ -769,6 +769,8 @@ From http://thread.gmane.org/gmane.emacs.orgmode/36809/focus=36975
   
 * Org-babel
 #+begin_src emacs-lisp
+(setq org-src-fontify-natively t) ;; Show cool font highlighting
+;; in :source blocks
 (org-babel-do-load-languages
     'org-babel-load-languages
     '((ruby . t)
