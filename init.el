@@ -24,6 +24,19 @@
 (add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
 (add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
 
+(setq load-path (cons "~/.emacs.d/lib/package/" load-path))
+(require 'package)
+ (setq package-archives
+       '(("original"    . "http://tromey.com/elpa/")
+         ("gnu"         . "http://elpa.gnu.org/packages/")
+         ("marmalade"   . "http://marmalade-repo.org/packages/")))
+
+;(add-to-list 'package-archives '(
+;    ("marmalade" . "http://marmalade-repo.org/packages/")
+;    ("gnu" . "http://elpa.gnu.org/packages")
+;    ("tromey" . "http://tromey.com/elpa")))
+(package-initialize)
+
 ;; Add color-theme to load-path
 (setq load-path (cons "~/.emacs.d/lib/color-theme-6.6.0" load-path))
 (require 'color-theme)
