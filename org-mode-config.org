@@ -774,8 +774,9 @@ From http://thread.gmane.org/gmane.emacs.orgmode/36809/focus=36975
 (org-babel-do-load-languages
     'org-babel-load-languages
     '((ruby . t)
-      (sh   . t)
       (perl . t))
+      (clojure . t)
+      (sh   . t))
 )
 #+end_src
 * Org-habit
