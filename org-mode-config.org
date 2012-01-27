@@ -1,5 +1,5 @@
 #+property: results silent indent
-* Notes about my org-mode config
+* Summary
 :PROPERTIES:
 :ID: org-mode-config
 :END:
@@ -280,6 +280,12 @@ Skips capture tasks and tasks with subtasks"
 
 ;; Agenda clock report parameters (no links, 6 levels deep)
 (setq org-agenda-clockreport-parameter-plist (quote (:link t :maxlevel 6 :fileskip0 t)))
+
+;; Remove completed deadline tasks from the agenda view
+(setq org-agenda-skip-deadline-if-done t)
+
+;; Remove completed scheduled tasks from the agenda view
+(setq org-agenda-skip-scheduled-if-done t)
 
 #+end_src
 *** No repeat in agenda for TODO, todo and "appt"
