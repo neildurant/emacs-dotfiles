@@ -1,0 +1,6 @@
+#name : #+begin_src perl
+# --
+#+begin_src perl :results output
+use Test::More;
+$0
+#+end_src
