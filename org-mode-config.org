@@ -22,6 +22,14 @@ use org-mode
 (setq org-clock-out-remove-zero-time-clocks 't)
 (setq org-clock-modeline-total 'today)
 #+end_src
+** Scheduling/Agenda
+Use the "reg" keyword for items that I only want to see the next
+occurrence of in the agenda.  For example "Excercise", "Take over the
+world", etc.
+
+For regularly occurring appointments, like STLCoders, use an active
+timestamp with +1w, and don't use a TODO keyword.  You will see future
+appointments for these in the agenda.
 * Directories
 Set directories here.
 #+begin_src emacs-lisp
