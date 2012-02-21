@@ -1,3 +1,8 @@
+(setenv "PATH" 
+        (concat 
+          (concat (getenv "HOME") "/src/2ndparty/leiningen/bin")
+          ":"
+          (getenv "PATH")))
 (setq load-path (cons "~/.emacs.d/lib/markdown" load-path))
 (autoload 'markdown-mode "markdown-mode.el"
           "Major mode for editing Markdown files" t)
