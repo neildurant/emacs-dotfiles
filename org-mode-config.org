@@ -262,6 +262,7 @@ Skips capture tasks and tasks with subtasks"
                 (define-key org-agenda-mode-map "q" 'org-agenda-columns)
 ))
 
+
 ;; Log journal entries to this file.
 (setq org-agenda-diary-file njn/journal-org-file)
 
@@ -686,9 +687,7 @@ From http://thread.gmane.org/gmane.emacs.orgmode/36809/focus=36975
     (setq org-refile-targets 
           (quote ((njn/personal-org-files :maxlevel . 5))))
   )
-  
-  
-  
+    
   (defun njn/refile-targets-notesmine() 
     (interactive)
     (setq org-refile-targets 
