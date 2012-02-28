@@ -56,7 +56,8 @@
 
 ;; Add nate to load-path
 (setq load-path (cons "~/.emacs.d/lib/nate" load-path))
-
+(global-set-key (kbd "C-<left>") 'previous-buffer)
+(global-set-key (kbd "C-<right>") 'next-buffer)
 ;; Bookmark shortcuts
 (global-set-key [f7] 'bookmark-bmenu-list)
 (global-set-key [(shift f7)] 'bookmark-set)
