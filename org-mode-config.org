@@ -143,7 +143,6 @@ Set directories here.
           ("d" "Details" entry (clock) "* %? :details:\n%i\n" :prepend t :clock-in t :clock-resume t)       
           ("j" "Journal" entry (file+datetree+prompt, njn/journal-org-file) "* %?\nEntered on %u\n  %i\n%a")   
           ("c" "Customer Log" entry (id, "customer_log") "* %u %?\n\n%U" :prepend t)
-          ("p" "Personal Log" entry (id, "personal_log") "* %u %?\n\n%U" :prepend t)   
           ("N" "Note Detailed" entry (file, njn/refile-org-file) "* %?\n%i\n%a" :prepend t :clock-in t :clock-resume t)
           ("n" "Note Simple" entry (file, njn/refile-org-file) "* %? \n%i\n%U\n")
           ("T" "Todo" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
@@ -375,7 +374,7 @@ From http://thread.gmane.org/gmane.emacs.orgmode/36809/focus=36975
     ("p" . "Custom Agenda Commands")
       ("pt" "All Todos - simply nests all todos" tags-todo "/todo"
        ((org-agenda-overriding-header "All todos, nested")))
-      ("pc" "Current Projects" tags-todo "+project+current-done-cancelled"
+      ("pc" "Current Projects" tags "project/-done-cancelled-DONE-CANCELLED"
        ((org-agenda-overriding-header "Current Projects (High Level)")
         (org-agenda-sorting-strategy nil)))
       ("ps" "Todo/Someday Projects" tags-todo "project-current-done-cancelled"
