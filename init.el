@@ -1,3 +1,14 @@
+(setenv "PATH" 
+        (concat 
+          (concat (getenv "HOME") "/src/2ndparty/leiningen/bin")
+          ":"
+          (getenv "PATH")))
+(setq load-path (cons "~/.emacs.d/lib/markdown" load-path))
+(autoload 'markdown-mode "markdown-mode.el"
+          "Major mode for editing Markdown files" t)
+(setq auto-mode-alist
+      (cons '("\\.text" . markdown-mode) auto-mode-alist))
+           
 ;; Show matching parenthesis
 (show-paren-mode 1)
 
@@ -24,6 +35,19 @@
 (add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
 (add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
 
+(setq load-path (cons "~/.emacs.d/lib/package/" load-path))
+(require 'package)
+ (setq package-archives
+       '(("original"    . "http://tromey.com/elpa/")
+         ("gnu"         . "http://elpa.gnu.org/packages/")
+         ("marmalade"   . "http://marmalade-repo.org/packages/")))
+
+;(add-to-list 'package-archives '(
+;    ("marmalade" . "http://marmalade-repo.org/packages/")
+;    ("gnu" . "http://elpa.gnu.org/packages")
+;    ("tromey" . "http://tromey.com/elpa")))
+(package-initialize)
+
 ;; Add color-theme to load-path
 (setq load-path (cons "~/.emacs.d/lib/color-theme-6.6.0" load-path))
 (require 'color-theme)
@@ -32,7 +56,8 @@
 
 ;; Add nate to load-path
 (setq load-path (cons "~/.emacs.d/lib/nate" load-path))
-
+(global-set-key (kbd "C-<left>") 'previous-buffer)
+(global-set-key (kbd "C-<right>") 'next-buffer)
 ;; Bookmark shortcuts
 (global-set-key [f7] 'bookmark-bmenu-list)
 (global-set-key [(shift f7)] 'bookmark-set)
