@@ -46,7 +46,7 @@ Set directories here.
 
     (defun njn/personal-org-files()
        (interactive)
-       (directory-files personal-org-dir 't "^[^.].*org$")
+       (find-lisp-find-files personal-org-dir "^[^.].*org$")
     )
 
     (if 
