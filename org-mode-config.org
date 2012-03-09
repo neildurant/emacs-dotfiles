@@ -46,6 +46,7 @@ Set directories here.
 
     (defun njn/personal-org-files()
        (interactive)
+       (load-library "find-lisp")
        (find-lisp-find-files personal-org-dir "^[^.].*org$")
     )
 
