@@ -56,8 +56,7 @@
 
 ;; Add nate to load-path
 (setq load-path (cons "~/.emacs.d/lib/nate" load-path))
-(global-set-key (kbd "C-<left>") 'previous-buffer)
-(global-set-key (kbd "C-<right>") 'next-buffer)
+
 ;; Bookmark shortcuts
 (global-set-key [f7] 'bookmark-bmenu-list)
 (global-set-key [(shift f7)] 'bookmark-set)
@@ -85,6 +84,9 @@
 ;; Use control-up, down, left, right to
 ;; move cursor between windows
 (windmove-default-keybindings 'control)
+;; Use my keybindings for switching buffers
+(global-set-key (kbd "C-<left>") 'previous-buffer)
+(global-set-key (kbd "C-<right>") 'next-buffer)
 
 ;; Use f2 to show buffers
 (defun show-buffers-and-switch ()
