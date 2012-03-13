@@ -46,7 +46,8 @@ Set directories here.
 
     (defun njn/personal-org-files()
        (interactive)
-       (directory-files personal-org-dir 't "^[^.].*org$")
+       (load-library "find-lisp")
+       (find-lisp-find-files personal-org-dir "^[^.].*org$")
     )
 
     (if 
@@ -287,15 +288,19 @@ Skips capture tasks and tasks with subtasks"
 ;; Remove completed scheduled tasks from the agenda view
 (setq org-agenda-skip-scheduled-if-done t)
 
-#+end_src
-*** No repeat in agenda for TODO, todo and "appt"
-From http://thread.gmane.org/gmane.emacs.orgmode/36809/focus=36975
-"appt" are just headlines with no TODO keyword.
 
-#+begin_src emacs-lisp
+
+
+;; No repeat in agenda for TODO, todo and "appt"
+;; From http://thread.gmane.org/gmane.emacs.orgmode/36809/focus=36975
+;; "appt" are just headlines with no TODO keyword.
 (setq org-agenda-repeating-timestamp-show-all '("TODO" "todo" nil))
-#+end_src
 
+;; From http://juanreyero.com/article/emacs/org-teams.html
+(setq org-tags-exclude-from-inheritance '("project")
+      org-stuck-projects '("+prj/-MAYBE-DONE" 
+                           ("TODO" "TASK") ()))
+#+end_src
 ** Misc Functions
 #+begin_src emacs-lisp
 (setq njn/org-agenda-show-closed nil)
