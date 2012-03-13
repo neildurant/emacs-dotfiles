@@ -509,7 +509,7 @@ From http://thread.gmane.org/gmane.emacs.orgmode/36809/focus=36975
   (interactive)
   (info "~/git/org-mode/doc/org.info"))
 
-(global-set-key (kbd "<f11>") '(lambda() (interactive)
+(global-set-key (kbd "<f10>") '(lambda() (interactive)
 (switch-to-buffer org-agenda-buffer-name)
 (delete-other-windows)))
 
