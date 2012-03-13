@@ -109,7 +109,7 @@
 
 ;; Platform-specific stuff
 (when (eq system-type 'darwin)
-       (set-face-font 'default "-apple-monaco-medium-r-normal--14-120-72-72-m-120-iso10646-1")
+       (set-face-font 'default "-apple-monaco-medium-r-normal--18-120-72-72-m-120-iso10646-1")
 )
 
 
