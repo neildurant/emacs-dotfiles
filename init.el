@@ -136,7 +136,8 @@
 
 ;; Disable annoying font-lock message on OSX
 (setq font-lock-verbose nil)
-
+;; Disable annoying bell in OSX
+(setq ring-bell-function (lambda nil))
 ;;(require 'org-babel-init)     
 (require 'org-install)
 (org-babel-load-file "~/.emacs.d/org-mode-config.org")
