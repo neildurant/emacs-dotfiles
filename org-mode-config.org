@@ -137,11 +137,13 @@ Set directories here.
 
 #+begin_src emacs-lisp
   (setq njn/journal-org-file (concat personal-org-dir "/journal.org"))
+  (setq njn/work-journal-file (concat personal-org-dir "/work-journal.org"))
   (setq njn/refile-org-file (concat personal-org-dir "/refile.org"))  
   
   (setq org-capture-templates 
         `(
           ("d" "Details" entry (clock) "* %? :details:\n%i\n" :prepend t :clock-in t :clock-resume t)       
+          ("w" "Work Journal" entry (file+datetree+prompt, njn/work-journal-file) "* %?\nEntered on %u\n  %i\n%a")   
           ("j" "Journal" entry (file+datetree+prompt, njn/journal-org-file) "* %?\nEntered on %u\n  %i\n%a")   
           ("c" "Customer Log" entry (id, "customer_log") "* %u %?\n\n%U" :prepend t)
           ("N" "Note Detailed" entry (file, njn/refile-org-file) "* %?\n%i\n%a" :prepend t :clock-in t :clock-resume t)
