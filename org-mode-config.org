@@ -33,35 +33,39 @@ appointments for these in the agenda.
 * Directories
 Set directories here.
 #+begin_src emacs-lisp
-    ;; Use environment variables to set org directories
-    (if 
-       (getenv "ORG_DIR")
-        (setq personal-org-dir (getenv "ORG_DIR"))
-       (setq personal-org-dir (concat (getenv "HOME") "/Documents/personal")
-    ))
+  ;; Use environment variables to set org directories
+      (if 
+         (getenv "ORG_DIR")
+          (setq personal-org-dir (getenv "ORG_DIR"))
+         (setq personal-org-dir (concat (getenv "HOME") "/Documents/personal")
+      ))
+  
+      ;; define a function to read contents of personal-org-dir and
+      ;; return *.org files.  Use this function when we need to know
+      ;; what files are in personal-org-dir :-)
+  
+      (defun njn/personal-org-files()
+         (interactive)
+         (find-lisp-find-files personal-org-dir "^[^.].*org$")
+      )
 
-    ;; define a function to read contents of personal-org-dir and
-    ;; return *.org files.  Use this function when we need to know
-    ;; what files are in personal-org-dir :-)
-
-    (defun njn/personal-org-files()
-       (interactive)
-       (load-library "find-lisp")
-       (find-lisp-find-files personal-org-dir "^[^.].*org$")
-    )
-
-    (if 
-       (getenv "NOTESMINE_DIR")
-        (setq njn/notesmine-dir (getenv "NOTESMINE_DIR"))
-       (setq njn/notesmine-dir (concat (getenv "HOME") "/Documents/notesmine")
-    ))
-
-
-    (defun njn/notesmine-org-files()
-       (interactive)
-       (directory-files njn/notesmine-dir 't "^[^.].*org$")
-    )
-
+      (defun njn/work-org-files()
+         (interactive)
+         (find-lisp-find-files (concat personal-org-dir "/work") "^[^.].*org$")
+      )
+  
+      (if 
+         (getenv "NOTESMINE_DIR")
+          (setq njn/notesmine-dir (getenv "NOTESMINE_DIR"))
+         (setq njn/notesmine-dir (concat (getenv "HOME") "/Documents/notesmine")
+      ))
+  
+  
+      (defun njn/notesmine-org-files()
+         (interactive)
+         (directory-files njn/notesmine-dir 't "^[^.].*org$")
+      )
+  
 #+end_src
 
 ** File Types
@@ -357,7 +361,15 @@ Skips capture tasks and tasks with subtasks"
    (interactive)
    ;; save current settings
    (setq njn/my-agenda-files org-agenda-files)
-   (setq org-agenda-files (directory-files personal-org-dir 't "^[^.].*org$"))
+   (setq org-agenda-files (njn/personal-org-files))
+)
+
+(defun njn/agenda-files-all-work ()
+  " Put all the files in my personal directory into the org-agenda-files thingy"
+   (interactive)
+   ;; save current settings
+   (setq njn/my-agenda-files org-agenda-files)
+   (setq org-agenda-files (njn/work-org-files))
 )
 
 (defun njn/agenda-files-restore-original-files ()
