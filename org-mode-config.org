@@ -549,7 +549,9 @@ Skips capture tasks and tasks with subtasks"
                                       ("c" . org-toggle-checkbox)
                                       ("d" . org-cut-special) ;; Zap the current subtree
                                       ("h" . hide-other)
+                                      ("P" . org-set-property)
                                       ("q" . org-columns)
+                                      
                                       ("C" . org-clock-display)
                                       ("s" . org-schedule)
                                       ;; ("z" . org-add-note)
