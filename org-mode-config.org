@@ -34,11 +34,11 @@ appointments for these in the agenda.
 Set directories here.
 #+begin_src emacs-lisp
   ;; Use environment variables to set org directories
-      (if 
-         (getenv "ORG_DIR")
-          (setq personal-org-dir (getenv "ORG_DIR"))
-         (setq personal-org-dir (concat (getenv "HOME") "/Documents/personal")
-      ))
+  (if 
+     (getenv "ORG_DIR")
+     (setq personal-org-dir (getenv "ORG_DIR"))
+     (setq personal-org-dir (concat (getenv "HOME") "/Documents/org")
+  ))
   
       ;; define a function to read contents of personal-org-dir and
       ;; return *.org files.  Use this function when we need to know
@@ -141,11 +141,13 @@ Set directories here.
 
 #+begin_src emacs-lisp
   (setq njn/journal-org-file (concat personal-org-dir "/journal.org"))
+  (setq njn/work-journal-file (concat personal-org-dir "/work-journal.org"))
   (setq njn/refile-org-file (concat personal-org-dir "/refile.org"))  
   
   (setq org-capture-templates 
         `(
           ("d" "Details" entry (clock) "* %? :details:\n%i\n" :prepend t :clock-in t :clock-resume t)       
+          ("w" "Work Journal" entry (file+datetree+prompt, njn/work-journal-file) "* %?\nEntered on %u\n  %i\n%a")   
           ("j" "Journal" entry (file+datetree+prompt, njn/journal-org-file) "* %?\nEntered on %u\n  %i\n%a")   
           ("c" "Customer Log" entry (id, "customer_log") "* %u %?\n\n%U" :prepend t)
           ("N" "Note Detailed" entry (file, njn/refile-org-file) "* %?\n%i\n%a" :prepend t :clock-in t :clock-resume t)
@@ -526,7 +528,7 @@ Skips capture tasks and tasks with subtasks"
   (interactive)
   (info "~/git/org-mode/doc/org.info"))
 
-(global-set-key (kbd "<f11>") '(lambda() (interactive)
+(global-set-key (kbd "<f10>") '(lambda() (interactive)
 (switch-to-buffer org-agenda-buffer-name)
 (delete-other-windows)))
 
@@ -559,7 +561,9 @@ Skips capture tasks and tasks with subtasks"
                                       ("c" . org-toggle-checkbox)
                                       ("d" . org-cut-special) ;; Zap the current subtree
                                       ("h" . hide-other)
+                                      ("P" . org-set-property)
                                       ("q" . org-columns)
+                                      
                                       ("C" . org-clock-display)
                                       ("s" . org-schedule)
                                       ;; ("z" . org-add-note)
@@ -602,6 +606,7 @@ Skips capture tasks and tasks with subtasks"
 | Personal Notes     | <f6> p    | 4ce7a31a-aa03-4044-8e70-95e0bfff0e05 |
 | Refile             | <f6> r    | refile                               |
 | Server Data        | <f6> s    | speed_keys                           |
+| Terms              | <f6> t    | terms-work                           |
 | Vim                | <f6> v    | 733BD03F-0938-432F-B59A-BE235A2DE7E2 |
 #+TBLFM: 
 
@@ -614,7 +619,9 @@ Skips capture tasks and tasks with subtasks"
                      (interactive)
                      (org-id-goto (nth 2 shortcut-def))))))
 (mapcar #'map-navigation-shortcuts 
-'(("Blog" "<f6> b" "blog") ("Customer 1" "<f6> m" "customer1") ("Daily Hrs cust 2" "<f6> d" "daily_customer2") ("Enrollio" "<f6> e" "997DDAB8-DDFF-4517-90F2-CEFB0A2727E7") ("Field List" "<f6> f" "f7c3f8da-5ab4-4769-ad17-27382483cb7c") ("Home" "<f6> h" "772DFBDD-38A3-4E92-8860-6904CC9D4F49") ("Iteration 1" "<f6> i" "b23ce0ba-937b-447b-b87b-5448eb626465") ("Log" "<f6> l" "log") ("Keyboard Shortcuts" "<f6> k" "keyboard_shortcuts") ("Nav Shortcuts" "<f6> <f6>" "nav_shortcuts") ("Notesmine Refile" "<f6> R" "notesmine_refile") ("Notesmine-org" "<f6> O" "notesmine_orgmode") ("Org Mode" "<f6> o" "2B8F0265-6509-4E79-9355-312F4B340503") ("Org Mode Custom" "<f6> c" "org-mode-config") ("Personal Notes" "<f6> p" "4ce7a31a-aa03-4044-8e70-95e0bfff0e05") ("Refile" "<f6> r" "refile") ("Server Data" "<f6> s" "speed_keys") ("Vim" "<f6> v" "733BD03F-0938-432F-B59A-BE235A2DE7E2"))
+'(("Blog" "<f6> b" "blog") ("Terms " "<f6> t" "terms-work")
+  ("Customer 1" "<f6> m" "customer1") ("Daily Hrs cust 2" "<f6> d" "daily_customer2") ("Enrollio" "<f6> e" "997DDAB8-DDFF-4517-90F2-CEFB0A2727E7") ("Field List" "<f6> f" "f7c3f8da-5ab4-4769-ad17-27382483cb7c") ("Home" "<f6> h" "772DFBDD-38A3-4E92-8860-6904CC9D4F49") ("Iteration 1" "<f6> i" "b23ce0ba-937b-447b-b87b-5448eb626465") ("Log" "<f6> l" "log") ("Keyboard Shortcuts" "<f6> k" "keyboard_shortcuts") ("Nav Shortcuts" "<f6> <f6>" "nav_shortcuts") ("Notesmine Refile" "<f6> R" "notesmine_refile") ("Notesmine-org" "<f6> O" "notesmine_orgmode") ("Org Mode" "<f6> o" "2B8F0265-6509-4E79-9355-312F4B340503") ("Org Mode Custom" "<f6> c" "org-mode-config") ("Personal Notes" "<f6> p" "4ce7a31a-aa03-4044-8e70-95e0bfff0e05") ("Refile" "<f6> r" "refile") ("Server Data" "<f6> s" "speed_keys") ("Vim" "<f6> v" "733BD03F-0938-432F-B59A-BE235A2DE7E2"))
+
   
   )
 #+end_src
