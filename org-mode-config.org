@@ -37,7 +37,7 @@ Set directories here.
     (if 
        (getenv "ORG_DIR")
         (setq personal-org-dir (getenv "ORG_DIR"))
-       (setq personal-org-dir (concat (getenv "HOME") "/Documents/personal")
+       (setq personal-org-dir (concat (getenv "HOME") "/Documents/org")
     ))
 
     ;; define a function to read contents of personal-org-dir and
