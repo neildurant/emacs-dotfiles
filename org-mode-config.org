@@ -509,6 +509,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
 (global-set-key (kbd "<f3> w") '(lambda() (interactive) (org-refile '(16))))
 (global-set-key (kbd "<f5>") 'njn/org-agenda)
+(global-set-key (kbd "<f6> r") '(lambda() (interactive) (org-id-goto (concat "refile-" (getenv "USER")))))
 (global-set-key (kbd "<f8>") 'org-capture)
 
 ; (global-set-key (kbd "<f9> I") 'bh/org-info)
@@ -598,11 +599,9 @@ Skips capture tasks and tasks with subtasks"
 | Org Mode           | <f6> o    | 2B8F0265-6509-4E79-9355-312F4B340503 |
 | Org Mode Custom    | <f6> c    | org-mode-config                      |
 | Personal Notes     | <f6> p    | 4ce7a31a-aa03-4044-8e70-95e0bfff0e05 |
-| Refile             | <f6> r    | refile                               |
 | Server Data        | <f6> s    | speed_keys                           |
 | Terms              | <f6> t    | terms-work                           |
 | Vim                | <f6> v    | 733BD03F-0938-432F-B59A-BE235A2DE7E2 |
-#+TBLFM: 
 
 #+name: map-nav(shortcut-definition-list=shortcut-definition-list)
 #+begin_src emacs-lisp
