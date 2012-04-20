@@ -489,8 +489,8 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> I") '(lambda() (interactive) (org-clock-in '(4))))
 (global-set-key (kbd "<f3> P") '(lambda() (interactive) (org-clock-in '(4))))
 (global-set-key (kbd "<f3> S") 'njn/agenda-toggle-show-closed)
+
 (global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
-(global-set-key (kbd "<f9>") 'org-save-all-org-buffers)
 (global-set-key (kbd "<f3> b") '(lambda() (interactive) (org-toggle-checkbox '(4))))
 (global-set-key (kbd "<f3> c") 'org-capture-goto-last-stored)
 (global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
@@ -516,6 +516,7 @@ Skips capture tasks and tasks with subtasks"
 ; (global-set-key (kbd "<f9> o") 'bh/clock-out)
 ; (global-set-key (kbd "<f9> r") 'boxquote-region)
 ; (global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
+(global-set-key (kbd "<f9>") 'org-save-all-org-buffers)
 
 (defun bh/org-info ()
   (interactive)
