@@ -74,7 +74,7 @@ Set directories here.
 * Outlines
 #+begin_src emacs-lisp
   ;; Don't put blank lines after headings.
-  (setq org-blank-before-new-entry (quote ((heading) (plain-list-item))))
+  (setq org-blank-before-new-entry (quote ((heading . auto) (plain-list-item . auto))))
 
   (setq org-log-done (quote time))
   ;; Log notes and state changes into LOGBOOK property
