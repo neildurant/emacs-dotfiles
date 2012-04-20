@@ -34,6 +34,8 @@ appointments for these in the agenda.
 Set directories here.
 #+begin_src emacs-lisp
     ;; Use environment variables to set org directories
+    (load-library "find-lisp")
+
     (if 
        (getenv "ORG_DIR")
         (setq personal-org-dir (getenv "ORG_DIR"))
@@ -46,8 +48,8 @@ Set directories here.
 
     (defun njn/personal-org-files()
        (interactive)
-       (load-library "find-lisp")
-       (find-lisp-find-files personal-org-dir "^[^.].*org$")
+       (directory-files personal-org-dir 't "^[^.].*org$")
+;;       (find-lisp-find-files personal-org-dir "^[^.].*org$")
     )
 
     (if 
@@ -59,7 +61,7 @@ Set directories here.
 
     (defun njn/notesmine-org-files()
        (interactive)
-       (directory-files njn/notesmine-dir 't "^[^.].*org$")
+       (directory-files personal-org-dir 't "^[^.].*org$")
     )
 
 #+end_src
