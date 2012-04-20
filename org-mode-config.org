@@ -594,12 +594,13 @@ Skips capture tasks and tasks with subtasks"
 | Log                | <f6> l    | log                                  |
 | Keyboard Shortcuts | <f6> k    | keyboard_shortcuts                   |
 | Nav Shortcuts      | <f6> <f6> | nav_shortcuts                        |
+| Nav Shortcuts      | <f6> n    | nav_shortcuts                        |
 | Notesmine Refile   | <f6> R    | notesmine_refile                     |
 | Notesmine-org      | <f6> O    | notesmine_orgmode                    |
 | Org Mode           | <f6> o    | 2B8F0265-6509-4E79-9355-312F4B340503 |
 | Org Mode Custom    | <f6> c    | org-mode-config                      |
 | Personal Notes     | <f6> p    | 4ce7a31a-aa03-4044-8e70-95e0bfff0e05 |
-| Server Data        | <f6> s    | speed_keys                           |
+| Speed Keys         | <f6> s    | speed_keys                           |
 | Terms              | <f6> t    | terms-work                           |
 | Vim                | <f6> v    | 733BD03F-0938-432F-B59A-BE235A2DE7E2 |
 
