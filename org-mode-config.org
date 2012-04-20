@@ -485,6 +485,7 @@ Skips capture tasks and tasks with subtasks"
 (global-unset-key (kbd "<f3>"))
 (global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
 (global-set-key (kbd "<f3> <") 'njn/clock-in-at-time)
+(global-set-key (kbd "<f3> C") '(lambda() (interactive) (org-toggle-checkbox '(4))))
 (global-set-key (kbd "<f3> I") '(lambda() (interactive) (org-clock-in '(4))))
 (global-set-key (kbd "<f3> P") '(lambda() (interactive) (org-clock-in '(4))))
 (global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
