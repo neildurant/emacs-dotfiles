@@ -502,6 +502,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> n") 'org-capture)
 (global-set-key (kbd "<f3> o") 'org-clock-out)
 (global-set-key (kbd "<f3> p") 'org-set-property)
+(global-set-key (kbd "<f3> q") 'org-set-tags-command)
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f3> s") 'org-schedule)
 (global-set-key (kbd "<f3> t") 'org-todo)
