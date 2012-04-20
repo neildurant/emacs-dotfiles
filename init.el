@@ -12,6 +12,9 @@
 ;; Show matching parenthesis
 (show-paren-mode 1)
 
+;; Load this library to use the find-lisp-find-files function
+(load-library "find-lisp")
+
 (global-font-lock-mode 1)
 
 ;; GUI Options ----------------
