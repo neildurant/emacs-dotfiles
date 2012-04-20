@@ -703,7 +703,7 @@ Skips capture tasks and tasks with subtasks"
   (defun njn/refile-targets-personal() 
     (interactive) 
     (setq org-refile-targets 
-          (quote ((njn/personal-org-files :maxlevel . 5))))
+          (quote ((njn/personal-org-files . (:maxlevel . 5)))))
   )
     
   (defun njn/refile-targets-notesmine() 
