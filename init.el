@@ -156,6 +156,9 @@
   (njn/runeditor "gvim"))
 )
 
+;; http://superuser.com/questions/184340/emacs-how-to-return-to-last-position-after-scroll-page-up-down
+(setq scroll-preserve-screen-position 't)
+
 (defun njn/runeditor (editor)
   (let (filename (file-truename buffer-file-name))
     (setq cmd (format "%s %s" editor (file-truename buffer-file-name)))
