@@ -507,6 +507,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
 (global-set-key (kbd "<f3> w") '(lambda() (interactive) (org-refile '(16))))
 (global-set-key (kbd "<f5>") 'njn/org-agenda)
+(global-set-key (kbd "<f7>") '(lambda() (interactive) (delete-other-windows)))
 (global-set-key (kbd "<f6> r") '(lambda() (interactive) (org-id-goto (concat "refile-" (getenv "USER")))))
 (global-set-key (kbd "<f8>") 'org-capture)
 
@@ -584,9 +585,11 @@ Skips capture tasks and tasks with subtasks"
 #+TBLNAME: shortcut-definition-list
 | Blog               | <f6> b    | blog                                 |
 | Customer 1         | <f6> m    | customer1                            |
-| Daily Hrs cust 2   | <f6> d    | daily_customer2                      |
+| Dev                | <f6> d    | dev                                  |
+| Admin              | <f6> a    | admin                                |
 | Enrollio           | <f6> e    | 997DDAB8-DDFF-4517-90F2-CEFB0A2727E7 |
-| Field List         | <f6> f    | f7c3f8da-5ab4-4769-ad17-27382483cb7c |
+| Faqs               | <f6> f    | faqs |
+| Gigs               | <f6> g    | gigs                                 |
 | Home               | <f6> h    | 772DFBDD-38A3-4E92-8860-6904CC9D4F49 |
 | Iteration 1        | <f6> i    | b23ce0ba-937b-447b-b87b-5448eb626465 |
 | Log                | <f6> l    | log                                  |
