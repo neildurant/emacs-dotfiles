@@ -694,7 +694,7 @@ Skips capture tasks and tasks with subtasks"
 
 * Refiling
 #+begin_src emacs-lisp
-(setq org-refile-use-cache 't)
+;(setq org-refile-use-cache 't)
   ; Refile targets default to only filez found in personal-org-files directory
   (defun njn/refile-targets-personal() 
     (interactive) 
