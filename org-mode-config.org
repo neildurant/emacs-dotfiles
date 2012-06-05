@@ -733,6 +733,8 @@ Skips capture tasks and tasks with subtasks"
 ; Do not generate internal css formatting for HTML exports
 (setq org-export-htmlize-output-type (quote css))
 
+; Don't export post-amble with org-mode, etc. version info
+(setq org-export-html-postamble nil)
 ; List of projects
 ; orgmode.nateneff.com
 ; notesmine.com
