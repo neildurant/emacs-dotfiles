@@ -407,7 +407,9 @@ Skips capture tasks and tasks with subtasks"
     ("S" "next Tasks" todo "next" ((org-agenda-todo-ignore-with-date nil)))
     ("w" "Tasks waiting on something" todo "waiting" ((org-use-tag-inheritance nil)))
     ("d" "delegated" tags "delegated" ((org-use-tag-inheritance nil)))
-    ("o" "someday" tags "someday" ((org-use-tag-inheritance nil)))
+    ("o" "someday" todo "someday" 
+       ((org-agenda-todo-ignore-with-date nil) 
+        (org-use-tag-inheritance nil)))
     ("r" "Refile New Notes and Tasks" tags "refile" ((org-agenda-todo-ignore-with-date nil)))
     ("*" "All Personal Files" ((agenda ""))
       ((org-agenda-files (directory-files personal-org-dir 't "^[^.].*org$"))
