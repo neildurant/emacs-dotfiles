@@ -589,7 +589,7 @@ Skips capture tasks and tasks with subtasks"
 | Dev                | <f6> d    | dev                                  |
 | Admin              | <f6> a    | admin                                |
 | Enrollio           | <f6> e    | 997DDAB8-DDFF-4517-90F2-CEFB0A2727E7 |
-| Faqs               | <f6> f    | faqs |
+| Faqs               | <f6> f    | faqs                                 |
 | Gigs               | <f6> g    | gigs                                 |
 | Home               | <f6> h    | 772DFBDD-38A3-4E92-8860-6904CC9D4F49 |
 | Iteration 1        | <f6> i    | b23ce0ba-937b-447b-b87b-5448eb626465 |
@@ -598,6 +598,7 @@ Skips capture tasks and tasks with subtasks"
 | Nav Shortcuts      | <f6> <f6> | nav_shortcuts                        |
 | Nav Shortcuts      | <f6> n    | nav_shortcuts                        |
 | Notesmine Refile   | <f6> R    | notesmine_refile                     |
+| Refile             | <f6> r    | refile                               |
 | Notesmine-org      | <f6> O    | notesmine_orgmode                    |
 | Org Mode           | <f6> o    | 2B8F0265-6509-4E79-9355-312F4B340503 |
 | Org Mode Custom    | <f6> c    | org-mode-config                      |
