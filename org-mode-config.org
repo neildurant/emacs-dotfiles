@@ -197,6 +197,7 @@ Set directories here.
 (setq org-todo-keywords '(
 (sequence "todo(t)" "next(n)" "|" "done(d!)")
 (sequence "reg(r)" "|" "done(d!)")
+(sequence "tickle(i)" "|" "done(d!)" "cancelled(c)")
 (sequence "waiting(w@/@)" "|" "delegated(e@/@)" "maybe(m)" "someday(o)" "cancelled(c)" "tbv(b)")
 ))
 #+end_src
