@@ -172,3 +172,6 @@
     (mapc 'kill-buffer 
           (delq (current-buffer) 
                 (remove-if-not 'buffer-file-name (buffer-list)))))
+
+;; Turn on auto-fill mode by default
+;; (setq-default auto-fill-function 'do-auto-fill)
