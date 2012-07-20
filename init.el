@@ -177,3 +177,6 @@
 
 ;; Turn on auto-fill mode by default
 ;; (setq-default auto-fill-function 'do-auto-fill)
+
+;; Backup directory
+(setq backup-directory-alist '(("." . "~/tmp/emacs-backups")))
