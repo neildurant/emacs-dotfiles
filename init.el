@@ -90,6 +90,8 @@
 ;; Use my keybindings for switching buffers
 (global-set-key (kbd "C-<left>") 'previous-buffer)
 (global-set-key (kbd "C-<right>") 'next-buffer)
+(global-set-key (kbd "s-<right>") 'next-buffer)
+(global-set-key (kbd "s-<left>") 'previous-buffer)
 
 ;; Use f2 to show buffers
 (defun show-buffers-and-switch ()
