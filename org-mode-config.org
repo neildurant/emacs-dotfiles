@@ -594,6 +594,7 @@ Skips capture tasks and tasks with subtasks"
 | Admin              | <f6> a    | admin                                |
 | Enrollio           | <f6> e    | 997DDAB8-DDFF-4517-90F2-CEFB0A2727E7 |
 | Faqs               | <f6> f    | faqs                                 |
+| Classes            | <f6> C    | classes                              |
 | Gigs               | <f6> g    | gigs                                 |
 | Home               | <f6> h    | 772DFBDD-38A3-4E92-8860-6904CC9D4F49 |
 | Iteration 1        | <f6> i    | b23ce0ba-937b-447b-b87b-5448eb626465 |
