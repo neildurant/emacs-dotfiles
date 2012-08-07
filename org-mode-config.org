@@ -30,6 +30,39 @@ world", etc.
 For regularly occurring appointments, like STLCoders, use an active
 timestamp with +1w, and don't use a TODO keyword.  You will see future
 appointments for these in the agenda.
+* Custom Blocks / Functions
+#+begin_src emacs-lisp
+;; This is from Matt Lundin on the Org-mode list
+;; It's used to query for headlines with tags that match the :match parameter
+;; You can use it by putting something like this in your org file:
+;; #+begin: insert-links :match questions
+;; #+end:
+(defun org-dblock-write:insert-links (params)
+ "Dblock function to insert links to headlines that match
+tags/properties search string specified by :match."
+ (let ((match (plist-get params :match))
+       links)
+   (unless match
+     (error "Must specify :match parameter"))
+   (org-map-entries
+    (lambda ()
+      (let ((heading (nth 4 (org-heading-components))))
+        (add-to-list 'links
+                     (format "- [[file:%s::*%s][%s]]\n"
+                             (abbreviate-file-name
+                              (buffer-file-name))
+                             heading heading))))
+    match 'agenda)
+   (apply #'insert links)))
+
+
+(defun get-string-from-file (filePath)
+  "Return FILEPATH's file content."
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (buffer-string)))
+
+#+end_src
 * Directories
 Set directories here.
 #+begin_src emacs-lisp
@@ -141,7 +174,9 @@ Set directories here.
   (setq njn/journal-org-file (concat personal-org-dir "/journal.org"))
   (setq njn/work-journal-file (concat personal-org-dir "/work-journal.org"))
   (setq njn/refile-org-file (concat personal-org-dir "/refile.org"))  
-  
+  (setq njn/html-export-css-template (concat personal-org-dir "/template.css"))
+
+
   (setq org-capture-templates 
         `(
           ("d" "Details" entry (clock) "* %? :details:\n%i\n" :prepend t :clock-in t :clock-resume t)       
@@ -712,7 +747,9 @@ Skips capture tasks and tasks with subtasks"
 (setq org-export-with-sub-superscripts nil)
 ; Do not generate internal css formatting for HTML exports
 (setq org-export-htmlize-output-type (quote css))
-
+(setq org-export-html-style-include-default nil)
+(setq barf (get-string-from-file njn/html-export-css-template))
+(setq org-export-html-style-extra nil)
 ; Don't export post-amble with org-mode, etc. version info
 (setq org-export-html-postamble nil)
 ; List of projects
@@ -779,29 +816,4 @@ Skips capture tasks and tasks with subtasks"
   (require 'org-habit)  
   (setq org-habit-preceding-days 0)
   (setq org-habit-following-days 0)
-#+end_src
-* Custom Blocks / Functions
-#+begin_src emacs-lisp
-;; This is from Matt Lundin on the Org-mode list
-;; It's used to query for headlines with tags that match the :match parameter
-;; You can use it by putting something like this in your org file:
-;; #+begin: insert-links :match questions
-;; #+end:
-(defun org-dblock-write:insert-links (params)
- "Dblock function to insert links to headlines that match
-tags/properties search string specified by :match."
- (let ((match (plist-get params :match))
-       links)
-   (unless match
-     (error "Must specify :match parameter"))
-   (org-map-entries
-    (lambda ()
-      (let ((heading (nth 4 (org-heading-components))))
-        (add-to-list 'links
-                     (format "- [[file:%s::*%s][%s]]\n"
-                             (abbreviate-file-name
-                              (buffer-file-name))
-                             heading heading))))
-    match 'agenda)
-   (apply #'insert links)))
 #+end_src
