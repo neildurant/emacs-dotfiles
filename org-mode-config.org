@@ -540,14 +540,6 @@ Skips capture tasks and tasks with subtasks"
 ; (global-set-key (kbd "<f9> r") 'boxquote-region)
 ; (global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
 
-(defun bh/org-info ()
-  (interactive)
-  (info "~/git/org-mode/doc/org.info"))
-
-(global-set-key (kbd "<f10>") '(lambda() (interactive)
-(switch-to-buffer org-agenda-buffer-name)
-(delete-other-windows)))
-
 (defun bh/go-to-scratch ()
   (interactive)
   (switch-to-buffer "*scratch*")
