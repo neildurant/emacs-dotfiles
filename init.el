@@ -101,6 +101,8 @@
 
 ;; (global-set-key [f2] 'show-buffers-and-switch)
 ;; (global-set-key [f2] 'other-window)
+(global-set-key (kbd "s-w") 'delete-window)
+
 
 ;; IMPORTANT: Use Windoze key for meta key
 ;; (when (eq 'darwin' system-type)
