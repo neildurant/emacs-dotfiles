@@ -67,7 +67,7 @@
 ;; Kill buffer
 (global-set-key [(control f4)] '(lambda () (interactive) (kill-buffer)))
 
-(global-set-key [f4] 'ido-switch-buffer)
+(global-set-key [f2] 'ido-switch-buffer)
 (if (< emacs-major-version 23)
    (defun characterp (obj)
      (and (char-or-string-p obj) (not (stringp obj)))))
@@ -99,7 +99,8 @@
   (ibuffer)
 )
 
-(global-set-key [f2] 'show-buffers-and-switch)
+;; (global-set-key [f2] 'show-buffers-and-switch)
+;; (global-set-key [f2] 'other-window)
 
 ;; IMPORTANT: Use Windoze key for meta key
 ;; (when (eq 'darwin' system-type)
