@@ -401,7 +401,7 @@ Skips capture tasks and tasks with subtasks"
     ("p" . "Custom Agenda Commands")
       ("pt" "All Todos - simply nests all todos" tags-todo "/todo"
        ((org-agenda-overriding-header "All todos, nested")))
-      ("pc" "Current Projects" tags "project/-done-cancelled-DONE-CANCELLED"
+      ("pc" "Current Projects" tags "project/started"
        ((org-agenda-overriding-header "Current Projects (High Level)")
         (org-agenda-sorting-strategy nil)))
       ("ps" "Todo/Someday Projects" tags-todo "project-current-done-cancelled"
