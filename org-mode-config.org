@@ -531,13 +531,14 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f7>") '(lambda() (interactive) (delete-other-windows)))
 (global-set-key (kbd "<f6> r") '(lambda() (interactive) (org-id-goto (concat "refile-" (getenv "USER")))))
 (global-set-key (kbd "<f8>") 'org-capture)
-
+(global-set-key (kbd "<f9>") 'org-save-all-org-buffers)
+(global-set-key (kbd "<f10>") '(lambda() (interactive) (switch-to-buffer "*Org Agenda(a)*")(delete-other-windows)))
+(global-set-key (kbd "<f11>") '(lambda() (interactive) (delete-other-windows)))
 ; (global-set-key (kbd "<f9> I") 'bh/org-info)
 ; (global-set-key (kbd "<f9> i") 'bh/clock-in)
 ; (global-set-key (kbd "<f9> o") 'bh/clock-out)
 ; (global-set-key (kbd "<f9> r") 'boxquote-region)
 ; (global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
-(global-set-key (kbd "<f9>") 'org-save-all-org-buffers)
 
 (defun bh/org-info ()
   (interactive)
