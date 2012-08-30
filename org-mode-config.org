@@ -231,6 +231,7 @@ Set directories here.
 #+begin_src emacs-lisp
 (setq org-todo-keywords '(
 (sequence "todo(t)" "next(n)" "|" "done(d!)")
+(sequence "started(s)" "|" "done(d!)")
 (sequence "reg(r)" "|" "done(d!)")
 (sequence "tickle(i)" "|" "done(d!)" "cancelled(c)")
 (sequence "waiting(w@/@)" "|" "delegated(e@/@)" "maybe(m)" "someday(o)" "cancelled(c)" "tbv(b)")
