@@ -357,25 +357,6 @@ Skips capture tasks and tasks with subtasks"
 	   (message "Showing closed clock entries in agenda"))
     ))
 
-(defun njn/is-project-p ()
-  "Any task with a todo keyword subtask"
-  (let ((has-subtask)
-        (subtree-end (save-excursion (org-end-of-subtree t))))
-    (save-excursion
-      (forward-line 1)
-      (while (and (not has-subtask)
-                  (< (point) subtree-end)
-                  (re-search-forward "^\*+ " subtree-end t))
-        (when (member (org-get-todo-state) org-todo-keywords-1)
-          (setq has-subtask t))))
-    has-subtask))
-
-(defun njn/skip-non-projects ()
-  "Skip trees that are not projects"
-  (let* ((subtree-end (save-excursion (org-end-of-subtree t))))
-    (if (njn/is-project-p)
-        nil
-      subtree-end)))
 
 (defun njn/agenda-this-file-only()
   (interactive)
