@@ -507,7 +507,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> <") 'njn/clock-in-at-time)
 (global-set-key (kbd "<f3> C") '(lambda() (interactive) (org-toggle-checkbox '(4))))
 (global-set-key (kbd "<f3> I") '(lambda() (interactive) (org-clock-in '(4))))
-(global-set-key (kbd "<f3> P") '(lambda() (interactive) (org-clock-in '(4))))
+(global-set-key (kbd "<f3> P") 'org-set-property)
 (global-set-key (kbd "<f3> S") 'njn/agenda-toggle-show-closed)
 
 (global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
@@ -521,7 +521,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> m") 'org-mark-ring-push)
 (global-set-key (kbd "<f3> n") 'org-capture)
 (global-set-key (kbd "<f3> o") 'org-clock-out)
-(global-set-key (kbd "<f3> p") 'org-set-property)
+(global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
 (global-set-key (kbd "<f3> q") 'org-set-tags-command)
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
 (global-set-key (kbd "<f3> s") 'org-schedule)
