@@ -430,8 +430,6 @@ Skips capture tasks and tasks with subtasks"
     ("*" "All Personal Files" ((agenda ""))
       ((org-agenda-files (directory-files personal-org-dir 't "^[^.].*org$"))
       (org-agenda-show-log t)))
-    ("e" "Enrollio Agenda" agenda ""
-      ((org-agenda-files enrollio-org-files)))
     ("j" "Journal" agenda ""
       ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/journal.org")))))
     ("g" "Geek Agenda" agenda ""
