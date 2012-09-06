@@ -118,7 +118,8 @@
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 ;; Platform-specific stuff
-(when (eq system-type 'darwin)
+;; (when (eq system-type 'darwin)
+(when (eq window-system 'ns)
        (set-face-font 'default "-apple-monaco-medium-r-normal--18-120-72-72-m-120-iso10646-1")
 )
 
