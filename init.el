@@ -153,6 +153,7 @@
 ;;             (expand-file-name "~/.emacs.d/src/org/"))
 
 
+(require 'org-tree-slide)
 ;; Disable annoying font-lock message on OSX
 (setq font-lock-verbose nil)
 ;; Disable annoying bell in OSX
