@@ -195,3 +195,30 @@
 
 ;; Backup directory
 (setq backup-directory-alist '(("." . "~/tmp/emacs-backups")))
+
+(setq load-path (cons "~/.emacs.d/src/o-blog" load-path))
+
+;; begin todochiku, enable the growlnotify
+(load-file "~/.emacs.d/src/org/todochiku/todochiku.el")
+(setq todochiku-icons-directory "~/Downloads/todochiku-icons")
+;; end todochiku
+
+;; begin: orgmode + appt
+; For org appointment reminders
+;; Get appointments for today
+(defun my-org-agenda-to-appt ()
+  (interactive)
+  (setq appt-time-msg-list nil)
+  (org-agenda-to-appt))
+
+;; Run once, activate and schedule refresh
+(my-org-agenda-to-appt)
+(appt-activate t)
+(run-at-time "24:01" nil 'my-org-agenda-to-appt)
+
+; Update appt each time agenda opened.
+(add-hook 'org-finalize-agenda-hook 'my-org-agenda-to-appt)
+;; end:   orgmode + appt
+
+(setq appt-display-interval 11)
+(setq org-directory "~/Documents/org")
