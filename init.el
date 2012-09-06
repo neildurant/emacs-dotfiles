@@ -60,6 +60,8 @@
 ;; Add nate to load-path
 (setq load-path (cons "~/.emacs.d/lib/nate" load-path))
 
+;; Keyboard Shortcuts
+
 ;; Bookmark shortcuts
 (global-set-key [f7] 'bookmark-bmenu-list)
 (global-set-key [(shift f7)] 'bookmark-set)
@@ -100,7 +102,7 @@
 )
 
 ;; (global-set-key [f2] 'show-buffers-and-switch)
-;; (global-set-key [f2] 'other-window)
+(global-set-key [C-tab] 'other-window)
 (global-set-key (kbd "s-w") 'delete-window)
 
 
