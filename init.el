@@ -144,6 +144,8 @@
 ;; Add org-mode to path
 (setq load-path (cons "~/.emacs.d/src/org/contrib/lisp" load-path))
 (setq load-path (cons "~/.emacs.d/src/org/lisp" load-path))
+(setq load-path (cons "~/.emacs.d/src/org-tree-slide" load-path))
+(setq load-path (cons "~/.emacs.d/src/org-occur-goto" load-path))
 
 ;; Disable annoying font-lock message on OSX
 (setq font-lock-verbose nil)
