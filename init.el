@@ -147,6 +147,10 @@
 (setq load-path (cons "~/.emacs.d/src/org/lisp" load-path))
 (setq load-path (cons "~/.emacs.d/src/org-tree-slide" load-path))
 (setq load-path (cons "~/.emacs.d/src/org-occur-goto" load-path))
+(setq load-path (cons "~/.emacs.d/src/emacs-calfw" load-path))
+
+
+
 ;; Info directory
 ;;(add-to-list 'Info-default-directory-list
 ;;             (expand-file-name "~/.emacs.d/src/org/doc/"))
@@ -155,6 +159,7 @@
 
 
 (require 'org-tree-slide)
+(require 'calfw-org)
 ;; Disable annoying font-lock message on OSX
 (setq font-lock-verbose nil)
 ;; Disable annoying bell in OSX
