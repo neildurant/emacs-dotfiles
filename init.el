@@ -19,7 +19,8 @@
 
 ;; GUI Options ----------------
 ;; No toolbar <evil laugh>
-(tool-bar-mode -1)            
+(if window-system 
+    (tool-bar-mode -1))
 
 ;; Ignore case when searching
 (setq case-fold-search t)
