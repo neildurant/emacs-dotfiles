@@ -546,7 +546,7 @@ Skips capture tasks and tasks with subtasks"
 (defun njn/force-done ()
     (interactive)
     (setq current-prefix-arg '(64))
-    (call-interactively 'org-todo))
+    (call-interactively 'org-todo)
 )
 
 (defun bh/go-to-scratch ()
