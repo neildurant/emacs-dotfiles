@@ -176,6 +176,12 @@ Set directories here.
   (setq njn/refile-org-file (concat personal-org-dir "/refile.org"))  
   (setq njn/html-export-css-template (concat personal-org-dir "/template.css"))
 
+  (defun njn/capture-current-q-file ()
+   "Yo."
+   (find-file (concat personal-org-dir "/questions.org"))
+   (goto-char (point-min))
+   (newline 2))
+
 
   (setq org-capture-templates 
         `(
@@ -188,7 +194,8 @@ Set directories here.
           ("T" "Todo" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
           ("t" "Todo Simple" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U\n")
           ("s" "Start Task" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U  %i\n%a" :clock-in t :clock-keep t)
-          ("q" "Question" entry (file, njn/refile-org-file) "* todo %? :question: \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
+          ("q" "Question" entry (file, "questions.org") "* todo %? :question: \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
+          ("z" "Z" entry (function, 'njn/capture-current-q-file) "* %? \n%i\n%U\n")
         )
   )  
 #+end_src
@@ -493,9 +500,6 @@ Skips capture tasks and tasks with subtasks"
 ;;  (define-key org-mode-map (kbd "S-<return>") 'njn/insert-opposite-heading)  
 #+end_src
 ** Misc. Key Bindings
-:PROPERTIES:
-:ID: keyboard_shortcuts
-:END:
 #+begin_src emacs-lisp
 ;; Keyboard bindings
 (global-set-key (kbd "C-c l") 'org-store-link)
@@ -531,7 +535,7 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f6> r") '(lambda() (interactive) (org-id-goto (concat "refile-" (getenv "USER")))))
 (global-set-key (kbd "<f8>") 'org-capture)
 (global-set-key (kbd "<f9>") 'org-save-all-org-buffers)
-(global-set-key (kbd "<f10>") '(lambda() (interactive) (switch-to-buffer "*Org Agenda(a)*")(delete-other-windows)))
+(global-set-key (kbd "<f10>") '(lambda() (interactive) (switch-to-buffer "*Org Agenda*")(delete-other-windows)))
 (global-set-key (kbd "<f11>") '(lambda() (interactive) (delete-other-windows)))
 ; (global-set-key (kbd "<f9> I") 'bh/org-info)
 ; (global-set-key (kbd "<f9> i") 'bh/clock-in)
