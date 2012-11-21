@@ -148,6 +148,7 @@
 (setq load-path (cons "~/.emacs.d/src/org-tree-slide" load-path))
 (setq load-path (cons "~/.emacs.d/src/org-occur-goto" load-path))
 (setq load-path (cons "~/.emacs.d/src/emacs-calfw" load-path))
+(setq load-path (cons "~/.emacs.d/src/todochiku" load-path))
 
 
 
