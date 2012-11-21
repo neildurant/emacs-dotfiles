@@ -736,6 +736,7 @@ Skips capture tasks and tasks with subtasks"
 (setq org-export-htmlize-output-type (quote css))
 (setq org-export-html-style-include-default nil)
 (setq org-export-html-style-extra (concat "<style>" (get-string-from-file njn/html-export-css-template) "</style>"))
+(setq org-export-html-preamble nil)
 ; Don't export post-amble with org-mode, etc. version info
 (setq org-export-html-postamble nil)
 ; List of projects
