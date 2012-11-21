@@ -52,6 +52,14 @@
 ;    ("tromey" . "http://tromey.com/elpa")))
 (package-initialize)
 
+
+(add-to-list 'Info-default-directory-list
+             (expand-file-name "~/.emacs.d/src/org/doc/"))
+(add-to-list 'Info-default-directory-list
+             (expand-file-name "~/.emacs.d/src/org/"))
+
+
+
 ;; Add color-theme to load-path
 (setq load-path (cons "~/.emacs.d/lib/color-theme-6.6.0" load-path))
 (require 'color-theme)
@@ -149,14 +157,6 @@
 (setq load-path (cons "~/.emacs.d/src/org-occur-goto" load-path))
 (setq load-path (cons "~/.emacs.d/src/emacs-calfw" load-path))
 (setq load-path (cons "~/.emacs.d/src/todochiku" load-path))
-
-
-
-;; Info directory
-;;(add-to-list 'Info-default-directory-list
-;;             (expand-file-name "~/.emacs.d/src/org/doc/"))
-;;(add-to-list 'Info-default-directory-list
-;;             (expand-file-name "~/.emacs.d/src/org/"))
 
 
 (require 'org-tree-slide)
