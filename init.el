@@ -206,7 +206,7 @@
 (setq load-path (cons "~/.emacs.d/src/o-blog" load-path))
 
 ;; begin todochiku, enable the growlnotify
-(load-file "~/.emacs.d/src/org/todochiku/todochiku.el")
+(load-file "~/.emacs.d/src/todochiku/todochiku.el")
 (setq todochiku-icons-directory "~/Downloads/todochiku-icons")
 ;; end todochiku
 
