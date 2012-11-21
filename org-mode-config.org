@@ -728,6 +728,10 @@ Skips capture tasks and tasks with subtasks"
 (setq org-export-html-inline-images t)
 ; Do not use sub or superscripts - I currently don't need this functionality in my documents
 (setq org-export-with-sub-superscripts nil)
+
+;; For development/formatting of README files only
+;; (setq org-export-html-style "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/nathan/src/newlook-for-readme/stylesheet.css\">")
+
 ; Do not generate internal css formatting for HTML exports
 (setq org-export-htmlize-output-type (quote css))
 (setq org-export-html-style-include-default nil)
