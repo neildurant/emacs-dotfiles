@@ -160,6 +160,7 @@
 
 
 (require 'org-tree-slide)
+(require 'org-capture)
 (require 'calfw-org)
 ;; Disable annoying font-lock message on OSX
 (setq font-lock-verbose nil)
