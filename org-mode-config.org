@@ -620,7 +620,7 @@ Skips capture tasks and tasks with subtasks"
 | Keyboard Shortcuts | <f6> k    | keyboard_shortcuts                   |
 | Nav Shortcuts      | <f6> <f6> | nav_shortcuts                        |
 | Nav Shortcuts      | <f6> n    | nav_shortcuts                        |
-| Notesmine Refile   | <f6> R    | notesmine_refile                     |
+| Notesmine Refile   | <f6> R    | readme.org                           |
 | Refile             | <f6> r    | refile                               |
 | Notesmine-org      | <f6> O    | notesmine_orgmode                    |
 | Org Mode           | <f6> o    | 2B8F0265-6509-4E79-9355-312F4B340503 |
