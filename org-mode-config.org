@@ -30,42 +30,73 @@ world", etc.
 For regularly occurring appointments, like STLCoders, use an active
 timestamp with +1w, and don't use a TODO keyword.  You will see future
 appointments for these in the agenda.
+* Custom Blocks / Functions
+#+begin_src emacs-lisp
+;; This is from Matt Lundin on the Org-mode list
+;; It's used to query for headlines with tags that match the :match parameter
+;; You can use it by putting something like this in your org file:
+;; #+begin: insert-links :match questions
+;; #+end:
+(defun org-dblock-write:insert-links (params)
+ "Dblock function to insert links to headlines that match
+tags/properties search string specified by :match."
+ (let ((match (plist-get params :match))
+       links)
+   (unless match
+     (error "Must specify :match parameter"))
+   (org-map-entries
+    (lambda ()
+      (let ((heading (nth 4 (org-heading-components))))
+        (add-to-list 'links
+                     (format "- [[file:%s::*%s][%s]]\n"
+                             (abbreviate-file-name
+                              (buffer-file-name))
+                             heading heading))))
+    match 'agenda)
+   (apply #'insert links)))
+
+
+(defun get-string-from-file (filePath)
+  "Return FILEPATH's file content."
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (buffer-string)))
+
+#+end_src
 * Directories
 Set directories here.
 #+begin_src emacs-lisp
-  ;; Use environment variables to set org directories
-  (if 
-     (getenv "ORG_DIR")
-     (setq personal-org-dir (getenv "ORG_DIR"))
-     (setq personal-org-dir (concat (getenv "HOME") "/Documents/org")
-  ))
-  
-      ;; define a function to read contents of personal-org-dir and
-      ;; return *.org files.  Use this function when we need to know
-      ;; what files are in personal-org-dir :-)
-  
-      (defun njn/personal-org-files()
-         (interactive)
-         (find-lisp-find-files personal-org-dir "^[^.].*org$")
-      )
+    ;; Use environment variables to set org directories
+    (load-library "find-lisp")
 
-      (defun njn/work-org-files()
-         (interactive)
-         (find-lisp-find-files (concat personal-org-dir "/work") "^[^.].*org$")
-      )
-  
-      (if 
-         (getenv "NOTESMINE_DIR")
-          (setq njn/notesmine-dir (getenv "NOTESMINE_DIR"))
-         (setq njn/notesmine-dir (concat (getenv "HOME") "/Documents/notesmine")
-      ))
-  
-  
-      (defun njn/notesmine-org-files()
-         (interactive)
-         (directory-files njn/notesmine-dir 't "^[^.].*org$")
-      )
-  
+    (if 
+       (getenv "ORG_DIR")
+        (setq personal-org-dir (getenv "ORG_DIR"))
+       (setq personal-org-dir (concat (getenv "HOME") "/Documents/org")
+    ))
+
+    ;; define a function to read contents of personal-org-dir and
+    ;; return *.org files.  Use this function when we need to know
+    ;; what files are in personal-org-dir :-)
+
+    (defun njn/personal-org-files()
+       (interactive)
+       (directory-files personal-org-dir 't "^[^.].*org$")
+;;       (find-lisp-find-files personal-org-dir "^[^.].*org$")
+    )
+
+    (if 
+       (getenv "NOTESMINE_DIR")
+        (setq njn/notesmine-dir (getenv "NOTESMINE_DIR"))
+       (setq njn/notesmine-dir (concat (getenv "HOME") "/Documents/notesmine")
+    ))
+
+
+    (defun njn/notesmine-org-files()
+       (interactive)
+       (directory-files personal-org-dir 't "^[^.].*org$")
+    )
+
 #+end_src
 
 ** File Types
@@ -76,7 +107,7 @@ Set directories here.
 * Outlines
 #+begin_src emacs-lisp
   ;; Don't put blank lines after headings.
-  (setq org-blank-before-new-entry (quote ((heading) (plain-list-item))))
+  (setq org-blank-before-new-entry (quote ((heading . auto) (plain-list-item . auto))))
 
   (setq org-log-done (quote time))
   ;; Log notes and state changes into LOGBOOK property
@@ -143,7 +174,15 @@ Set directories here.
   (setq njn/journal-org-file (concat personal-org-dir "/journal.org"))
   (setq njn/work-journal-file (concat personal-org-dir "/work-journal.org"))
   (setq njn/refile-org-file (concat personal-org-dir "/refile.org"))  
-  
+  (setq njn/html-export-css-template (concat personal-org-dir "/template.css"))
+
+  (defun njn/capture-current-q-file ()
+   "Yo."
+   (find-file (concat personal-org-dir "/questions.org"))
+   (goto-char (point-min))
+   (newline 2))
+
+
   (setq org-capture-templates 
         `(
           ("d" "Details" entry (clock) "* %? :details:\n%i\n" :prepend t :clock-in t :clock-resume t)       
@@ -155,7 +194,8 @@ Set directories here.
           ("T" "Todo" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
           ("t" "Todo Simple" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U\n")
           ("s" "Start Task" entry (file, njn/refile-org-file) "* todo %? \n%i\n%U  %i\n%a" :clock-in t :clock-keep t)
-          ("q" "Question" entry (file, njn/refile-org-file) "* todo %? :question: \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
+          ("q" "Question" entry (file, "questions.org") "* todo %? :question: \n%i\n%U  %i\n%a" :clock-in t :clock-resume t)
+          ("z" "Z" entry (function, 'njn/capture-current-q-file) "* %? \n%i\n%U\n")
         )
   )  
 #+end_src
@@ -197,11 +237,10 @@ Set directories here.
 
 #+begin_src emacs-lisp
 (setq org-todo-keywords '(
-(sequence "todo(t)" "started(s)" "next(n)" "|" "done(d!)")
+(sequence "todo(t)" "next(n)" "|" "done(d!)")
+(sequence "started(s)" "|" "done(d!)")
 (sequence "reg(r)" "|" "done(d!)")
-(sequence "TODO(a)" "NEXT(f)" "|" "DONE(g!)")
-(sequence "waiting(w@/@)" "|" "delegated(e@/@)" "maybe(m)" "someday(o)" "cancelled(c)" "tbv(b)")
-(sequence "WAITING(h@/@)" "|" "DELEGATED(i@/@)" "MAYBE(j)" "SOMEDAY(k)" "CANCELLED(c)" "TBV(l)")
+(sequence "waiting(w@/@)" "|" "delegated(e@/@)" "maybe(m)" "tickle(i)" "someday(o)" "cancelled(c)" "tbv(b)")
 ))
 #+end_src
 
@@ -264,6 +303,8 @@ Skips capture tasks and tasks with subtasks"
                 (define-key org-agenda-mode-map "s" 'org-agenda-schedule)
                 ;; Use 'w' to refile stuph (you can still use v-w to go to week mode)
                 (define-key org-agenda-mode-map "w" 'org-agenda-refile)
+                (define-key org-agenda-mode-map (kbd "<f3> i") 'org-agenda-clock-in)
+                (define-key org-agenda-mode-map (kbd "<f3> o") 'org-agenda-clock-out)
                 (define-key org-agenda-mode-map (kbd "<C-f4>") 'org-agenda-quit)
                 (define-key org-agenda-mode-map "q" 'org-agenda-columns)
 ))
@@ -322,25 +363,6 @@ Skips capture tasks and tasks with subtasks"
 	   (message "Showing closed clock entries in agenda"))
     ))
 
-(defun njn/is-project-p ()
-  "Any task with a todo keyword subtask"
-  (let ((has-subtask)
-        (subtree-end (save-excursion (org-end-of-subtree t))))
-    (save-excursion
-      (forward-line 1)
-      (while (and (not has-subtask)
-                  (< (point) subtree-end)
-                  (re-search-forward "^\*+ " subtree-end t))
-        (when (member (org-get-todo-state) org-todo-keywords-1)
-          (setq has-subtask t))))
-    has-subtask))
-
-(defun njn/skip-non-projects ()
-  "Skip trees that are not projects"
-  (let* ((subtree-end (save-excursion (org-end-of-subtree t))))
-    (if (njn/is-project-p)
-        nil
-      subtree-end)))
 
 (defun njn/agenda-this-file-only()
   (interactive)
@@ -363,15 +385,7 @@ Skips capture tasks and tasks with subtasks"
    (interactive)
    ;; save current settings
    (setq njn/my-agenda-files org-agenda-files)
-   (setq org-agenda-files (njn/personal-org-files))
-)
-
-(defun njn/agenda-work ()
-  " Put all the files in my personal directory into the org-agenda-files thingy"
-   (interactive)
-   ;; save current settings
-   (setq njn/my-agenda-files org-agenda-files)
-   (setq org-agenda-files (njn/work-org-files))
+   (setq org-agenda-files (directory-files personal-org-dir 't "^[^.].*org$"))
 )
 
 (defun njn/agenda-restore-original-files ()
@@ -395,7 +409,7 @@ Skips capture tasks and tasks with subtasks"
     ("p" . "Custom Agenda Commands")
       ("pt" "All Todos - simply nests all todos" tags-todo "/todo"
        ((org-agenda-overriding-header "All todos, nested")))
-      ("pc" "Current Projects" tags "project/-done-cancelled-DONE-CANCELLED"
+      ("pc" "Current Projects" tags "project/started"
        ((org-agenda-overriding-header "Current Projects (High Level)")
         (org-agenda-sorting-strategy nil)))
       ("ps" "Todo/Someday Projects" tags-todo "project-current-done-cancelled"
@@ -421,13 +435,13 @@ Skips capture tasks and tasks with subtasks"
     ("S" "next Tasks" todo "next" ((org-agenda-todo-ignore-with-date nil)))
     ("w" "Tasks waiting on something" todo "waiting" ((org-use-tag-inheritance nil)))
     ("d" "delegated" tags "delegated" ((org-use-tag-inheritance nil)))
-    ("o" "someday" tags "someday" ((org-use-tag-inheritance nil)))
+    ("o" "someday" todo "someday" 
+       ((org-agenda-todo-ignore-with-date nil) 
+        (org-use-tag-inheritance nil)))
     ("r" "Refile New Notes and Tasks" tags "refile" ((org-agenda-todo-ignore-with-date nil)))
     ("*" "All Personal Files" ((agenda ""))
       ((org-agenda-files (directory-files personal-org-dir 't "^[^.].*org$"))
       (org-agenda-show-log t)))
-    ("e" "Enrollio Agenda" agenda ""
-      ((org-agenda-files enrollio-org-files)))
     ("j" "Journal" agenda ""
       ((org-agenda-files (file-expand-wildcards (concat personal-org-dir "/journal.org")))))
     ("g" "Geek Agenda" agenda ""
@@ -491,21 +505,21 @@ Skips capture tasks and tasks with subtasks"
 ;;  (define-key org-mode-map (kbd "S-<return>") 'njn/insert-opposite-heading)  
 #+end_src
 ** Misc. Key Bindings
-:PROPERTIES:
-:ID: keyboard_shortcuts
-:END:
 #+begin_src emacs-lisp
 ;; Keyboard bindings
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-unset-key (kbd "<f3>"))
 (global-set-key (kbd "<f3> <f3>") 'org-mark-ring-goto)
 (global-set-key (kbd "<f3> <") 'njn/clock-in-at-time)
+(global-set-key (kbd "<f3> C") '(lambda() (interactive) (org-toggle-checkbox '(4))))
 (global-set-key (kbd "<f3> I") '(lambda() (interactive) (org-clock-in '(4))))
-(global-set-key (kbd "<f3> P") '(lambda() (interactive) (org-clock-in '(4))))
+(global-set-key (kbd "<f3> P") 'org-set-property)
+(global-set-key (kbd "<f3> S") 'njn/agenda-toggle-show-closed)
+
 (global-set-key (kbd "<f3> a") 'org-save-all-org-buffers)
-(global-set-key (kbd "<f9>") 'org-save-all-org-buffers)
 (global-set-key (kbd "<f3> b") '(lambda() (interactive) (org-toggle-checkbox '(4))))
 (global-set-key (kbd "<f3> c") 'org-capture-goto-last-stored)
+(global-set-key (kbd "<f3> d") 'njn/force-done)
 (global-set-key (kbd "<f3> f") 'org-occur-in-agenda-files)
 (global-set-key (kbd "<f3> g") '(lambda() (interactive) (org-clock-goto 't)))
 (global-set-key (kbd "<f3> i") 'org-clock-in)
@@ -515,27 +529,30 @@ Skips capture tasks and tasks with subtasks"
 (global-set-key (kbd "<f3> n") 'org-capture)
 (global-set-key (kbd "<f3> o") 'org-clock-out)
 (global-set-key (kbd "<f3> p") '(lambda() (interactive) (org-clock-goto 't)))
+(global-set-key (kbd "<f3> q") 'org-set-tags-command)
 (global-set-key (kbd "<f3> r") 'org-resolve-clocks)
-(global-set-key (kbd "<f3> s") 'njn/agenda-toggle-show-closed)
+(global-set-key (kbd "<f3> s") 'org-schedule)
 (global-set-key (kbd "<f3> t") 'org-todo)
 (global-set-key (kbd "<f3> u") 'org-agenda-remove-restriction-lock) ;; Undo agenda lock
 (global-set-key (kbd "<f3> w") '(lambda() (interactive) (org-refile '(16))))
 (global-set-key (kbd "<f5>") 'njn/org-agenda)
+(global-set-key (kbd "<f7>") '(lambda() (interactive) (delete-other-windows)))
+(global-set-key (kbd "<f6> r") '(lambda() (interactive) (org-id-goto (concat "refile-" (getenv "USER")))))
 (global-set-key (kbd "<f8>") 'org-capture)
-
+(global-set-key (kbd "<f9>") 'org-save-all-org-buffers)
+(global-set-key (kbd "<f10>") '(lambda() (interactive) (switch-to-buffer "*Org Agenda*")(delete-other-windows)))
+(global-set-key (kbd "<f11>") '(lambda() (interactive) (delete-other-windows)))
 ; (global-set-key (kbd "<f9> I") 'bh/org-info)
 ; (global-set-key (kbd "<f9> i") 'bh/clock-in)
 ; (global-set-key (kbd "<f9> o") 'bh/clock-out)
 ; (global-set-key (kbd "<f9> r") 'boxquote-region)
 ; (global-set-key (kbd "<f9> s") 'bh/go-to-scratch)
 
-(defun bh/org-info ()
-  (interactive)
-  (info "~/git/org-mode/doc/org.info"))
-
-(global-set-key (kbd "<f10>") '(lambda() (interactive)
-(switch-to-buffer org-agenda-buffer-name)
-(delete-other-windows)))
+(defun njn/force-done ()
+    (interactive)
+    (setq current-prefix-arg '(64))
+    (call-interactively 'org-todo)
+)
 
 (defun bh/go-to-scratch ()
   (interactive)
@@ -596,26 +613,29 @@ Skips capture tasks and tasks with subtasks"
 #+TBLNAME: shortcut-definition-list
 | Blog               | <f6> b    | blog                                 |
 | Customer 1         | <f6> m    | customer1                            |
-| Daily Hrs cust 2   | <f6> d    | daily_customer2                      |
+| Dev                | <f6> d    | dev                                  |
+| Admin              | <f6> a    | admin                                |
 | Enrollio           | <f6> e    | 997DDAB8-DDFF-4517-90F2-CEFB0A2727E7 |
-| Field List         | <f6> f    | f7c3f8da-5ab4-4769-ad17-27382483cb7c |
+| Faqs               | <f6> f    | faqs                                 |
+| Classes            | <f6> C    | classes                              |
+| Gigs               | <f6> g    | gigs                                 |
 | Home               | <f6> h    | 772DFBDD-38A3-4E92-8860-6904CC9D4F49 |
 | Iteration 1        | <f6> i    | b23ce0ba-937b-447b-b87b-5448eb626465 |
 | Log                | <f6> l    | log                                  |
 | Keyboard Shortcuts | <f6> k    | keyboard_shortcuts                   |
 | Nav Shortcuts      | <f6> <f6> | nav_shortcuts                        |
-| Notesmine Refile   | <f6> R    | notesmine_refile                     |
+| Nav Shortcuts      | <f6> n    | nav_shortcuts                        |
+| Notesmine Refile   | <f6> R    | readme.org                           |
+| Refile             | <f6> r    | refile                               |
 | Notesmine-org      | <f6> O    | notesmine_orgmode                    |
 | Org Mode           | <f6> o    | 2B8F0265-6509-4E79-9355-312F4B340503 |
 | Org Mode Custom    | <f6> c    | org-mode-config                      |
 | Personal Notes     | <f6> p    | 4ce7a31a-aa03-4044-8e70-95e0bfff0e05 |
-| Refile             | <f6> r    | refile                               |
-| Server Data        | <f6> s    | speed_keys                           |
+| Speed Keys         | <f6> s    | speed_keys                           |
 | Terms              | <f6> t    | terms-work                           |
 | Vim                | <f6> v    | 733BD03F-0938-432F-B59A-BE235A2DE7E2 |
-#+TBLFM: 
 
-#+srcname: map-nav(shortcut-definition-list=shortcut-definition-list)
+#+name: map-nav(shortcut-definition-list=shortcut-definition-list)
 #+begin_src emacs-lisp
 (defun map-navigation-shortcuts(shortcut-def)
 (global-set-key (read-kbd-macro (nth 1 shortcut-def))
@@ -623,12 +643,7 @@ Skips capture tasks and tasks with subtasks"
                    (lambda ()
                      (interactive)
                      (org-id-goto (nth 2 shortcut-def))))))
-(mapcar #'map-navigation-shortcuts 
-'(("Blog" "<f6> b" "blog") ("Terms " "<f6> t" "terms-work")
-  ("Customer 1" "<f6> m" "customer1") ("Daily Hrs cust 2" "<f6> d" "daily_customer2") ("Enrollio" "<f6> e" "997DDAB8-DDFF-4517-90F2-CEFB0A2727E7") ("Field List" "<f6> f" "f7c3f8da-5ab4-4769-ad17-27382483cb7c") ("Home" "<f6> h" "772DFBDD-38A3-4E92-8860-6904CC9D4F49") ("Iteration 1" "<f6> i" "b23ce0ba-937b-447b-b87b-5448eb626465") ("Log" "<f6> l" "log") ("Keyboard Shortcuts" "<f6> k" "keyboard_shortcuts") ("Nav Shortcuts" "<f6> <f6>" "nav_shortcuts") ("Notesmine Refile" "<f6> R" "notesmine_refile") ("Notesmine-org" "<f6> O" "notesmine_orgmode") ("Org Mode" "<f6> o" "2B8F0265-6509-4E79-9355-312F4B340503") ("Org Mode Custom" "<f6> c" "org-mode-config") ("Personal Notes" "<f6> p" "4ce7a31a-aa03-4044-8e70-95e0bfff0e05") ("Refile" "<f6> r" "refile") ("Server Data" "<f6> s" "speed_keys") ("Vim" "<f6> v" "733BD03F-0938-432F-B59A-BE235A2DE7E2"))
-
-  
-  )
+(mapcar #'map-navigation-shortcuts shortcut-definition-list)
 #+end_src
 
 * Clocking
@@ -646,33 +661,6 @@ Skips capture tasks and tasks with subtasks"
 ;; Yes it's long... but more is better ;)
 (setq org-clock-history-length 10)
 
-(setq bh/keep-clock-running nil)
-
-(defun bh/clock-in ()
-(interactive)
-(setq bh/keep-clock-running t)
-(if (marker-buffer org-clock-default-task)
-    (unless (org-clock-is-active)
-      (bh/clock-in-default-task))
-  (unless (marker-buffer org-clock-default-task)
-    (org-agenda nil "c"))))
-
-(defun bh/clock-out ()
-(interactive)
-(setq bh/keep-clock-running nil)
-(when (org-clock-is-active)
-  (org-clock-out)))
-
-(defun bh/clock-in-default-task ()
-(save-excursion
-  (org-with-point-at org-clock-default-task
-    (org-clock-in))))
-
-(defun bh/clock-out-maybe ()
-(when (and bh/keep-clock-running (not org-clock-clocking-in) (marker-buffer org-clock-default-task))
-  (bh/clock-in-default-task)))
-
-(add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
 
 ;; From http://www.mail-archive.com/emacs-orgmode@gnu.org/msg47735.html
 (defun njn/clock-in-at-time()
@@ -709,12 +697,12 @@ Skips capture tasks and tasks with subtasks"
 
 * Refiling
 #+begin_src emacs-lisp
-(setq org-refile-use-cache 't)
+;(setq org-refile-use-cache 't)
   ; Refile targets default to only filez found in personal-org-files directory
   (defun njn/refile-targets-personal() 
     (interactive) 
     (setq org-refile-targets 
-          (quote ((njn/personal-org-files :maxlevel . 5))))
+          (quote ((njn/personal-org-files . (:maxlevel . 5)))))
   )
     
   (defun njn/refile-targets-notesmine() 
@@ -745,12 +733,21 @@ Skips capture tasks and tasks with subtasks"
 (setq org-export-html-inline-images t)
 ; Do not use sub or superscripts - I currently don't need this functionality in my documents
 (setq org-export-with-sub-superscripts nil)
+
+;; For development/formatting of README files only
+;; (setq org-export-html-style "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/nathan/src/newlook-for-readme/stylesheet.css\">")
+
 ; Do not generate internal css formatting for HTML exports
 (setq org-export-htmlize-output-type (quote css))
-
+(setq org-export-html-style-include-default nil)
+(setq org-export-html-style-extra (concat "<style>" (get-string-from-file njn/html-export-css-template) "</style>"))
+(setq org-export-html-preamble nil)
+; Don't export post-amble with org-mode, etc. version info
+(setq org-export-html-postamble nil)
 ; List of projects
 ; orgmode.nateneff.com
 ; notesmine.com
+(setq org-export-publishing-directory "~/tmp/publish")
 (setq org-publish-project-alist
 `(("notesmine-com"
                :auto-sitemap t
@@ -812,29 +809,4 @@ Skips capture tasks and tasks with subtasks"
   (require 'org-habit)  
   (setq org-habit-preceding-days 0)
   (setq org-habit-following-days 0)
-#+end_src
-* Custom Blocks / Functions
-#+begin_src emacs-lisp
-;; This is from Matt Lundin on the Org-mode list
-;; It's used to query for headlines with tags that match the :match parameter
-;; You can use it by putting something like this in your org file:
-;; #+begin: insert-links :match questions
-;; #+end:
-(defun org-dblock-write:insert-links (params)
- "Dblock function to insert links to headlines that match
-tags/properties search string specified by :match."
- (let ((match (plist-get params :match))
-       links)
-   (unless match
-     (error "Must specify :match parameter"))
-   (org-map-entries
-    (lambda ()
-      (let ((heading (nth 4 (org-heading-components))))
-        (add-to-list 'links
-                     (format "- [[file:%s::*%s][%s]]\n"
-                             (abbreviate-file-name
-                              (buffer-file-name))
-                             heading heading))))
-    match 'agenda)
-   (apply #'insert links)))
 #+end_src

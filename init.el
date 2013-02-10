@@ -19,7 +19,8 @@
 
 ;; GUI Options ----------------
 ;; No toolbar <evil laugh>
-(tool-bar-mode -1)            
+(if window-system 
+    (tool-bar-mode -1))
 
 ;; Ignore case when searching
 (setq case-fold-search t)
@@ -51,6 +52,14 @@
 ;    ("tromey" . "http://tromey.com/elpa")))
 (package-initialize)
 
+
+(add-to-list 'Info-default-directory-list
+             (expand-file-name "~/.emacs.d/src/org/doc/"))
+(add-to-list 'Info-default-directory-list
+             (expand-file-name "~/.emacs.d/src/org/"))
+
+
+
 ;; Add color-theme to load-path
 (setq load-path (cons "~/.emacs.d/lib/color-theme-6.6.0" load-path))
 (require 'color-theme)
@@ -60,6 +69,8 @@
 ;; Add nate to load-path
 (setq load-path (cons "~/.emacs.d/lib/nate" load-path))
 
+;; Keyboard Shortcuts
+
 ;; Bookmark shortcuts
 (global-set-key [f7] 'bookmark-bmenu-list)
 (global-set-key [(shift f7)] 'bookmark-set)
@@ -67,7 +78,7 @@
 ;; Kill buffer
 (global-set-key [(control f4)] '(lambda () (interactive) (kill-buffer)))
 
-(global-set-key [f4] 'ido-switch-buffer)
+(global-set-key [f2] 'ido-switch-buffer)
 (if (< emacs-major-version 23)
    (defun characterp (obj)
      (and (char-or-string-p obj) (not (stringp obj)))))
@@ -90,6 +101,8 @@
 ;; Use my keybindings for switching buffers
 (global-set-key (kbd "C-<left>") 'previous-buffer)
 (global-set-key (kbd "C-<right>") 'next-buffer)
+(global-set-key (kbd "s-<right>") 'next-buffer)
+(global-set-key (kbd "s-<left>") 'previous-buffer)
 
 ;; Use f2 to show buffers
 (defun show-buffers-and-switch ()
@@ -97,7 +110,10 @@
   (ibuffer)
 )
 
-(global-set-key [f2] 'show-buffers-and-switch)
+;; (global-set-key [f2] 'show-buffers-and-switch)
+(global-set-key [C-tab] 'other-window)
+(global-set-key (kbd "s-w") 'delete-window)
+
 
 ;; IMPORTANT: Use Windoze key for meta key
 ;; (when (eq 'darwin' system-type)
@@ -111,7 +127,8 @@
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 ;; Platform-specific stuff
-(when (eq system-type 'darwin)
+;; (when (eq system-type 'darwin)
+(when (eq window-system 'ns)
        (set-face-font 'default "-apple-monaco-medium-r-normal--18-120-72-72-m-120-iso10646-1")
 )
 
@@ -134,16 +151,22 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Add org-mode to path
+(setq load-path (cons "~/.emacs.d/src/emacs-calfw" load-path))
+(setq load-path (cons "~/.emacs.d/src/org-occur-goto" load-path))
+(setq load-path (cons "~/.emacs.d/src/org-tree-slide" load-path))
 (setq load-path (cons "~/.emacs.d/src/org/contrib/lisp" load-path))
 (setq load-path (cons "~/.emacs.d/src/org/lisp" load-path))
-(setq load-path (cons "~/.emacs.d/src/emacs-calfw" load-path))
+(setq load-path (cons "~/.emacs.d/src/todochiku" load-path))
 
+(require 'org-tree-slide)
+(require 'org-capture)
+(require 'calfw-org)
 ;; Disable annoying font-lock message on OSX
 (setq font-lock-verbose nil)
 ;; Disable annoying bell in OSX
 (setq ring-bell-function (lambda nil))
-;;(require 'org-babel-init)     
-(require 'org-install)
+;; (require 'org-babel-init)     
+;; (require 'org-install)
 (org-babel-load-file "~/.emacs.d/org-mode-config.org")
 (if (file-exists-p "~/.emacs.d/org-mode-config-local.org")
     (org-babel-load-file "~/.emacs.d/org-mode-config-local.org"))
@@ -156,6 +179,9 @@
     (njn/runeditor "/Users/nate/bin/mvim")
   (njn/runeditor "gvim"))
 )
+
+;; http://superuser.com/questions/184340/emacs-how-to-return-to-last-position-after-scroll-page-up-down
+(setq scroll-preserve-screen-position 't)
 
 (defun njn/runeditor (editor)
   (let (filename (file-truename buffer-file-name))
@@ -170,3 +196,36 @@
     (mapc 'kill-buffer 
           (delq (current-buffer) 
                 (remove-if-not 'buffer-file-name (buffer-list)))))
+
+;; Turn on auto-fill mode by default
+;; (setq-default auto-fill-function 'do-auto-fill)
+
+;; Backup directory
+(setq backup-directory-alist '(("." . "~/tmp/emacs-backups")))
+
+(setq load-path (cons "~/.emacs.d/src/o-blog" load-path))
+
+;; begin todochiku, enable the growlnotify
+(load-file "~/.emacs.d/src/todochiku/todochiku.el")
+(setq todochiku-icons-directory "~/Downloads/todochiku-icons")
+;; end todochiku
+
+;; begin: orgmode + appt
+; For org appointment reminders
+;; Get appointments for today
+(defun my-org-agenda-to-appt ()
+  (interactive)
+  (setq appt-time-msg-list nil)
+  (org-agenda-to-appt))
+
+;; Run once, activate and schedule refresh
+(my-org-agenda-to-appt)
+(appt-activate t)
+(run-at-time "24:01" nil 'my-org-agenda-to-appt)
+
+; Update appt each time agenda opened.
+(add-hook 'org-finalize-agenda-hook 'my-org-agenda-to-appt)
+;; end:   orgmode + appt
+
+(setq appt-display-interval 11)
+(setq org-directory "~/Documents/org")
