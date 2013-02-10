@@ -358,7 +358,7 @@ Skips capture tasks and tasks with subtasks"
   (org-agenda)
 )
 
-(defun njn/agenda-files-all-personal ()
+(defun njn/agenda-pers ()
   " Put all the files in my personal directory into the org-agenda-files thingy"
    (interactive)
    ;; save current settings
@@ -366,7 +366,7 @@ Skips capture tasks and tasks with subtasks"
    (setq org-agenda-files (njn/personal-org-files))
 )
 
-(defun njn/agenda-files-all-work ()
+(defun njn/agenda-work ()
   " Put all the files in my personal directory into the org-agenda-files thingy"
    (interactive)
    ;; save current settings
@@ -374,7 +374,7 @@ Skips capture tasks and tasks with subtasks"
    (setq org-agenda-files (njn/work-org-files))
 )
 
-(defun njn/agenda-files-restore-original-files ()
+(defun njn/agenda-restore-original-files ()
   " Put all the files in my personal directory into the org-agenda-files thingy"
   (interactive)  
   (setq org-agenda-files njn/my-agenda-files)
@@ -386,9 +386,10 @@ Skips capture tasks and tasks with subtasks"
 #+begin_src emacs-lisp
 (setq org-agenda-custom-commands 
   (quote (
-    ("n" "Notesmine search" search ""
-     ((org-agenda-files (njn/notesmine-org-files))))
-    ("c" "Select default clocking task" tags "LEVEL=1+Mgmt"
+    ("n" . "Notesmine")
+    ("ns" "Notesmine search" search "" ((org-agenda-files (njn/notesmine-org-files))))    
+    ("nm" "Notesmine TAG match" tags "" ((org-agenda-files (njn/notesmine-org-files))))    
+    ("C" "Select default clocking task" tags "LEVEL=1+Mgmt"
       ((org-agenda-overriding-header "Set default clocking task with C-u C-u I")
       (org-agenda-files (njn/personal-org-files))))
     ("p" . "Custom Agenda Commands")
@@ -405,6 +406,10 @@ Skips capture tasks and tasks with subtasks"
     ("." "Cur Buffer - Timeline" ((agenda "" ))
       ((org-agenda-files (list njn/current-buffer-name))
       (org-agenda-show-log t)))
+    ("$" "Weekly schedule" agenda ""
+         ((org-agenda-ndays 7)          ;; agenda will start in week view
+          (org-agenda-repeating-timestamp-show-all t)   ;; ensures that repeating events appear on all relevant dates
+          (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled))))    
     ("7" "Timeline" ((agenda "" ))
       ((org-agenda-ndays 1)
        (org-agenda-show-log t)
